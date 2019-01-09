@@ -2,7 +2,7 @@
 *Travel planning, tracking, and sharing for backpackers, digital nomads, and their loved ones*
 
 ### Frameworks & Dependencies
-##### PERN stack:
+##### NERP stack:
 * Node.js
 * Express
 * React
