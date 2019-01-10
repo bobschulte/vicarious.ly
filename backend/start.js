@@ -1,15 +1,16 @@
-// import models
-const models = require('./server/models/index')
-// models.City.destroy({where: {}})
-// models.City.destroy({where: {}})
-models.City.findAll({ include: models.Stay }).then(resp => {
-    let cities = resp.map(city => city.get())
-    console.log(cities)
-})
-models.Traveler.findAll({ include: models.Stay }).then(resp => {
-    let travelers = resp.map(traveler => traveler.get())
-    console.log(travelers)
-})
+// // import models
+// const models = require('./server/models/index')
+// // models.City.destroy({where: {}})
+// // models.Traveler.destroy({where: {}})
+// // models.Stay.destroy({where: {}})
+// models.City.findAll({ include: models.Stay }).then(resp => {
+//     let cities = resp.map(city => city.get())
+//     console.log(cities)
+// })
+// models.Traveler.findAll({ include: models.Stay }).then(resp => {
+//     let travelers = resp.map(traveler => traveler.get())
+//     console.log(travelers)
+// })
 
 
 // start the app!

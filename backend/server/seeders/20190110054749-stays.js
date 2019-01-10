@@ -15,48 +15,48 @@ module.exports = {
 
     return queryInterface.bulkInsert('Stays', [
       {
-        TravelerId: 13,
-        CityId: 15,
+        TravelerId: 16,
+        CityId: 18,
         arrival: new Date(2018, 11, 24),
         departure: new Date(2019, 1, 4),
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        TravelerId: 13,
-        CityId: 13,
+        TravelerId: 16,
+        CityId: 16,
         arrival: new Date(2019, 1, 4),
         departure: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        TravelerId: 14,
-        CityId: 13,
+        TravelerId: 17,
+        CityId: 16,
         arrival: new Date(2018, 12, 5),
         departure: new Date(2018, 12, 17),
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        TravelerId: 14,
-        CityId: 14,
+        TravelerId: 17,
+        CityId: 17,
         arrival: new Date(2018, 12, 17),
         departure: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        TravelerId: 15,
-        CityId: 14,
+        TravelerId: 18,
+        CityId: 17,
         arrival: new Date(2018, 12, 16),
         departure: new Date(2019, 1, 6),
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        TravelerId: 15,
-        CityId: 15,
+        TravelerId: 18,
+        CityId: 18,
         arrival: new Date(2019, 1, 6),
         departure: null,
         createdAt: new Date(),
