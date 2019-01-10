@@ -1,8 +1,8 @@
-const root = (state = {}, action) => {
+const rootReducer = (state = { cities: [], travelers: [], stays: [] }, action) => {
     switch(action.type) {
         default:
             return state
     }
 }
 
-export default root
+export default rootReducer

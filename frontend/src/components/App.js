@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
 class App extends Component {
 
@@ -47,4 +48,18 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    cities: state.cities,
+    travelers: state.travelers,
+    stays: state.stays
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
