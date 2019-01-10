@@ -1,5 +1,5 @@
-const db = require('./server/models/index')
-const seed = require('./server/seeds/seed')
+const db = require('./models/index')
+const seed = require('./seeds/seed')
 
 db.sequelize.sync({ force: true }).then(() => {
     // seed db tables
@@ -11,5 +11,5 @@ db.sequelize.sync({ force: true }).then(() => {
         console.log(`Express running → PORT ${server.address().port}`);
     })
     // add in error handling for any bad/failed connections
-    
+
 })
