@@ -12,34 +12,33 @@ class App extends Component {
     }
   }
 
-  getCities = () => {
-    fetch("http://localhost:7777/cities")
+  getData = (route, cb) => {
+    fetch(`http://localhost:7777/${route}`)
     .then(res => res.json())
-    .then(cities => this.setState({ cities }))
-  }
-
-  getTravelers = () => {
-    fetch("http://localhost:7777/travelers")
-    .then(res => res.json())
-    .then(travelers => this.setState({ travelers }))
-  }
-
-  getStays = () => {
-    fetch("http://localhost:7777/stays")
-    .then(res => res.json())
-    .then(stays => this.setState({ stays }))
-  }
+    .then(res => cb(res))
+  } 
 
   componentDidMount = () => {
-    // this.getCities()
-    // this.getTravelers()
-    // this.getStays()
+    this.getData('cities', res => this.setState({ cities: res }))
+    this.getData('travelers', res => this.setState({ travelers: res }))
+    this.getData('stays', res => this.setState({ stays: res }))
   }
 
   render() {
     return (
       <div>
-        
+        Cities:
+          <ul>
+            {this.state.cities.map(city => <li key={city.id} >{city.name}</li>)}
+          </ul>
+        Travelers:
+          <ul>
+            {this.state.travelers.map(traveler => <li key={traveler.id} >{traveler.firstName}</li>)}
+          </ul>
+        Stays:
+          <ul>
+            {this.state.stays.map(stay => <li key={stay.id} >{stay.Traveler.firstName} stayed in {stay.City.name}!</li>)}
+          </ul>
       </div>
     );
   }

@@ -5,7 +5,8 @@ const models = require('../models/index')
 
 router.get('/cities', function (req, res) {
     console.log('cities route call made!')
-    models.City.findAll({}).then(cities => {
+    models.City.findAll({ include: models.Stay })
+    .then(cities => {
         console.log(cities)
         res.json(cities)
     });
@@ -13,7 +14,8 @@ router.get('/cities', function (req, res) {
 
 router.get('/travelers', function (req, res) {
     console.log('travelers route call made!')
-    models.Traveler.findAll({}).then(travelers => {
+    models.Traveler.findAll({ include: models.Stay })
+    .then(travelers => {
         console.log(travelers)
         res.json(travelers)
     })
@@ -21,7 +23,8 @@ router.get('/travelers', function (req, res) {
 
 router.get('/stays', function (req, res) {
     console.log('stays route call made!')
-    models.Stay.findAll({}).then(stays => {
+    models.Stay.findAll({ include: [ models.City, models.Traveler ] })
+    .then(stays => {
         console.log(stays)
         res.json(stays)
     });
