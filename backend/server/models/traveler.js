@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     location: DataTypes.STRING
   }, {});
   Traveler.associate = function(models) {
-    // associations can be defined here
+    Traveler.hasMany(models.Stay)
   };
   return Traveler;
 };

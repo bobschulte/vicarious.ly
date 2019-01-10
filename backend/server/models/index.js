@@ -1,5 +1,9 @@
 'use strict';
 
+// dot env loads environment variables from a .env file (variable.env) into process.env
+// may not need this
+require('dotenv').config({ path: 'variables.env' })
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');

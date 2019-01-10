@@ -1,5 +1,23 @@
-// import environment variables from variables.env
-require('dotenv').config({ path: 'variables.env' })
+// import db
+const db = require('./server/models/index')
+// db.City.destroy({where: {}})
+// db.City.destroy({where: {}})
+db.City.findAll({ include: db.Stay }).then(resp => {
+    let cities = resp.map(city => city.get())
+    console.log(cities)
+})
+db.Traveler.findAll({ include: db.Stay }).then(resp => {
+    let travelers = resp.map(traveler => traveler.get())
+    console.log(travelers)
+})
+
+
+// start the app!
+const app = require('./app')
+app.set('port', process.env.PORT || 7777)
+const server = app.listen(app.get('port'), () => {
+    console.log(`Express running → PORT ${server.address().port}`);
+})
 
 
 // // connect to database and handle any bad connections
@@ -8,13 +26,3 @@ require('dotenv').config({ path: 'variables.env' })
 // mongoose.connection.on('error', (err) => {
     //     console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
     // });
-    
-// import db
-const db = require('./server/models/index')
-
-// start the app!
-const app = require('./app')
-app.set('port', process.env.PORT || 7777)
-const server = app.listen(app.get('port'), () => {
-    console.log(`Express running → PORT ${server.address().port}`);
-})
