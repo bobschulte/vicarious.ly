@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../stylesheets/App.css'
 
 class App extends Component {
 
@@ -12,18 +11,22 @@ class App extends Component {
     }
   }
 
-  getData = (route, cb) => {
-    fetch(`http://localhost:7777/${route}`)
-    .then(res => res.json())
-    .then(res => cb(res))
+  getData = async (route, cb) => {
+    let res = await fetch(`http://localhost:7777/${route}`)
+    let data = await res.json()
+    return cb(data)
+
+    // .then(res => res.json())
+    // .then(res => cb(res))
   } 
 
+  // try refactoring this with async & await!
   componentDidMount = () => {
     Object.keys(this.state).forEach(key => {
       this.getData(key, data => this.setState({ [key]: data }));
     })
   }
-
+  
   render() {
     return (
       <div>
