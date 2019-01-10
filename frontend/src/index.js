@@ -7,6 +7,7 @@ import './stylesheets/index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
+// create a redux store with access to redux dev tools
 const store = createStore(
     rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && 
