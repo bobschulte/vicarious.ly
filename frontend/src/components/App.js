@@ -19,9 +19,9 @@ class App extends Component {
   } 
 
   componentDidMount = () => {
-    this.getData('cities', res => this.setState({ cities: res }))
-    this.getData('travelers', res => this.setState({ travelers: res }))
-    this.getData('stays', res => this.setState({ stays: res }))
+    Object.keys(this.state).forEach(key => {
+      this.getData(key, data => this.setState({ [key]: data }));
+    })
   }
 
   render() {
