@@ -1,10 +1,11 @@
 const express = require('express')
-const session = require('express-session')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const session = require('express-session')
 const passport = require('passport')
-const routes = require('./routes/index')
+const flash = require('connect-flash')
+const routes = require('../routes/index')
 
 // create Express app
 const app = express()
@@ -19,6 +20,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // populates req.cookies with any cookies that came along with the request
 app.use(cookieParser());
+
+// enable users to stay logged in and keep their data stored between requests
+app.use(session({
+    secret: process.env.SECRET,
+    key: process.env.KEY,
+    resave: false,
+    saveUninitialized: true,
+    // store: {} // figure out what this should be
+}))
+
+// // add passport to handle logins
+// app.use(passport.initialize())
+// app.use(passport.session())
+
+// enable flash so we can use req.flash to pass messages back to user via the next page they request
+app.use(flash())
 
 // enable routes
 app.use('/', routes);

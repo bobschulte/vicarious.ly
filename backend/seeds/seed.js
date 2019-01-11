@@ -5,11 +5,11 @@ const seed = (models) => {
 
     return Promise.all([
         models.City.create( { name: 'Bogotá', country: 'Colombia', createdAt: new Date(), updatedAt: new Date() } ),
-        models.City.create( { name: 'Hanoi', country: 'Vietnam', createdAt: new Date(), updatedAt: new Date() } ),
+        models.City.create( { name: 'Bangkok', country: 'Thailand', createdAt: new Date(), updatedAt: new Date() } ),
         models.City.create( { name: 'London', country: 'United Kingdom', createdAt: new Date(), updatedAt: new Date() } ),
-        models.Traveler.create( { firstName: 'Robert', lastName: 'Schulte', location: null, createdAt: new Date(), updatedAt: new Date() } ),
-        models.Traveler.create( { firstName: 'Dawson', lastName: 'Lewis', location: null, createdAt: new Date(), updatedAt: new Date() } ),
-        models.Traveler.create( { firstName: 'Milam', lastName: 'Miller', location: null, createdAt: new Date(), updatedAt: new Date() } )
+        models.Traveler.create( { email: 'robert@test.com', firstName: 'Robert', lastName: 'Schulte', createdAt: new Date(), updatedAt: new Date() } ),
+        models.Traveler.create( { email: 'dawson@test.com', firstName: 'Dawson', lastName: 'Lewis', createdAt: new Date(), updatedAt: new Date() } ),
+        models.Traveler.create( { email: 'milam@test.com', firstName: 'Milam', lastName: 'Miller', createdAt: new Date(), updatedAt: new Date() } )
     ])
     .then( result => {
         const bogota = result[0]
@@ -18,6 +18,7 @@ const seed = (models) => {
         const robert = result[3]
         const dawson = result[4]
         const milam = result[5]
+        
         return Promise.all([
             models.Stay.create( { TravelerId: robert.id, CityId: london.id, arrival: new Date(2018, 11, 24), departure: new Date(2019, 1, 4) } ),
             models.Stay.create( { TravelerId: robert.id, CityId: bogota.id, arrival: new Date(2019, 1, 4), departure: null } ),

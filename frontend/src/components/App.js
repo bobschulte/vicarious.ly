@@ -31,7 +31,7 @@ class App extends React.Component {
             <button onClick={() => this.props.createCity({})} > Create City </button>
           </ul>
           <ul>
-            {this.state.travelers.map(traveler => <li key={traveler.id} >{traveler.firstName}</li>)}
+            {this.state.travelers.map(traveler => <li key={traveler.id} >{traveler.firstName} {traveler.email}</li>)}
             <button onClick={() => this.props.createTraveler({})} > Create Traveler </button>
             <button onClick={() => this.props.relocateTraveler(0)} > Relocate Traveler </button>
           </ul>
