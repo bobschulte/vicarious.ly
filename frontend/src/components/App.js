@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux'
 import actions from '../actions/index'
 
-class App extends Component {
+class App extends React.Component {
 
   state = {
     cities: [],
