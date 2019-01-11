@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { createTraveler, relocateTraveler } from '../actions/travelers'
 
 class App extends Component {
 
@@ -38,6 +39,8 @@ class App extends Component {
         Travelers:
           <ul>
             {this.state.travelers.map(traveler => <li key={traveler.id} >{traveler.firstName}</li>)}
+            <button onClick={() => this.props.createTraveler({})} >Create Traveler</button>
+            <button onClick={() => this.props.relocateTraveler(0)} >Relocate Traveler</button>
           </ul>
         Stays:
           <ul>
@@ -58,7 +61,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    createTraveler: (traveler) => dispatch(createTraveler(traveler)),
+    relocateTraveler: (travelerId) => dispatch(relocateTraveler(travelerId))
   }
 }
 
