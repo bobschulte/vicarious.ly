@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     arrival: { type: DataTypes.DATE, allowNull: false },
     departure: { type: DataTypes.DATE, defaultValue: null },
     CityId: { type: DataTypes.UUID, allowNull: false },
-    TravelerId: { type: DataTypes.UUID, allowNull: false }
+    UserId: { type: DataTypes.UUID, allowNull: false }
   }, {});
   Stay.associate = function(models) {
-    Stay.belongsTo(models.Traveler);
+    Stay.belongsTo(models.User);
     Stay.belongsTo(models.City);
   };
   return Stay;

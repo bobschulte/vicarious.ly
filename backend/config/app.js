@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const passport = require('passport')
+const User = require('../models/User')
 const flash = require('connect-flash')
 const routes = require('../routes/index')
 
@@ -33,6 +34,11 @@ app.use(session({
 // // add passport to handle logins
 // app.use(passport.initialize())
 // app.use(passport.session())
+
+// // connect passport to User model
+// passport.use(User.createStrategy())
+// passport.serializeUser(User.serializeUser())
+// passport.deserializeUser(User.deserializeUser())
 
 // enable flash so we can use req.flash to pass messages back to user via the next page they request
 app.use(flash())
