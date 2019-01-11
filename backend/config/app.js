@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const expressValidator = require('express-validator')
 const session = require('express-session')
 const passport = require('passport')
 const User = require('../models/User')
@@ -21,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // populates req.cookies with any cookies that came along with the request
 app.use(cookieParser());
+
+// enable data validation methods on 'req'
+app.use(expressValidator());
 
 // enable users to stay logged in and keep their data stored between requests
 app.use(session({

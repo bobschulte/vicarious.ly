@@ -1,7 +1,7 @@
 const seed = (models) => {
     models.City.destroy({ where: {} })
-    models.User.destroy({where: {}})
-    models.Stay.destroy({where: {}})
+    models.User.destroy({ where: {} })
+    models.Stay.destroy({ where: {} })
 
     return Promise.all([
         models.City.create( { name: 'Bogotá', country: 'Colombia', createdAt: new Date(), updatedAt: new Date() } ),
@@ -11,13 +11,13 @@ const seed = (models) => {
         models.User.create( { email: 'dawson@test.com', firstName: 'Dawson', lastName: 'Lewis', createdAt: new Date(), updatedAt: new Date() } ),
         models.User.create( { email: 'milam@test.com', firstName: 'Milam', lastName: 'Miller', createdAt: new Date(), updatedAt: new Date() } )
     ])
-    .then( result => {
-        const bogota = result[0]
-        const hanoi = result[1]
-        const london = result[2]
-        const robert = result[3]
-        const dawson = result[4]
-        const milam = result[5]
+    .then(resp => {
+        const bogota = resp[0]
+        const hanoi = resp[1]
+        const london = resp[2]
+        const robert = resp[3]
+        const dawson = resp[4]
+        const milam = resp[5]
         
         return Promise.all([
             models.Stay.create( { UserId: robert.id, CityId: london.id, arrival: new Date(2018, 11, 24), departure: new Date(2019, 1, 4) } ),
