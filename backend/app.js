@@ -5,10 +5,9 @@ const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const session = require('express-session')
 const passport = require('passport')
-require('./passport')
+require('./services/passport')
 const flash = require('connect-flash')
-const routes = require('../routes/index')
-const User = require('../models/User')
+const routes = require('./routes/index')
 
 // create Express app
 const app = express()
@@ -38,7 +37,6 @@ app.use(session({
 // add passport to handle authentication
 app.use(passport.initialize())
 app.use(passport.session())
-passport.use(User.createStrategy());
 
 // enable flash so we can use req.flash to pass messages back to user via the next page they request
 app.use(flash())
