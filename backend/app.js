@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const passport = require('passport')
 require('./services/passport')
-const flash = require('connect-flash')
 const router = require('./routes/index')
 
 
@@ -19,7 +18,6 @@ app.use(cookieParser());
 app.use(expressValidator());
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(flash())
 
 app.use('/', router);
 
