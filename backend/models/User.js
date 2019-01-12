@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       location() {
         if (this.Stays) {
           let currentStay = this.Stays.find(stay => stay.departure === null)
-          return currentStay.City.name
+          return currentStay.City.nameWithCountry
         }
       },
       gravatar() {
@@ -28,12 +28,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
-  User.associate = function(models) {
-    User.hasMany(models.Stay)
-    User.belongsToMany(models.City, { through: models.Stay })
+  User.associate = function(db) {
+    User.hasMany(db.Stay)
+    User.belongsToMany(db.City, { through: db.Stay })
   };
 
   passportLocalSequelize.attachToUser(User, { usernameField: "email" });
+  
   // consider an error handler library here
 
   return User;

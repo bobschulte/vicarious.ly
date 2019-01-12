@@ -5,9 +5,9 @@ const userController = require('../controllers/userController')
 const cityController = require('../controllers/cityController')
 const stayController = require('../controllers/stayController')
 
-router.get('/cities', cityController.index); // authController.isLoggedIn,
-router.get('/users', userController.index); // authController.isLoggedIn,
-router.get('/stays', stayController.index); // authController.isLoggedIn,
+router.get('/cities', cityController.index);    // authController.isLoggedIn,
+router.get('/users', userController.index);     // authController.isLoggedIn,
+router.get('/stays', stayController.index);     // authController.isLoggedIn,
 
 // USER/AUTH ROUTES
 router.post('/login',
