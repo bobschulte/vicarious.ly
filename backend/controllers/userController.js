@@ -2,6 +2,15 @@ const models = require("../models/index");
 const User = models.User
 const promisify = require("es6-promisify");
 
+exports.index = (req, res) => {
+    User.findAll({
+        include: [{
+            model: models.Stay,
+            include: [ models.City ]
+        }]
+    })
+    .then(users => res.json(users))
+}
 
 // middleware that ensures cleanliness of user-submitted registration data
 exports.validateRegistrationData = (req, res, next) => {
