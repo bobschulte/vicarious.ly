@@ -3,10 +3,8 @@ const seed = require('./seeds/seed')
 
 db.sequelize.sync({ force: true }).then(async () => {
 
-    // re-seed db
     await seed(db)
 
-    // start app
     const app = require('./app')
     app.set('port', process.env.PORT || 7777)
 

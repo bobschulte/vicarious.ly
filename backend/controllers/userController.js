@@ -33,7 +33,6 @@ exports.validateRegistrationData = (req, res, next) => {
     // handle errors thrown by the above validators
     const errors = req.validationErrors()
     if (errors) {
-        req.flash('error', errors.map(error => error.msg))
         res.json(req.body)
     } else {
         next() // only pass along to .register if no errors
