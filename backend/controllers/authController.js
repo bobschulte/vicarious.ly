@@ -4,10 +4,11 @@ exports.login = (req, res, next) => {
     res.json(req.user) 
 }
 
+// RESPONSE MAY NEED WORK
 exports.logout = (req, res) => {
     req.logout()
-    // res.redirect('/') // figure out what to do here, add an error onto req object and send it back?
-    // res.json(req.body)
+    req.body.msg = 'logged out'
+    res.json(req.body)
 }
 
 exports.isLoggedIn = (req, res, next) => {
@@ -15,7 +16,6 @@ exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next() // allow user through to next controller action
     } else {
-        req.body.error = 'must be logged in to to that'
-        res.json(req.body)
+        res.json({ status: 401, error: 'must be logged in to do that' });
     }
 }

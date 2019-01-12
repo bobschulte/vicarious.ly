@@ -9,7 +9,7 @@ const router = express.Router();
 
 // use authController.isLoggedIn as middleware to protect any routes
 router.get('/cities', cityController.index);
-router.get('/users', userController.index);
+router.get('/users', authController.isLoggedIn, userController.index);
 router.get('/stays', stayController.index);
 
 // USER/AUTH ROUTES

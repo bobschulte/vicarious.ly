@@ -2,6 +2,8 @@ const db = require("../models/index");
 const User = db.User
 const promisify = require("es6-promisify");
 
+
+// NEEDS ERROR HANDLING
 exports.index = (req, res) => {
     User.findAll({
         include: [{

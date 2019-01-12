@@ -1,6 +1,7 @@
 const db = require("../models/index");
 const City = db.City;
 
+// NEEDS ERROR HANDLING
 exports.index = (req, res) => {
     City.findAll({
         include: [{
