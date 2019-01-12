@@ -18,12 +18,13 @@ class App extends React.Component {
       console.log(res.status, res.error);
       // REDIRECT SOMEWHERE?
     } else {
+      console.log(`${route} route authorized`)
       cb(res);
     }
   }
 
   componentDidMount = () => {
-    Object.keys(this.state).slice(1,2).forEach(key => {
+    Object.keys(this.state).forEach(key => {
       this.getData(key, data => this.setState({ [key]: data }));
     })
   }
