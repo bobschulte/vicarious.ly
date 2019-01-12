@@ -3,7 +3,6 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
-const session = require('express-session')
 const passport = require('passport')
 require('./services/passport')
 const flash = require('connect-flash')
@@ -11,6 +10,8 @@ const routes = require('./routes/index')
 
 // create Express app
 const app = express()
+
+app.use(express.static('./public'));
 
 // enable cross-origin resource sharing
 app.use(cors())
@@ -24,15 +25,6 @@ app.use(cookieParser());
 
 // enable data validation methods on 'req'
 app.use(expressValidator());
-
-// enable users to stay logged in and keep their data stored between requests
-app.use(session({
-    secret: process.env.SECRET,
-    key: process.env.KEY,
-    resave: false,
-    saveUninitialized: true,
-    // store: {} // figure out what this should be
-}))
 
 // add passport to handle authentication
 app.use(passport.initialize())
