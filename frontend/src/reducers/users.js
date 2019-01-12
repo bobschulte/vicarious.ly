@@ -2,6 +2,7 @@ const usersReducer = (state = [], action) => {
     switch(action.type) {
         case 'CREATE_USER':
             console.log('create user action triggered')
+            console.log(action.user)
             return state
         case 'RELOCATE_USER':
             console.log('relocate user action triggered')
