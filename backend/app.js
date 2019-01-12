@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(expressValidator());
 app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.session()) // may need to remove this!
 
 app.use('/', router);
 
