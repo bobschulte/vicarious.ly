@@ -6,7 +6,7 @@ class App extends React.Component {
 
   state = {
     cities: [],
-    travelers: [],
+    users: [],
     stays: []
   }
 
@@ -31,12 +31,12 @@ class App extends React.Component {
             <button onClick={() => this.props.createCity({})} > Create City </button>
           </ul>
           <ul>
-            {this.state.travelers.map(traveler => <li key={traveler.id} >{traveler.firstName}</li>)}
-            <button onClick={() => this.props.createTraveler({})} > Create Traveler </button>
-            <button onClick={() => this.props.relocateTraveler(0)} > Relocate Traveler </button>
+            {this.state.users.map(user => <li key={user.id} >{user.firstName} {user.email}</li>)}
+            <button onClick={() => this.props.createUser({})} > Create User </button>
+            <button onClick={() => this.props.relocateUser(0)} > Relocate User </button>
           </ul>
           <ul>
-            {this.state.stays.map(stay => <li key={stay.id} >{stay.Traveler.firstName} stayed in {stay.City.name}!</li>)}
+            {this.state.stays.map(stay => <li key={stay.id} >{stay.User.firstName} stayed in {stay.City.name}!</li>)}
             <button onClick={() => this.props.createStay({})} > Create Stay </button>
           </ul>
       </div>
@@ -47,7 +47,7 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     cities: state.cities,
-    travelers: state.travelers,
+    users: state.users,
     stays: state.stays
   }
 }
@@ -55,8 +55,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     createCity: (city) => dispatch(actions.city.create(city)),
-    createTraveler: (traveler) => dispatch(actions.traveler.create(traveler)),
-    relocateTraveler: (travelerId) => dispatch(actions.traveler.relocate(travelerId)),
+    createUser: (user) => dispatch(actions.user.create(user)),
+    relocateUser: (userId) => dispatch(actions.user.relocate(userId)),
     createStay: (stay) => dispatch(actions.stay.create(stay))
   }
 }
