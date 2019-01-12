@@ -9,7 +9,7 @@ exports.authenticate = passport.authenticate('local', {
 exports.login = (req, res, next) => {
     console.log('authenticate successful, backend login route hit!')
     console.log('sending back authenticated user & logging in...')
-    res.json(req.user)
+    res.json(req.user) 
 }
 
 exports.logout = (req, res) => {

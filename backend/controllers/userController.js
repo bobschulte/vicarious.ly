@@ -1,12 +1,12 @@
-const models = require("../models/index");
-const User = models.User
+const db = require("../models/index");
+const User = db.User
 const promisify = require("es6-promisify");
 
 exports.index = (req, res) => {
     User.findAll({
         include: [{
-            model: models.Stay,
-            include: [ models.City ]
+            model: db.Stay,
+            include: [ db.City ]
         }]
     })
     .then(users => res.json(users))

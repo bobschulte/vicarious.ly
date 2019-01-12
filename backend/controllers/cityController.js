@@ -1,11 +1,11 @@
-const models = require("../models/index");
-const City = models.City;
+const db = require("../models/index");
+const City = db.City;
 
 exports.index = (req, res) => {
     City.findAll({
         include: [{
-            model: models.Stay,
-            include: [ models.User ]
+            model: db.Stay,
+            include: [ db.User ]
         }]
     })
     .then(cities => res.json(cities))

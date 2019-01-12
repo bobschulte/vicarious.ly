@@ -4,10 +4,16 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
     name: { type: DataTypes.STRING, allowNull: false },
     country: { type: DataTypes.STRING, allowNull: false }
-  }, {});
-  City.associate = function(models) {
-    City.hasMany(models.Stay)
-    City.belongsToMany(models.User, { through: models.Stay });
+  }, {
+    getterMethods: {
+      nameWithCountry() {
+        return this.name + ', ' + this.country
+      },
+    }
+  });
+  City.associate = function(db) {
+    City.hasMany(db.Stay)
+    City.belongsToMany(db.User, { through: db.Stay });
   };
   return City;
 };

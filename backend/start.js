@@ -21,4 +21,4 @@ db.sequelize.sync({ force: true }).then(() => {
             console.log(error, 'app launch didnt work')
         }
     })
-}).catch(error => console.log(error, 'something went wrong'))
+})

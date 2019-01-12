@@ -7,9 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     CityId: { type: DataTypes.UUID, allowNull: false },
     UserId: { type: DataTypes.UUID, allowNull: false }
   }, {});
-  Stay.associate = function(models) {
-    Stay.belongsTo(models.User);
-    Stay.belongsTo(models.City);
+  Stay.associate = function(db) {
+    Stay.belongsTo(db.User);
+    Stay.belongsTo(db.City);
   };
   return Stay;
 };
