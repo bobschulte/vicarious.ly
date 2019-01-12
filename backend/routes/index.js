@@ -5,9 +5,11 @@ const userController = require('../controllers/userController')
 const cityController = require('../controllers/cityController')
 const stayController = require('../controllers/stayController')
 
-router.get('/cities', cityController.index);    // authController.isLoggedIn,
-router.get('/users', userController.index);     // authController.isLoggedIn,
-router.get('/stays', stayController.index);     // authController.isLoggedIn,
+
+// use authController.isLoggedIn as middleware to protect any routes
+router.get('/cities', cityController.index);
+router.get('/users', userController.index);
+router.get('/stays', stayController.index);
 
 // USER/AUTH ROUTES
 router.post('/login',

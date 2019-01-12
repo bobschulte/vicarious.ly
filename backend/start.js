@@ -12,7 +12,7 @@ db.sequelize.sync({ force: true }).then(() => {
     .catch(error => console.log(error, 'error while re-seeding'))
 
     // start the app! (this should maybe go below this db sync function?)
-    const app = require('./config/app')
+    const app = require('./app')
     app.set('port', process.env.PORT || 7777)
     const server = app.listen(app.get('port'), error => {
         if (!error) {
