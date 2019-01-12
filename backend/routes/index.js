@@ -23,13 +23,12 @@ router.get('/stays', function (req, res) {
 });
 
 // USER/AUTH ROUTES
-router.post('/login', userController.login)
-// 1) Validate Registration Info, 2) Register User, 3) automatically log them in
-router.post('/register',
-    userController.validateRegistrationData,
-    userController.register,
-    authController.login
-)
+// router.post('/login', authController.login)
+// router.post('/register',
+//     userController.validateRegistrationData,
+//     userController.register,
+//     authController.login
+// )
 
 
 module.exports = router

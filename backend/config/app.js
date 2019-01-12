@@ -5,14 +5,13 @@ const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const session = require('express-session')
 const passport = require('passport')
-const User = require('../models/User')
+require('./passport')
 const flash = require('connect-flash')
 const routes = require('../routes/index')
 
 // create Express app
 const app = express()
 
-// MIDDLEWARE
 // enable cross-origin resource sharing
 app.use(cors())
 
@@ -35,14 +34,9 @@ app.use(session({
     // store: {} // figure out what this should be
 }))
 
-// // add passport to handle logins
-// app.use(passport.initialize())
-// app.use(passport.session())
-
-// // connect passport to User model
-// passport.use(User.createStrategy())
-// passport.serializeUser(User.serializeUser())
-// passport.deserializeUser(User.deserializeUser())
+// add passport to handle authentication
+app.use(passport.initialize())
+app.use(passport.session())
 
 // enable flash so we can use req.flash to pass messages back to user via the next page they request
 app.use(flash())

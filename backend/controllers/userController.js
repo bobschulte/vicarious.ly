@@ -2,10 +2,6 @@ const models = require("../models/index");
 const User = models.User
 const promisify = require("es6-promisify");
 
-exports.login = (req, res) => function (req, res) {
-    console.log(req.body)
-    console.log('backend login route hit!')
-}
 
 // middleware that ensures cleanliness of user-submitted registration data
 exports.validateRegistrationData = (req, res, next) => {
