@@ -22,7 +22,7 @@ router.get('/stays', function (req, res) {
     .then(stays => res.json(stays))
 });
 
-// USER/AUTH ROUTES
+// // USER/AUTH ROUTES
 // router.post('/login', authController.login)
 // router.post('/register',
 //     userController.validateRegistrationData,
