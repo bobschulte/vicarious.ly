@@ -1,6 +1,8 @@
 const db = require('./models/index')
 const seed = require('./seeds/seed')
 
+// CONSIDER IMPLEMENTING HTTP LIBRARY: server = http.createServer(app) // server.listen(port)
+
 db.sequelize.sync({ force: true }).then(async () => {
 
     await seed(db)

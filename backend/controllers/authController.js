@@ -15,7 +15,7 @@ exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next() // allow user through to next controller action
     } else {
-        // res.redirect('/login') // figure out what to do here, add an error onto req object and send it back?
-        // res.json(req.body)
+        req.body.error = 'must be logged in to to that'
+        res.json(req.body)
     }
 }

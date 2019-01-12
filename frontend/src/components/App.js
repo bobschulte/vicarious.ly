@@ -11,18 +11,17 @@ class App extends React.Component {
     stays: []
   }
 
-  getData = (route, cb) => {
-    fetch(`http://localhost:7777/${route}`)
-    .then(res => res.json())
-    .then(res => cb(res))
-
-    // .then(res => {
-    //   console.log(res.json());  // figuring out what isLoggedIn backend middleware is sending back
-    // })
-    // // .then(res => cb(res))
+  getData = async (route, cb) => {
+    let res = await fetch(`http://localhost:7777/${route}`)
+    res = await res.json()
+    if (res.error) {
+        console.log(res.error);
+      } else {
+        console.log(`passed authentication for ${route} route`)
+        cb(res);
+      }
   }
 
-  // try refactoring this with async & await!
   componentDidMount = () => {
     Object.keys(this.state).forEach(key => {
       this.getData(key, data => this.setState({ [key]: data }));
