@@ -14,7 +14,7 @@ router.get('/stays', stayController.index);
 
 // USER/AUTH ROUTES
 router.post('/login',
-    passport.authenticate('local'),
+    passport.authenticate('local', { session: false }),
     authController.login
 )
 router.post('/register',
