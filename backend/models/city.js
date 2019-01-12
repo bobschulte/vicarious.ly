@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   City.associate = function(models) {
     City.hasMany(models.Stay)
+    City.belongsToMany(models.User, { through: models.Stay });
   };
   return City;
 };

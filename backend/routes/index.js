@@ -1,26 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const models = require('../models/index')
-const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
+const userController = require('../controllers/userController')
+const cityController = require('../controllers/cityController')
+const stayController = require('../controllers/stayController')
 
-// the callback needs to be abstracted out into the appropriate controller file!
-router.get('/cities', authController.isLoggedIn, function (req, res) {
-    models.City.findAll({ include: models.Stay })
-    .then(cities => res.json(cities))
-});
-
-// the callback needs to be abstracted out into the appropriate controller file!
-router.get('/users', function (req, res) {
-    models.User.findAll({ include: models.Stay })
-    .then(users => res.json(users))
-});
-
-// the callback needs to be abstracted out into the appropriate controller file!
-router.get('/stays', function (req, res) {
-    models.Stay.findAll({ include: [ models.City, models.User ] })
-    .then(stays => res.json(stays))
-});
+router.get('/cities', cityController.index); // authController.isLoggedIn,
+router.get('/users', userController.index); // authController.isLoggedIn,
+router.get('/stays', stayController.index); // authController.isLoggedIn,
 
 // USER/AUTH ROUTES
 router.post('/login',
@@ -32,6 +19,5 @@ router.post('/register',
     userController.register,
     authController.login
 )
-
 
 module.exports = router

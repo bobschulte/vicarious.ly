@@ -14,6 +14,11 @@ class App extends React.Component {
     fetch(`http://localhost:7777/${route}`)
     .then(res => res.json())
     .then(res => cb(res))
+
+    // .then(res => {
+    //   console.log(res.json());  // figuring out what isLoggedIn backend middleware is sending back
+    // })
+    // // .then(res => cb(res))
   }
 
   // try refactoring this with async & await!

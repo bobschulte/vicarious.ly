@@ -10,10 +10,18 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
     email: { type: DataTypes.STRING, allowNull: false, unique: true, lowercase: true, trim: true, validate: { isEmail: true } },
     firstName: { type: DataTypes.STRING, allowNull: false, trim: true },
-    lastName: { type: DataTypes.STRING, allowNull: false, trim: true },
-    location: {type: DataTypes.STRING, defaultValue: null, trim: true },
+    lastName: { type: DataTypes.STRING, allowNull: false, trim: true }
   }, {
     getterMethods: {
+      name() {
+        return this.firstName + ' ' + this.lastName
+      },
+      location() {
+        if (this.Stays) {
+          let currentStay = this.Stays.find(stay => stay.departure === null)
+          return currentStay.City.name
+        }
+      },
       gravatar() {
         const hash = md5(this.email);
         return `https://gravatar.com/avatar/${hash}?s=200`;
@@ -22,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.associate = function(models) {
     User.hasMany(models.Stay)
+    User.belongsToMany(models.City, { through: models.Stay })
   };
 
   passportLocalSequelize.attachToUser(User, { usernameField: "email" });

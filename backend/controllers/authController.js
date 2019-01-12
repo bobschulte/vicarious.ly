@@ -25,5 +25,6 @@ exports.isLoggedIn = (req, res, next) => {
     } else {
         req.flash('error', 'Must be logged in to do that')
         // res.redirect('/login') // figure out what to do here, add an error onto req object and send it back?
+        // res.json(req.body)
     }
 }
