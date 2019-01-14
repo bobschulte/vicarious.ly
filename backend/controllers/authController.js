@@ -16,6 +16,6 @@ exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
         next() // allow user through to next controller action
     } else {
-        res.json({ status: 401, error: 'must be logged in to do that' });
+        res.status(401).json({ error: 'must be logged in to do that' });
     }
 }
