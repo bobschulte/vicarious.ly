@@ -11,7 +11,7 @@ exports.index = (req, res) => {
             include: [ db.City ]
         }]
     })
-    .then(users => res.json(users))
+    .then(users => res.status(200).json(users))
 }
 
 // middleware that ensures cleanliness of user-submitted registration data

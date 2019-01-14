@@ -1,8 +1,30 @@
 const passport = require('passport')
-const db = require('../models/index')
-const User = db.User
+const jwt = require('passport-jwt')
+const JwtStrategy = jwt.Strategy
+const ExtractJwt = jwt.ExtractJwt
+const db = require("../models/index");
+const User = db.User;
 
-// connect passport to User model
+// also need a local strategy???? think this takes care of it (from passport-local-sequelize)
 passport.use(User.createStrategy())
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
+
+
+const jwtOptions = {
+    secret: process.env.SECRET,
+    jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+    issuer: 'vicarious.ly'
+}
+
+passport.use(new JwtStrategy(jwtOptions, function (payload, done) {
+    User.findById(payload.sub, function (err, user) {
+        if (err) {
+            return done(err, false);
+        }
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+            // or you could create a new account
+        }
+    });
+}));

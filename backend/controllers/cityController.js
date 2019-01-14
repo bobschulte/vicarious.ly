@@ -9,5 +9,5 @@ exports.index = (req, res) => {
             include: [ db.User ]
         }]
     })
-    .then(cities => res.json(cities))
+    .then(cities => res.status(200).json(cities))
 }
