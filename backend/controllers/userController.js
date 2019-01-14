@@ -46,9 +46,24 @@ exports.validateRegistrationData = (req, res, next) => {
 exports.register = async (req, res, next) => {
     console.log('req data validated, now registering...')
     const user = new User({ firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email })
-    const register = promisify(User.register.bind(User))
-    await register(user, req.body.password)
-    next() // go on to authController.login
+
+    User.register(user, req.body.password, function(error) {
+        if (error) {
+            console.log(error)
+            res.status(400).json({ error })
+        } else {
+            console.log(`${user.email} was registered!`)
+            next()
+        }
+    })
+
+    // const register = promisify(User.register.bind(User))
+    // let userRegistered = await register(user, req.body.password).catch(error => console.log(error))
+    // if (!userRegistered) {
+    //     res.json('nope')
+    // } else {
+    //     next() // go on to authController.login -> need to skip this if error
+    // }
 }
 
 exports.login = (req, res, next) => {
