@@ -7,14 +7,26 @@ const stayController = require('../controllers/stayController')
 
 const router = express.Router();
 
-// use authController.isLoggedIn as middleware to protect any routes
-router.get('/cities', cityController.index);
-router.get('/users', userController.index);
-router.get('/stays', stayController.index);
+const authenticateCredentials = passport.authenticate('local', { session: false })
+const isAuthenticated = passport.authenticate('jwt', { session: false })
+
+// use isAuthenticated as middleware to protect any routes
+router.get('/cities',
+    cityController.index
+);
+
+router.get('/users',
+    isAuthenticated,
+    userController.index
+);
+
+router.get('/stays',
+    stayController.index
+);
 
 // USER/AUTH ROUTES
 router.post('/login',
-    passport.authenticate('local', { session: false }),
+    authenticateCredentials,
     authController.login
 )
 router.post('/register',

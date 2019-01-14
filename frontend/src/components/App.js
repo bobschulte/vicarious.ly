@@ -15,11 +15,12 @@ class App extends React.Component {
     let res = await fetch(`http://localhost:7777/${route}`)
     res = await res.json()
     if (res.error) {
-        console.log(res.error);
-      } else {
-        console.log(`passed authentication for ${route} route`)
-        cb(res);
-      }
+      console.log(res.status, res.error);
+      // REDIRECT SOMEWHERE?
+    } else {
+      console.log(`${route} route authorized`)
+      cb(res);
+    }
   }
 
   componentDidMount = () => {

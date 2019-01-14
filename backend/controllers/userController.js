@@ -2,6 +2,8 @@ const db = require("../models/index");
 const User = db.User
 const promisify = require("es6-promisify");
 
+
+// NEEDS ERROR HANDLING
 exports.index = (req, res) => {
     User.findAll({
         include: [{
@@ -9,7 +11,7 @@ exports.index = (req, res) => {
             include: [ db.City ]
         }]
     })
-    .then(users => res.json(users))
+    .then(users => res.status(200).json(users))
 }
 
 // middleware that ensures cleanliness of user-submitted registration data

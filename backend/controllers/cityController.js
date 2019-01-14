@@ -1,6 +1,7 @@
 const db = require("../models/index");
 const City = db.City;
 
+// NEEDS ERROR HANDLING
 exports.index = (req, res) => {
     City.findAll({
         include: [{
@@ -8,5 +9,5 @@ exports.index = (req, res) => {
             include: [ db.User ]
         }]
     })
-    .then(cities => res.json(cities))
+    .then(cities => res.status(200).json(cities))
 }
