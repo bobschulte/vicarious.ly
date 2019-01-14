@@ -37,7 +37,7 @@ exports.validateRegistrationData = (req, res, next) => {
     // handle errors thrown by the above validators
     const errors = req.validationErrors()
     if (errors) {
-        res.status(400).json(req.errors)
+        res.status(400).json({ errors })
     } else {
         next()
     }
@@ -47,18 +47,10 @@ exports.validateRegistrationData = (req, res, next) => {
 exports.register = (req, res, next) => {
     const user = new User({ firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email })
     const register = promisify(User.register.bind(User))
+    
     register(user, req.body.password)
-    .catch(error => res.status(400).json({ error: error.message }))
+    .catch(errors => res.status(500).json({ errors: errors.message }))
     .then(() => next())
-
-    // User.register(user, req.body.password, function(error) {
-    //     if (error) {
-    //         res.status(400).json({ error: error.message })
-    //     } else {
-    //         console.log(req.body.password)
-    //         next()
-    //     }
-    // })
 }
 
 exports.login = (req, res, next) => {
