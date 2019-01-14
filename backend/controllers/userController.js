@@ -49,8 +49,7 @@ exports.register = async (req, res, next) => {
 
     User.register(user, req.body.password, function(error) {
         if (error) {
-            console.log(error)
-            res.status(400).json({ error })
+            res.send({ error: error.message })
         } else {
             console.log(`${user.email} was registered!`)
             next()
@@ -76,6 +75,6 @@ exports.login = (req, res, next) => {
 // DO WE NEED THIS AT ALL WITH JWT (CLIENT CLEARS TOKEN)... RESPONSE MAY NEED WORK
 exports.logout = (req, res) => {
     req.logout() // may not need this since no sessions
-    req.body.msg = 'logged out'
+    req.body.msg = 'Logged out!'
     res.status(200).json(req.body)
 }
