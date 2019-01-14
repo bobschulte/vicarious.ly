@@ -5,10 +5,10 @@ const ExtractJwt = jwt.ExtractJwt
 const db = require("../models/index");
 const User = db.User;
 
-// also need a local strategy???? think this takes care of it (from passport-local-sequelize)
+// local strategy
 passport.use(User.createStrategy())
 
-
+// jwt strategy
 const jwtOptions = {
     secret: process.env.SECRET,
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),
