@@ -10,7 +10,7 @@ passport.use(User.createStrategy())
 
 // jwt strategy
 const jwtOptions = {
-    secret: process.env.SECRET,
+    secretOrKey: process.env.SECRET,
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),
     issuer: 'vicarious.ly'
 }
