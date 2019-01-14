@@ -1,5 +1,6 @@
 const jwt = require('jwt-simple')
-const db = require("../models/index");
+const { promisify } = require('es6-promisify')
+const db = require('../models/index');
 const User = db.User
 
 
@@ -43,15 +44,21 @@ exports.validateRegistrationData = (req, res, next) => {
 }
 
 // more middleware, registers the user in the database, first hashing the password
-exports.register = async (req, res, next) => {
+exports.register = (req, res, next) => {
     const user = new User({ firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email })
-    User.register(user, req.body.password, function(error) {
-        if (error) {
-            res.status(400).json({ error: error.message })
-        } else {
-            next()
-        }
-    })
+    const register = promisify(User.register.bind(User))
+    register(user, req.body.password)
+    .catch(error => res.status(400).json({ error: error.message }))
+    .then(() => next())
+
+    // User.register(user, req.body.password, function(error) {
+    //     if (error) {
+    //         res.status(400).json({ error: error.message })
+    //     } else {
+    //         console.log(req.body.password)
+    //         next()
+    //     }
+    // })
 }
 
 exports.login = (req, res, next) => {
