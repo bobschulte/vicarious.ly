@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport')
-const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
 const cityController = require('../controllers/cityController')
 const stayController = require('../controllers/stayController')
@@ -27,12 +26,12 @@ router.get('/stays',
 // USER/AUTH ROUTES
 router.post('/login',
     authenticateCredentials,
-    authController.login
+    userController.login
 )
 router.post('/register',
     userController.validateRegistrationData,
     userController.register,
-    authController.login
+    userController.login
 )
 
 module.exports = router
