@@ -1,4 +1,3 @@
-const { promisify } = require("es6-promisify");
 const jwt = require('jwt-simple')
 const db = require("../models/index");
 const User = db.User
@@ -13,6 +12,8 @@ exports.index = (req, res) => {
         }]
     })
     .then(users => res.status(200).json(users))
+    // // handle errors
+    // .catch(err => console.log(err))
 }
 
 // middleware that ensures cleanliness of user-submitted registration data
@@ -35,46 +36,33 @@ exports.validateRegistrationData = (req, res, next) => {
     // handle errors thrown by the above validators
     const errors = req.validationErrors()
     if (errors) {
-        errors.forEach(error => console.log(error.msg))
         res.status(400).json(req.errors)
     } else {
-        next() // only pass along to .register if no errors
+        next()
     }
 }
 
 // more middleware, registers the user in the database, first hashing the password
 exports.register = async (req, res, next) => {
-    console.log('req data validated, now registering...')
     const user = new User({ firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email })
-
     User.register(user, req.body.password, function(error) {
         if (error) {
-            res.send({ error: error.message })
+            res.status(400).json({ error: error.message })
         } else {
-            console.log(`${user.email} was registered!`)
             next()
         }
     })
-
-    // const register = promisify(User.register.bind(User))
-    // let userRegistered = await register(user, req.body.password).catch(error => console.log(error))
-    // if (!userRegistered) {
-    //     res.json('nope')
-    // } else {
-    //     next() // go on to authController.login -> need to skip this if error
-    // }
 }
 
 exports.login = (req, res, next) => {
     const timestamp = new Date().getTime()
     const token = jwt.encode({ sub: req.body.id, iat: timestamp }, process.env.SECRET);
-    console.log('Logged in! Here is your token: ', token)
     res.status(200).json({ token })
 }
 
 // DO WE NEED THIS AT ALL WITH JWT (CLIENT CLEARS TOKEN)... RESPONSE MAY NEED WORK
 exports.logout = (req, res) => {
-    req.logout() // may not need this since no sessions
+    req.logout() // removes req.user, clears login session, but may not need this since no sessions
     req.body.msg = 'Logged out!'
     res.status(200).json(req.body)
 }
