@@ -3,18 +3,14 @@ const { promisify } = require('es6-promisify')
 const db = require('../models/index');
 const User = db.User
 
-
-// NEEDS ERROR HANDLING
-exports.index = (req, res) => {
-    User.findAll({
-        include: [{
-            model: db.Stay,
-            include: [ db.City ]
-        }]
-    })
-    .then(users => res.status(200).json(users))
-    // // handle errors
-    // .catch(err => console.log(err))
+exports.show = (req, res) => {
+    if (req.user) {
+        delete req.user.passwordHash
+        delete req.user.passwordSalt
+        res.status(200).json(req.user)
+    } else {
+        res.status(403).json({ error: 'Please log in' })
+    }
 }
 
 // middleware that ensures cleanliness of user-submitted registration data
@@ -50,12 +46,15 @@ exports.register = (req, res, next) => {
     
     register(user, req.body.password)
     .catch(errors => res.status(500).json({ errors: errors.message }))
-    .then(() => next())
+    .then(() => {
+        req.user = user
+        next();
+    })
 }
 
 exports.login = (req, res, next) => {
     const timestamp = new Date().getTime()
-    const token = jwt.encode({ sub: req.body.id, iat: timestamp }, process.env.SECRET);
+    const token = jwt.encode({ sub: req.user.id, iat: timestamp }, process.env.SECRET);
     res.status(200).json({ token })
 }
 
