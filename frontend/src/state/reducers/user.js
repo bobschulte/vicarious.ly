@@ -1,15 +1,6 @@
 import { apiCall } from './helpers/apiCall'
+import { defaultState } from './helpers/defaultState'
 import { robert } from './helpers/robert'
-
-const defaultState = {
-    id: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    createdAt: '',
-    updatedAt: '',
-    Stays: []
-}
 
 const userReducer = (state = defaultState, action) => {
     switch(action.type) {
