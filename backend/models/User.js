@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
     email: { type: DataTypes.STRING, allowNull: false, unique: true, lowercase: true, trim: true, validate: { isEmail: true } },
+    passwordHash: DataTypes.TEXT,
+    passwordSalt: DataTypes.TEXT,
     firstName: { type: DataTypes.STRING, allowNull: false, trim: true },
     lastName: { type: DataTypes.STRING, allowNull: false, trim: true }
   }, {
@@ -19,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       location() {
         if (this.Stays) {
           let currentStay = this.Stays.find(stay => stay.departure === null)
-          return currentStay.City.nameWithCountry
+          if (currentStay) return currentStay.City.nameWithCountry
         }
       },
       gravatar() {
@@ -33,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(db.City, { through: db.Stay })
   };
 
-  passportLocalSequelize.attachToUser(User, { usernameField: "email" });
+  passportLocalSequelize.attachToUser(User, { usernameField: 'email', hashField: 'passwordHash', saltField: 'passwordSalt' });
   
   // consider an error handler library here
 

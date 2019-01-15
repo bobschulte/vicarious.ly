@@ -5,6 +5,13 @@ export const createUser = user => {
   };
 };
 
+export const loginUser = user => {
+  return {
+    type: 'LOGIN_USER',
+    user
+  }
+}
+
 export const relocateUser = userId => {
   return {
     type: 'RELOCATE_USER',

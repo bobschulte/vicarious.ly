@@ -19,9 +19,11 @@ class UserForm extends React.Component {
                     <label htmlFor="user-lastName">Last Name:</label>
                     <Text field="lastName" id="user-lastName" initialValue={this.state.user.lastName} />
                     <label htmlFor="user-email">Email:</label>
-                    <Text field="email" id="user-email" initialValue={this.state.user.email} />
+                    <Text type="email" field="email" id="user-email" initialValue={this.state.user.email} />
                     <label htmlFor="user-password">Password:</label>
-                    <Text field="password" id="user-password" initialValue={this.state.user.password} />
+                    <Text type="password" field="password" id="user-password" initialValue={this.state.user.password} />
+                    <label htmlFor="user-password-confirm">Confirm Password:</label>
+                    <Text type="password" field="password-confirm" id="user-password-confirm" initialValue={this.state.user.password} />
                     <button type="submit">Register</button>
                 </Form>
             </>

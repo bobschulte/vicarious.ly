@@ -1,13 +1,10 @@
 const db = require('./models/index')
 const seed = require('./seeds/seed')
+const app = require('./app')
 
-// CONSIDER IMPLEMENTING HTTP LIBRARY: server = http.createServer(app) // server.listen(port)
-
-db.sequelize.sync({ force: true }).then(async () => {
+db.sequelize.sync().then(async () => { // { force: true }
 
     await seed(db)
-
-    const app = require('./app')
     app.set('port', process.env.PORT || 7777)
 
     const server = app.listen(app.get('port'), error => {

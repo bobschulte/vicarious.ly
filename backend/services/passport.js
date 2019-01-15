@@ -11,20 +11,29 @@ passport.use(User.createStrategy())
 // jwt strategy
 const jwtOptions = {
     secretOrKey: process.env.SECRET,
-    jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-    issuer: 'vicarious.ly'
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    passReqToCallback: true
 }
 
-passport.use(new JwtStrategy(jwtOptions, function (payload, done) {
-    User.findById(payload.sub, function (err, user) {
-        if (err) {
-            return done(err, false);
-        }
-        if (user) {
-            return done(null, user);
+passport.use(new JwtStrategy(jwtOptions, function (req, payload, done) {
+    User.findOne({ 
+        where: { id: payload.sub },
+        include: [{
+            model: db.Stay,
+            include: [ db.City ]
+        }]
+    })
+    .then((user, error) => {
+        if (error) {
+            console.log('ERROR!!! -> ', error)
+            return done(error, false)
+        } else if (user) {
+            return done(null, user.dataValues)
         } else {
-            return done(null, false);
-            // or you could create a new account
+            console.log('NEITHER!!!')
+            return done(null, false)
         }
-    });
+    })
 }));
+
+module.exports = passport

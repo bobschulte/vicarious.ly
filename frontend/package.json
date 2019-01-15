@@ -2,7 +2,7 @@
   "name": "frontend-for-vicarious.ly",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  
   "dependencies": {
     "informed": "^1.10.12",
     "react": "^16.7.0",

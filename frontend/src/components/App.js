@@ -6,42 +6,43 @@ import UserForm from './UserForm'
 class App extends React.Component {
 
   state = {
-    cities: [],
-    users: [],
-    stays: []
+    user: {}
   }
 
-  getData = async (route, cb) => {
-    let res = await fetch(`http://localhost:7777/${route}`)
-    res = await res.json()
-    if (res.error) {
-      console.log(res.status, res.error);
-      // REDIRECT SOMEWHERE?
+  getUserData = async (cb) => {
+    let res = await fetch(`http://localhost:7777/users`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    if (res.status !== 200) {
+      console.log(`${res.status}: ${res.statusText}`)
     } else {
-      console.log(`${route} route authorized`)
+      res = await res.json()
+      console.log(`fetch successful`)
       cb(res);
     }
   }
 
   componentDidMount = () => {
-    Object.keys(this.state).forEach(key => {
-      this.getData(key, data => this.setState({ [key]: data }));
-    })
+    this.getUserData(user => this.setState({ user }));
   }
   
   render() {
     return (
       <div>
           <ul>
-            {this.state.cities.map(city => <li key={city.id} >{city.name}</li>)}
+            {/* {this.state.cities.map(city => <li key={city.id} >{city.name}</li>)} */}
             <button onClick={() => this.props.createCity({})} > Create City </button>
           </ul>
           <ul>
-            {this.state.users.map(user => <li key={user.id} >{user.firstName} {user.email}</li>)}
+            {/* {this.state.users.map(user => <li key={user.id} >{user.firstName} {user.email}</li>)} */}
+            {this.state.user.firstName}
             <button onClick={() => this.props.relocateUser(0)} > Relocate User </button>
           </ul>
           <ul>
-            {this.state.stays.map(stay => <li key={stay.id} >{stay.User.firstName} stayed in {stay.City.name}!</li>)}
+            {/* {this.state.stays.map(stay => <li key={stay.id} >{stay.User.firstName} stayed in {stay.City.name}!</li>)} */}
             <button onClick={() => this.props.createStay({})} > Create Stay </button>
           </ul>
           <UserForm />
