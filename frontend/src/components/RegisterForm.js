@@ -2,9 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Form, Text } from 'informed'
 import actions from '../state/actions/index';
+// import FormControl from '@material-ui/core/FormControl'
 
 
-class UserForm extends React.Component {
+class NewUserForm extends React.Component {
 
     state = {
         user: {}
@@ -43,4 +44,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserForm)
+export default connect(mapStateToProps, mapDispatchToProps)(NewUserForm)

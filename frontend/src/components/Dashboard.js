@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../state/actions/index'
 
-class UserData extends React.Component {
+class Dashboard extends React.Component {
 
   componentDidMount = () => {
     localStorage.getItem('token') && this.props.getUserData()
@@ -30,11 +30,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginUser: () => dispatch(actions.user.login()),
     getUserData: () => dispatch(actions.user.getData()),
     relocateUser: (userId) => dispatch(actions.user.relocate(userId)),
     logoutUser: () => dispatch(actions.user.logout())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserData);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
