@@ -6,7 +6,12 @@ import UserForm from './UserForm'
 class App extends React.Component {
 
   state = {
-    user: {}
+    user: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      Stays: []
+    }
   }
 
   getUserData = async (cb) => {
@@ -32,20 +37,21 @@ class App extends React.Component {
   render() {
     return (
       <div>
-          <ul>
-            {/* {this.state.cities.map(city => <li key={city.id} >{city.name}</li>)} */}
-            <button onClick={() => this.props.createCity({})} > Create City </button>
-          </ul>
-          <ul>
-            {/* {this.state.users.map(user => <li key={user.id} >{user.firstName} {user.email}</li>)} */}
-            {this.state.user.firstName}
-            <button onClick={() => this.props.relocateUser(0)} > Relocate User </button>
-          </ul>
-          <ul>
-            {/* {this.state.stays.map(stay => <li key={stay.id} >{stay.User.firstName} stayed in {stay.City.name}!</li>)} */}
-            <button onClick={() => this.props.createStay({})} > Create Stay </button>
-          </ul>
-          <UserForm />
+        <h2>Welcome, {this.state.user.firstName}</h2>
+        <ul>
+          Cities Visited:
+          {this.state.user.Stays.map(stay => <li>{stay.City.nameWithCountry}</li>)}
+          <button onClick={() => this.props.createCity({})} > Create City </button>
+        </ul>
+        <ul>
+          <button onClick={() => this.props.relocateUser(0)} > Relocate User </button>
+        </ul>
+        <ul>
+          <button onClick={() => this.props.createStay({})} > Create Stay </button>
+        </ul>
+        <br/>
+        <br/>
+        <UserForm />
       </div>
     );
   }
