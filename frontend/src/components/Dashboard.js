@@ -10,15 +10,23 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <h2 style={{ marginLeft: 20 }}>Welcome, {this.props.user.firstName}. You are in {this.props.user.location}. You have visited: </h2>
+    return <div>
+        <h2 style={{ marginLeft: 20 }}>
+          Welcome, {this.props.user.firstName}. You are in {this.props.user.location}.
+        </h2>
+        <h4 style={{ marginLeft: 20 }}>
+          You have visited:
+        </h4>
         <ul>
-          {this.props.user.Stays.map(stay => <li key={stay.City.id} >{stay.City.nameWithCountry}</li>)}
+          {this.props.user.Stays.map(stay => (
+            <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
+          ))}
         </ul>
-        <Button style={{ marginLeft: 20 }} variant='outlined' onClick={() => this.props.relocateUser(this.props.user.id)} > Relocate User </Button>
-      </div>
-    );
+        <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.relocateUser(this.props.user.id)}>
+          {" "}
+          Relocate User{" "}
+        </Button>
+      </div>;
   }
 }
 
