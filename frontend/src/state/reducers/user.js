@@ -50,7 +50,7 @@ const userReducer = (state = defaultState, action) => {
             console.log('relocate user action triggered for id: ', action.userId)
             return state
         case 'LOGOUT_USER':
-            localStorage.removeItem('token')
+            localStorage.removeItem('vicariouslyToken')
             return defaultState
         default:
             return state

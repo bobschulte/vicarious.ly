@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Button from "@material-ui/core/Button";
 import actions from '../state/actions/index'
 
 class Dashboard extends React.Component {
@@ -15,8 +16,7 @@ class Dashboard extends React.Component {
         <ul>
           {this.props.user.Stays.map(stay => <li key={stay.City.id} >{stay.City.nameWithCountry}</li>)}
         </ul>
-        <button onClick={() => this.props.relocateUser(this.props.user.id)} > Relocate User </button>
-        <br/>
+        <Button variant='outlined' onClick={() => this.props.relocateUser(this.props.user.id)} > Relocate User </Button>
       </div>
     );
   }
@@ -31,8 +31,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getUserData: () => dispatch(actions.user.getData()),
-    relocateUser: (userId) => dispatch(actions.user.relocate(userId)),
-    logoutUser: () => dispatch(actions.user.logout())
+    relocateUser: (userId) => dispatch(actions.user.relocate(userId))
   }
 }
 

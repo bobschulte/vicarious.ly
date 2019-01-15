@@ -13,7 +13,7 @@ export default class App extends React.Component {
       <>
         <NavBar />
         <Router>
-          <>
+          <div>
             <Route exact path='/' render={routerProps => {
               if (token) {
                 return <Dashboard {...routerProps} />
@@ -35,7 +35,7 @@ export default class App extends React.Component {
                 return <Redirect {...routerProps} to="/" />;
               }
             }} />
-          </>
+          </div>
         </Router>
       </>
     );
