@@ -8,27 +8,28 @@ import Login from './Login'
 export default class App extends React.Component {
 
   render() {
+    let token = localStorage.getItem("vicariouslyToken");
     return (
       <>
         <NavBar />
         <Router>
           <>
             <Route exact path='/' render={routerProps => {
-              if (localStorage.getItem('vicariouslyToken')) {
+              if (token) {
                 return <Dashboard {...routerProps} />
               } else {
                 return <Redirect {...routerProps} to="/login" />;
               }
             }} />
             <Route exact path='/register' render={routerProps => {
-              if (!localStorage.getItem('vicariouslyToken')) {
+              if (!token) {
                 return <Register {...routerProps} />
               } else {
                 return <Redirect {...routerProps} to="/" />;
               }
             }} />
             <Route exact path='/login' render={routerProps => {
-              if (!localStorage.getItem('vicariouslyToken')) {
+              if (!token) {
                 return <Login {...routerProps} />
               } else {
                 return <Redirect {...routerProps} to="/" />;
