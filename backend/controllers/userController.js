@@ -1,18 +1,16 @@
-const { promisify } = require("es6-promisify");
 const jwt = require('jwt-simple')
-const db = require("../models/index");
+const { promisify } = require('es6-promisify')
+const db = require('../models/index');
 const User = db.User
 
-
-// NEEDS ERROR HANDLING
-exports.index = (req, res) => {
-    User.findAll({
-        include: [{
-            model: db.Stay,
-            include: [ db.City ]
-        }]
-    })
-    .then(users => res.status(200).json(users))
+exports.show = (req, res) => {
+    if (req.user) {
+        delete req.user.passwordHash
+        delete req.user.passwordSalt
+        res.status(200).json(req.user)
+    } else {
+        res.status(403).json({ error: 'Please log in' })
+    }
 }
 
 // middleware that ensures cleanliness of user-submitted registration data
@@ -35,32 +33,34 @@ exports.validateRegistrationData = (req, res, next) => {
     // handle errors thrown by the above validators
     const errors = req.validationErrors()
     if (errors) {
-        errors.forEach(error => console.log(error.msg))
-        res.status(400).json(req.errors)
+        res.status(400).json({ errors })
     } else {
-        next() // only pass along to .register if no errors
+        next()
     }
 }
 
 // more middleware, registers the user in the database, first hashing the password
-exports.register = async (req, res, next) => {
-    console.log('req data validated, now registering...')
+exports.register = (req, res, next) => {
     const user = new User({ firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email })
     const register = promisify(User.register.bind(User))
-    await register(user, req.body.password)
-    next() // go on to authController.login
+    
+    register(user, req.body.password)
+    .catch(errors => res.status(500).json({ errors: errors.message }))
+    .then(() => {
+        req.user = user
+        next();
+    })
 }
 
 exports.login = (req, res, next) => {
     const timestamp = new Date().getTime()
-    const token = jwt.encode({ sub: req.body.id, iat: timestamp }, process.env.SECRET);
-    console.log('Logged in! Here is your token: ', token)
+    const token = jwt.encode({ sub: req.user.id, iat: timestamp }, process.env.SECRET);
     res.status(200).json({ token })
 }
 
 // DO WE NEED THIS AT ALL WITH JWT (CLIENT CLEARS TOKEN)... RESPONSE MAY NEED WORK
 exports.logout = (req, res) => {
-    req.logout() // may not need this since no sessions
-    req.body.msg = 'logged out'
+    req.logout() // removes req.user, clears login session, but may not need this since no sessions
+    req.body.msg = 'Logged out!'
     res.status(200).json(req.body)
 }
