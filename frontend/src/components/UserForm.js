@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { Form, Text } from 'informed'
-import actions from '../actions/index';
+import actions from '../state/actions/index';
 
 
 class UserForm extends React.Component {

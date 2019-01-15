@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import actions from '../actions/index'
+import actions from '../state/actions/index'
 
 class UserData extends React.Component {
 
