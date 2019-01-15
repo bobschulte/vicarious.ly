@@ -1,5 +1,5 @@
 import { createCity } from './cities'
-import { createUser, loginUser, getUserData, relocateUser, logoutUser } from './users'
+import { createUser, loginUser, getUserData, relocateUser, logoutUser } from './user'
 import { createStay } from './stays'
 
 const actions = {

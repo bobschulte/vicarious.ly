@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import rootReducer from './reducers/index';
 import './stylesheets/index.css';
 import App from './components/App';
@@ -18,11 +17,7 @@ const store = createStore(
 // ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(
     <Provider store={store} >
-        <Router>
-            <>
-                <Route exact path='/' component={App} />
-            </>
-        </Router>
+        <App />
     </Provider>,
     document.getElementById('root')
 )

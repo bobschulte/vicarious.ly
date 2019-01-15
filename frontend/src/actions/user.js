@@ -21,7 +21,7 @@ export const getUserData = () => {
 export const relocateUser = userId => {
   return {
     type: 'RELOCATE_USER',
-    userId: userId
+    userId
   };
 };
 
