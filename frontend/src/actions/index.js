@@ -1,6 +1,6 @@
-import { createCity } from './cities'
 import { createUser, loginUser, getUserData, relocateUser, logoutUser } from './user'
-import { createStay } from './stays'
+import { exampleCityAction } from './city'
+import { exampleStayAction } from './stay'
 
 const actions = {
     user: {
@@ -11,10 +11,10 @@ const actions = {
         relocate: relocateUser
     },
     city: {
-        create: createCity
+        example: exampleCityAction
     },
     stay: {
-        create: createStay
+        example: exampleStayAction
     }
 }
 

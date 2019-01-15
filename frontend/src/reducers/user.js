@@ -1,7 +1,7 @@
 import { apiCall } from './helpers/apiCall'
 import { robert } from './helpers/robert'
 
-const emptyUser = {
+const defaultState = {
     id: '',
     email: '',
     firstName: '',
@@ -11,7 +11,7 @@ const emptyUser = {
     Stays: []
 }
 
-const userReducer = (state = emptyUser, action) => {
+const userReducer = (state = defaultState, action) => {
     switch(action.type) {
         case 'CREATE_USER':
             apiCall('POST', '/register', action.user)
@@ -60,7 +60,7 @@ const userReducer = (state = emptyUser, action) => {
             return state
         case 'LOGOUT_USER':
             localStorage.removeItem('token')
-            return {}
+            return defaultState
         default:
             return state
     }

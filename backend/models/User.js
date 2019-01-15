@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       location() {
         if (this.Stays) {
           let currentStay = this.Stays.find(stay => stay.departure === null)
-          if (currentStay) return currentStay.City.nameWithCountry
+          return currentStay.City.nameWithCountry
         }
       },
       gravatar() {

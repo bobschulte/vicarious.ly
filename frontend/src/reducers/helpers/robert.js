@@ -5,6 +5,9 @@ export const robert = {
     "lastName": "Schulte",
     "createdAt": "2019-01-15T02:40:42.784Z",
     "updatedAt": "2019-01-15T02:40:42.784Z",
+    "name": "Robert Schulte",
+    "location": "Bogotá, Colombia",
+    "gravatar": "https://gravatar.com/avatar/b8e3e22a44e2e0ef5596f1ca12a80b97?s=200",
     "Stays": [
         {
             "id": "bbb340be-7cd0-45c6-9ca4-de5670427252",
