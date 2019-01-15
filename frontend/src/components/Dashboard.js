@@ -5,7 +5,7 @@ import actions from '../state/actions/index'
 class Dashboard extends React.Component {
 
   componentDidMount = () => {
-    localStorage.getItem('token') && this.props.getUserData()
+    localStorage.getItem('vicariouslyToken') && this.props.getUserData()
   }
 
   render() {

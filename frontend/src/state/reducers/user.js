@@ -14,13 +14,13 @@ const userReducer = (state = defaultState, action) => {
                         return state
                     } else {
                         console.log('registration successful, your token: ', res.token)
-                        localStorage.setItem('token', res.token)
+                        localStorage.setItem('vicariouslyToken', res.token)
                         return state
                     }
                 })
             return state
         case 'LOGIN_USER':
-            apiCall('POST', '/register', action.user)
+            apiCall('POST', '/login', action.user)
                 .then(res => res.json())
                 .then(res => {
                     if (res.errors) {
@@ -28,7 +28,7 @@ const userReducer = (state = defaultState, action) => {
                         return state
                     } else {
                         console.log('registration successful, your token: ', res.token)
-                        localStorage.setItem('token', res.token)
+                        localStorage.setItem('vicariouslyToken', res.token)
                         return state
                     }
                 })
