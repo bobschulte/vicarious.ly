@@ -5,15 +5,7 @@ import UserForm from './UserForm'
 
 class App extends React.Component {
 
-  state = {
-    user: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      Stays: []
-    }
-  }
-
+  // refactor this into users reducer!
   getUserData = async (cb) => {
     let res = await fetch(`http://localhost:7777/users`, {
       headers: {
@@ -31,16 +23,19 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    this.getUserData(user => this.setState({ user }));
+    // this.getUserData(user => this.setState({ user }));
+    if (localStorage.getItem('token')) {
+      this.props.getUserData()
+    }
   }
   
   render() {
     return (
       <div>
-        <h2>Welcome, {this.state.user.firstName}</h2>
+        <h2>Welcome, {this.props.user.firstName}</h2>
         <ul>
           Cities Visited:
-          {this.state.user.Stays.map(stay => <li>{stay.City.nameWithCountry}</li>)}
+          {this.props.user.Stays.map(stay => <li>{stay.City.nameWithCountry}</li>)}
           <button onClick={() => this.props.createCity({})} > Create City </button>
         </ul>
         <ul>
@@ -59,16 +54,17 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    cities: state.cities,
-    users: state.users,
-    stays: state.stays
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    createCity: (city) => dispatch(actions.city.create(city)),
+    loginUser: () => dispatch(actions.user.login()),
+    getUserData: () => dispatch(actions.user.getData()),
     relocateUser: (userId) => dispatch(actions.user.relocate(userId)),
+    logoutUser: () => dispatch(actions.user.logout()),
+    createCity: (city) => dispatch(actions.city.create(city)),
     createStay: (stay) => dispatch(actions.stay.create(stay))
   }
 }
