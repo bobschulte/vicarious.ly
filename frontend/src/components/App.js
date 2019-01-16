@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import NavBar from './NavBar'
 import Dashboard from './Dashboard'
 import Register from './Register'
@@ -8,17 +8,19 @@ import Login from './Login'
 export default class App extends React.Component {
 
   render() {
-    return <>
-        <Router>
-          <div>
-            <Route path="/" component={NavBar} />
-            <Route exact path="/" render={routerProps => <Redirect {...routerProps} to="/users/:id" />} />
-            <Route exact path="/users/:id" component={Dashboard} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-          </div>
-        </Router>
-      </>;
+    return (
+      <Router>
+        <div>
+          <Route path="/" component={NavBar} />
+          <Switch>
+            <Route path="/users/:id" component={Dashboard} />
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
+            <Route path="/" render={routerProps => <Redirect {...routerProps} to="/users/:id" />} />
+          </Switch>
+        </div>
+      </Router>
+    )
   }
 
   // render() {
