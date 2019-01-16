@@ -2,7 +2,7 @@ import { apiCall } from './helpers/apiCall'
 import { initialState } from './helpers/initialState'
 import { robert } from './helpers/robert'
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state=initialState, action) => {
     switch(action.type) {
         case 'CREATE_USER':
             apiCall('POST', '/register', action.user)
