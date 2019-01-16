@@ -12,7 +12,7 @@ export const registerUser = user => {
     return apiCall('POST', '/register', user)
       .then(res => {
         if (res.errors) {
-          alert('Invalid credentials')
+          alert('Invalid Registration Data')
         } else {
           dispatch(loginUserWith(res.token))
         }
