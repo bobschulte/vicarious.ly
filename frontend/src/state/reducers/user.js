@@ -22,7 +22,7 @@ const userReducer = (state=null, action) => {
             history.push('/')
             return state
         case 'SET_USER':
-            return action.user // { ...state, user: action.user }  <-- would need this if i switch to different rootReducer implementation
+            return action.user // { ...state, user: action.user }  <-- if switch to other rootReducer implementation
         case 'RELOCATE_USER':
             console.log('relocate user action triggered for id: ', action.userId)
             return state
