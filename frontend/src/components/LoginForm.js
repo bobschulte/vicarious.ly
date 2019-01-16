@@ -5,14 +5,8 @@ import Button from '@material-ui/core/Button'
 
 
 export default function (props) {
-
-    const handleSubmit = user => {
-      props.login(user);
-      props.history.push("/");
-    };
-
     return <>
-        <Form id="user-form" onSubmit={handleSubmit}>
+        <Form id="user-form" onSubmit={props.login}>
             <label htmlFor="user-email"> Email: </label>
             <Text type="email" field="email" id="user-email" />
             <label htmlFor="user-password"> Password: </label>

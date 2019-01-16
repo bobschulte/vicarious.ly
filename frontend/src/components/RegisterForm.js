@@ -5,12 +5,6 @@ import Button from "@material-ui/core/Button";
 
 
 export default function (props) {
-
-    const handleSubmit = user => {
-        props.create(user)
-        props.history.push('/')
-    }
-
     return <>
         <Form id="user-form" onSubmit={props.create}>
             <label htmlFor="user-firstName">First Name:</label>
