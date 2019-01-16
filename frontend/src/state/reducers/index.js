@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import user from './manageUser'
+import user from './user'
 // import cities from './cities'
 // import stays from './stays'
 
-export default combineReducers({
+export const rootReducer = combineReducers({
     user,
     // cities,
     // stays

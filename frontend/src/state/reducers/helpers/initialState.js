@@ -1,4 +1,4 @@
-export const defaultState = {
+export const initialState = {
     id: null,
     email: null,
     firstName: null,

@@ -1,8 +1,8 @@
 import { apiCall } from './helpers/apiCall'
-import { defaultState } from './helpers/defaultState'
+import { initialState } from './helpers/initialState'
 import { robert } from './helpers/robert'
 
-const manageUser = (state = defaultState, action) => {
+const userReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'CREATE_USER':
             apiCall('POST', '/register', action.user)
@@ -52,10 +52,10 @@ const manageUser = (state = defaultState, action) => {
             return state
         case 'LOGOUT_USER':
             localStorage.removeItem('vicariouslyToken')
-            return defaultState
+            return initialState
         default:
             return state
     }
 }
 
-export default manageUser
+export default userReducer

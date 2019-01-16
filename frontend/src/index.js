@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk'
+import { createStore, compose, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-ReduxThunk'
 import { Provider } from 'react-redux'
-import rootReducer from './state/reducers/index';
+import { rootReducer } from './state/reducers/index';
+import { initialState } from './state/reducers/helpers/initialState'
 import './stylesheets/index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
-// create a redux store with access to redux dev tools
-const store = createStore(
-    rootReducer,
-    applyMiddleware(thunk) &&
-    window.__REDUX_DEVTOOLS_EXTENSION__ && 
+const middleware = compose(
+    applyMiddleware(ReduxThunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+)
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(rootReducer, initialState, middleware);
+
 ReactDOM.render(
     <Provider store={store} >
         <App />
