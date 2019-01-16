@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 // create a redux store with access to redux dev tools
 const store = createStore(
     rootReducer,
-    applyMiddleware(thunk),
+    applyMiddleware(thunk) &&
     window.__REDUX_DEVTOOLS_EXTENSION__ && 
     window.__REDUX_DEVTOOLS_EXTENSION__()
 );

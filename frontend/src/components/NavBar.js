@@ -10,6 +10,16 @@ import Button from '@material-ui/core/Button'
 
 class NavBar extends React.Component {
 
+    handleButtonClick = e => {
+        let sourceButton = e.target.textContent.toLowerCase();
+        if (sourceButton === 'logout') {
+            this.props.logoutUser()
+            this.props.history.push('/login')
+        } else {
+            this.props.history.push(`/${sourceButton}`)
+        }
+    }
+
     render() {
         let token = localStorage.getItem("vicariouslyToken");
 
@@ -22,11 +32,12 @@ class NavBar extends React.Component {
                 <Typography style={{ flexgrow: 1, marginLeft: 10, marginRight: 10 }} variant="h4" color="inherit">
                   VICARIOUS.LY
                 </Typography>
+                {!token && <div>
+                    <Button style={{ marginLeft: 20, marginRight: 20 }} variant="contained" onClick={this.handleButtonClick}>Login</Button>
+                    <Button style={{ marginLeft: 20, marginRight: 20 }} variant="contained" onClick={this.handleButtonClick}>Register</Button>
+                </div>}
                 {token && <div>
-                    <Button style={{ marginLeft: 20, marginRight: 20 }} variant="contained" onClick={() => this.props.logoutUser()}>
-                      {" "}
-                      Logout{" "}
-                    </Button>
+                    <Button style={{ marginLeft: 20, marginRight: 20 }} variant="contained" onClick={this.handleButtonClick}>Logout</Button>
                   </div>}
               </ToolBar>
             </AppBar>

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import manageUser from './manageUser'
+import user from './manageUser'
 import cities from './cities'
 import stays from './stays'
 
 export default combineReducers({
-    manageUser
+    user,
+    // cities,
+    // stays
 })

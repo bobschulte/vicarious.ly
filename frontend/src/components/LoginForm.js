@@ -12,18 +12,24 @@ class LoginForm extends React.Component {
         user: {}
     }
 
+    handleSubmit = user => {
+        this.props.loginUser(user)
+        this.props.history.push('/')
+    }
+
     render() {
-        return (
-            <>
-                <Form id="user-form" onSubmit={this.props.loginUser} >
-                    <label htmlFor="user-email"> Email: </label>
-                    <Text type="email" field="email" id="user-email" initialValue={this.state.user.email} />
-                    <label htmlFor="user-password"> Password: </label>
-                    <Text type="password" field="password" id="user-password" initialValue={this.state.user.password} />
-                    <Button variant='outlined' type="submit"> Login </Button>
-                </Form>
-            </>
-        )
+        return <>
+            <Form id="user-form" onSubmit={this.handleSubmit}>
+              <label htmlFor="user-email"> Email: </label>
+              <Text type="email" field="email" id="user-email" initialValue={this.state.user.email} />
+              <label htmlFor="user-password"> Password: </label>
+              <Text type="password" field="password" id="user-password" initialValue={this.state.user.password} />
+              <Button variant="outlined" type="submit">
+                {" "}
+                Login{" "}
+              </Button>
+            </Form>
+          </>;
     }
 }
 
