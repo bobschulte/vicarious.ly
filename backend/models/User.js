@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         return this.firstName + ' ' + this.lastName
       },
       location() {
-        if (this.Stays) {
+        if (this.Stays.length > 0) {
           let currentStay = this.Stays.find(stay => stay.departure === null)
           return currentStay.City.nameWithCountry
         }

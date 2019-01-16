@@ -60,7 +60,6 @@ exports.register = (req, res, next) => {
 exports.login = (req, res, next) => {
     const timestamp = new Date().getTime()
     const token = jwt.encode({ sub: req.user.id, iat: timestamp }, process.env.SECRET);
-    console.log(token)
     res.status(200).json({ token })
 }
 

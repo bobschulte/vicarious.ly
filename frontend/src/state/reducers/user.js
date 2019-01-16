@@ -2,22 +2,7 @@ import history from '../history/history'
 
 const userReducer = (state=null, action) => {
     switch(action.type) {
-        case 'CREATE_USER':
-            // apiCall('POST', '/register', action.user)
-            //     .then(res => res.json())
-            //     .then(res => {
-            //         if (res.errors) {
-            //             console.log(res.errors)
-            //             res.errors.map(error => console.log(error.msg))
-            //             return state
-            //         } else {
-            //             console.log('registration successful, your token: ', res.token)
-            //             localStorage.setItem('vicariouslyToken', res.token)
-            //             return state
-            //         }
-            //     })
-            return state
-        case 'SET_TOKEN':
+        case 'LOGIN_USER':
             localStorage.setItem('vicariouslyToken', action.token)
             history.push('/')
             return state

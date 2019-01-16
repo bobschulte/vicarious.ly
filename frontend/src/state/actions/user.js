@@ -1,27 +1,33 @@
 import apiCall from './helpers/apiCall'
 
-const setToken = token => {
+const loginUserWith = token => {
   return {
-    type: 'SET_TOKEN',
+    type: 'LOGIN_USER',
     token
   }
 }
 
 export const registerUser = user => {
-  return {
-    type: 'CREATE_USER',
-    user
-  };
-};
-
-export const loginUser = user => {
-  return (dispatch) => {
-    return apiCall('POST', '/login', user)
+  return dispatch => {
+    return apiCall('POST', '/register', user)
       .then(res => {
         if (res.errors) {
           alert('Invalid credentials')
         } else {
-          dispatch(setToken(res.token))
+          dispatch(loginUserWith(res.token))
+        }
+      })
+  }
+};
+
+export const loginUser = user => {
+  return dispatch => {
+    return apiCall('POST', '/login', user)
+      .then(res => {
+        if (res.error) {
+          alert('Invalid credentials')
+        } else {
+          dispatch(loginUserWith(res.token))
         }
       })
   }

@@ -23,7 +23,7 @@ const apiCall = (method, route, userData={}) => {
         // console.log(res)
         if (res.status !== 200) {
           console.log(`${res.status}: ${res.statusText}`)
-          return { errors: [ { status: res.status, msg: res.statusText} ]}
+          return { error: { status: res.status, msg: res.statusText} }
         } else {
             return res.json()
         }

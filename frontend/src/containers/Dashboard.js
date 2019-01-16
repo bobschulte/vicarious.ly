@@ -31,7 +31,7 @@ class Dashboard extends React.Component {
       </ul>
       <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.relocateUser(this.props.user.id)}>
         {" "}
-        Relocate User{" "}
+        Move to a New City{" "}
       </Button>
     </div>;
   }
