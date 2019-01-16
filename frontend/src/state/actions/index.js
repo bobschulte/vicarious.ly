@@ -5,8 +5,8 @@ import { exampleStayAction } from './stay'
 const actions = {
     user: {
         login: loginUser,
-        logout: logoutUser,
         fetch: fetchUser,
+        logout: logoutUser,
         create: createUser,
         relocate: relocateUser
     },

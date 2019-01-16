@@ -20,6 +20,7 @@ const apiCall = (method, route, userData={}) => {
 
     return fetch(`${rootUrl}${route}`, options)
     .then(res => {
+        // console.log(res)
         if (res.status !== 200) {
           console.log(`${res.status}: ${res.statusText}`)
           return { errors: [ { status: res.status, msg: res.statusText} ]}

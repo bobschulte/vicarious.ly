@@ -17,22 +17,11 @@ const userReducer = (state=null, action) => {
             //         }
             //     })
             return state
-        case 'LOGIN_USER':
-            // apiCall('POST', '/login', action.user)
-            //     .catch(err => console.log(err))
-            //     .then(res => res.status === 200 ? res.json() : { errors: [{ msg: "Invalid credentials" }] })
-            //     .then(res => {
-            //         if (res.errors) {
-            //             alert(res.errors.map(err => err.msg).join(', '))
-            //             return state
-            //         } else {
-            //             console.log('registration successful, your token: ', res.token)
-            //             localStorage.setItem('vicariouslyToken', res.token)
-            //             return state
-            //         }
-            //     })
+        case 'SET_TOKEN':
+            localStorage.setItem('vicariouslyToken', action.token)
+            history.push('/')
             return state
-        case 'GET_USER_DATA':
+        case 'SET_USER':
             return action.user // { ...state, user: action.user }  <-- would need this if i switch to different rootReducer implementation
         case 'RELOCATE_USER':
             console.log('relocate user action triggered for id: ', action.userId)
