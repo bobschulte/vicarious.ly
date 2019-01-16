@@ -3,7 +3,12 @@ const { promisify } = require('es6-promisify')
 const db = require('../models/index');
 const User = db.User
 
+exports.index = (req, res) => {
+    res.status(200).json({ msg: 'success, owe you a list of users'})
+}
+
 exports.show = (req, res) => {
+    console.log('params: ', req.params)
     if (req.user) {
         delete req.user.passwordHash
         delete req.user.passwordSalt

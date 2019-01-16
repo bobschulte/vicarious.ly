@@ -28,7 +28,7 @@ passport.use(new JwtStrategy(jwtOptions, function (req, payload, done) {
             console.log('ERROR!!! -> ', error)
             return done(error, false)
         } else if (user) {
-            return done(null, user.dataValues)
+            return done(null, user)
         } else {
             console.log('NEITHER!!!')
             return done(null, false)

@@ -1,28 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import rootReducer from './reducers/index';
-import './stylesheets/index.css';
-import App from './components/App';
+import ReduxThunk from 'redux-thunk'
+import rootReducer from './state/reducers/index';
+import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
-// create a redux store with access to redux dev tools
-const store = createStore(
-    rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && 
+const middleware = compose(
+    applyMiddleware(ReduxThunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+)
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(rootReducer, middleware);
+
 ReactDOM.render(
     <Provider store={store} >
-        <Router>
-            <>
-                <Route exact path='/' component={App} />
-            </>
-        </Router>
+        <App />
     </Provider>,
     document.getElementById('root')
 )
