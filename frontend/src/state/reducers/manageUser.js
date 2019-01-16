@@ -2,7 +2,7 @@ import { apiCall } from './helpers/apiCall'
 import { defaultState } from './helpers/defaultState'
 import { robert } from './helpers/robert'
 
-const userReducer = (state = defaultState, action) => {
+const manageUser = (state = defaultState, action) => {
     switch(action.type) {
         case 'CREATE_USER':
             apiCall('POST', '/register', action.user)
@@ -57,4 +57,4 @@ const userReducer = (state = defaultState, action) => {
     }
 }
 
-export default userReducer
+export default manageUser

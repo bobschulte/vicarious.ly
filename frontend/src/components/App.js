@@ -14,7 +14,8 @@ export default class App extends React.Component {
         <NavBar />
         <Router>
           <div>
-            <Route exact path='/' render={routerProps => {
+            <Route exact path='/' render={routerProps => <Redirect {...routerProps} to='/dashboard' />} />
+            <Route exact path='/dashboard' render={routerProps => {
               if (token) {
                 return <Dashboard {...routerProps} />
               } else {
@@ -25,14 +26,14 @@ export default class App extends React.Component {
               if (!token) {
                 return <Register {...routerProps} />
               } else {
-                return <Redirect {...routerProps} to="/" />;
+                return <Redirect {...routerProps} to="/dashboard" />;
               }
             }} />
             <Route exact path='/login' render={routerProps => {
               if (!token) {
                 return <Login {...routerProps} />
               } else {
-                return <Redirect {...routerProps} to="/" />;
+                return <Redirect {...routerProps} to="/dashboard" />;
               }
             }} />
           </div>
