@@ -1,4 +1,4 @@
-export const defaultState = {
+export const defaultUser = {
     id: null,
     email: null,
     firstName: null,
@@ -8,4 +8,4 @@ export const defaultState = {
     Stays: []
 }
 
-export default defaultState
+export default defaultUser

@@ -14,25 +14,18 @@ export const loginUser = user => {
   }
 }
 
-const getUserData = () => {
-  return {
-    type: 'GET_USER_DATA'
-  }
-}
-
-const setUserDataInState = user => {
+const getUserData = user => {
   // console.log('action creator:', user)
   return {
-    type: 'SET_USER_DATA_IN_STATE',
+    type: 'GET_USER_DATA',
     user
   }
 }
 
 export const fetchUser = userId => {
   return (dispatch) => {
-    dispatch(getUserData());
     return apiCall("GET", `/users/${userId}`)
-      .then(user => dispatch(setUserDataInState(user)))
+      .then(user => dispatch(getUserData(user)))
   }
 }
 

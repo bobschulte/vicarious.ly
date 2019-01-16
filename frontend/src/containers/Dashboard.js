@@ -38,6 +38,7 @@ class Dashboard extends React.Component {
 
   render() {
     const { user } = this.props
+    console.log(user)
     return (
       <div>
         {user && this.renderUserData()}
@@ -56,7 +57,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: userId => dispatch(actions.user.fetch(userId)),
-    relocateUser: (userId) => dispatch(actions.user.relocate(userId))
+    relocateUser: userId => dispatch(actions.user.relocate(userId))
   }
 }
 

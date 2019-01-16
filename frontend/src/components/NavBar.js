@@ -14,7 +14,6 @@ class NavBar extends React.Component {
         let sourceButton = e.target.textContent;
         if (sourceButton === 'logout') {
             this.props.logoutUser()
-            this.props.history.push('/login')
         } else {
             this.props.history.push(`/${sourceButton}`)
         }

@@ -1,7 +1,6 @@
-import defaultState from './helpers/defaultState'
 import history from '../history/history'
 
-const userReducer = (state=defaultState, action) => {
+const userReducer = (state=null, action) => {
     switch(action.type) {
         case 'CREATE_USER':
             // apiCall('POST', '/register', action.user)
@@ -34,16 +33,14 @@ const userReducer = (state=defaultState, action) => {
             //     })
             return state
         case 'GET_USER_DATA':
-            return state
-        case 'SET_USER_DATA_IN_STATE':
-            console.log('reducer: ', action.user)
-            return action.user
+            return action.user // { ...state, user: action.user }  <-- would need this if i switch to different rootReducer implementation
         case 'RELOCATE_USER':
             console.log('relocate user action triggered for id: ', action.userId)
             return state
         case 'LOGOUT_USER':
             localStorage.removeItem('vicariouslyToken')
-            return defaultState
+            history.push('/login')
+            return state
         default:
             return state
     }
