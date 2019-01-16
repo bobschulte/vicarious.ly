@@ -12,7 +12,7 @@
 
 ##### Styling Library: Material UI
 
-##### External API: Google Maps API's
+##### External API: Teleport API, Google Maps API's
 
 ##### Hardware: N/A
 
@@ -31,11 +31,9 @@ The app will have two user categories:
 
     * As a Traveler, I can invite others to follow me, so that they can view my whereabouts.
 
-    * As a Traveler, I can "check in" to a city, so that the app renders relevant location-related content. ***ADD AN "EXPERIENCE"*** (content needs to be tied directly to the location, the experience would have its own location but also belong to a user)
+    * As a Traveler, I can "relocate" to a city, so that the app renders relevant location-related content. ***ADD AN "EXPERIENCE"*** (content needs to be tied directly to the location, the experience would have its own location but also belong to a user)
 
-    * As a Traveler, within a city I can input a restaurant/place of interest that I want to visit, so that my wish list will be populated. (boolean attribute)
-
-    * As a Traveler, I can "check out" of a city when I leave, so that I can check into a new city and view relevant content for my new location.
+    * As a Traveler, within a city I can ***ADD AN "EXPERIENCE"*** (input a restaurant/place of interest) that I have visited or that I want to visit, so that my wish list will be populated. (boolean attribute "hasVisited"?)
 
     * As a Traveler, I can select cities and dates, so that I can build a loose travel itinerary/plan.
 
