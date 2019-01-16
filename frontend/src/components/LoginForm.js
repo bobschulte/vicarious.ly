@@ -8,10 +8,6 @@ import actions from '../state/actions/index';
 
 class LoginForm extends React.Component {
 
-    state = {
-        user: {}
-    }
-
     handleSubmit = user => {
         this.props.loginUser(user)
         this.props.history.push('/')

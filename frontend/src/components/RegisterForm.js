@@ -8,10 +8,6 @@ import actions from '../state/actions/index';
 
 class NewUserForm extends React.Component {
 
-    state = {
-        user: {}
-    }
-
     handleSubmit = user => {
         this.props.createUser(user)
         this.props.history.push('/')
