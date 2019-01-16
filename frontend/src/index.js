@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk'
-import { rootReducer } from './state/reducers/index';
-import { initialState } from './state/reducers/helpers/initialState'
+import rootReducer from './state/reducers/index';
+import initialState from './state/reducers/helpers/initialState'
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 

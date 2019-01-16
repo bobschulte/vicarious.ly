@@ -1,4 +1,4 @@
-export const robert = {
+const robert = {
     "id": "aaa31b1e-2186-4b29-876f-c436cdadb08d",
     "email": "robert@test.com",
     "firstName": "Robert",
@@ -45,3 +45,5 @@ export const robert = {
         }
     ]
 }
+
+export default robert

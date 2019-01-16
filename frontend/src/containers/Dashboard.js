@@ -12,27 +12,38 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount = () => {
-    localStorage.getItem('vicariouslyToken') && this.props.getUserData()
+    let userId = this.props.match.params.id
+    this.props.fetchUser(userId)
+  }
+
+  renderUserData = () => {
+    return <div>
+      <h2 style={{ marginLeft: 20 }}>
+        Welcome, {this.props.user.firstName}. You are in {this.props.user.location}.
+        </h2>
+      <h4 style={{ marginLeft: 20 }}>
+        You have visited:
+        </h4>
+      <ul>
+        {this.props.user.Stays.map(stay => (
+          <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
+        ))}
+      </ul>
+      <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.relocateUser(this.props.user.id)}>
+        {" "}
+        Relocate User{" "}
+      </Button>
+    </div>;
   }
 
   render() {
-    return <div>
-        <h2 style={{ marginLeft: 20 }}>
-          Welcome, {this.props.user.firstName}. You are in {this.props.user.location}.
-        </h2>
-        <h4 style={{ marginLeft: 20 }}>
-          You have visited:
-        </h4>
-        <ul>
-          {this.props.user.Stays.map(stay => (
-            <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
-          ))}
-        </ul>
-        <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.relocateUser(this.props.user.id)}>
-          {" "}
-          Relocate User{" "}
-        </Button>
-      </div>;
+    const { user } = this.props
+    return (
+      <div>
+        {user && this.renderUserData()}
+        {!user && <h1>Loading...</h1>}
+      </div>
+    )
   }
 }
 
@@ -44,7 +55,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserData: () => dispatch(actions.user.getData()),
+    fetchUser: userId => dispatch(actions.user.fetch(userId)),
     relocateUser: (userId) => dispatch(actions.user.relocate(userId))
   }
 }

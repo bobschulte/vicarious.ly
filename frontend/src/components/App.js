@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import history from '../state/history/history'
 import NavBar from './NavBar'
 import Dashboard from '../containers/Dashboard'
 import Register from '../containers/Register'
@@ -8,14 +9,15 @@ import Login from '../containers/Login'
 export default class App extends React.Component {
   render() {
     return (
-      <Router>
+      <Router history={history} >
         <div>
           <Route path="/" component={NavBar} />
+          {/* bottom menu bar? */}
           <Switch>
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="/users/:id" component={Dashboard} />
-            <Route path="/" render={routerProps => <Redirect {...routerProps} to="/users/:id" />} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/users/:id" component={Dashboard} />
+            <Route exact path="/" render={() => <Redirect to="/users/:id" />} />
           </Switch>
         </div>
       </Router>

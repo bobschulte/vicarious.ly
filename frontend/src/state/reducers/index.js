@@ -3,8 +3,10 @@ import user from './user'
 // import cities from './cities'
 // import stays from './stays'
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
     user,
     // cities,
     // stays
 })
+
+export default rootReducer

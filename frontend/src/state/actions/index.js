@@ -1,4 +1,4 @@
-import { createUser, loginUser, getUserData, relocateUser, logoutUser } from './user'
+import { createUser, loginUser, fetchUser, relocateUser, logoutUser } from './user'
 import { exampleCityAction } from './city'
 import { exampleStayAction } from './stay'
 
@@ -6,7 +6,7 @@ const actions = {
     user: {
         login: loginUser,
         logout: logoutUser,
-        getData: getUserData,
+        fetch: fetchUser,
         create: createUser,
         relocate: relocateUser
     },
