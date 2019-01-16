@@ -11,11 +11,15 @@ class Login extends React.Component {
     !!token && this.props.history.push("/");
   }
 
-  renderForm = path => path === '/register' ? <RegisterForm {...this.props} create={this.props.create} /> : <LoginForm {...this.props} login={this.props.login} />
-
   render() {
-    let { path } = this.props.match
-    return <div>{this.renderForm(path)}</div>
+    let { path } = this.props.match;
+    return <div>
+        {path === "/register" ? (
+          <RegisterForm {...this.props} handleSubmit={this.props.register} />
+        ) : (
+          <LoginForm {...this.props} handleSubmit={this.props.login} />
+        )}
+      </div>;
   }
 }
 
