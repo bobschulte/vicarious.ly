@@ -17,17 +17,17 @@ class NewUserForm extends React.Component {
         return <>
             <Form id="user-form" onSubmit={this.handleSubmit}>
               <label htmlFor="user-firstName">First Name:</label>
-              <Text field="firstName" id="user-firstName" initialValue={this.state.user.firstName} /> {/* change these to props when ready */}
+              <Text field="firstName" id="user-firstName" />
               <label htmlFor="user-lastName">Last Name:</label>
-              <Text field="lastName" id="user-lastName" initialValue={this.state.user.lastName} />
+              <Text field="lastName" id="user-lastName" />
               <label htmlFor="user-email">Email:</label>
-              <Text type="email" field="email" id="user-email" initialValue={this.state.user.email} />
+              <Text type="email" field="email" id="user-email" />
               <label htmlFor="user-password">Password:</label>
-              <Text type="password" field="password" id="user-password" initialValue={this.state.user.password} />
+              <Text type="password" field="password" id="user-password" />
               <label htmlFor="user-password-confirm">
                 Confirm Password:
               </label>
-              <Text type="password" field="password-confirm" id="user-password-confirm" initialValue={this.state.user.password} />
+              <Text type="password" field="password-confirm" id="user-password-confirm" />
               <Button variant="outlined" type="submit">
                 {" "}
                 Register{" "}
@@ -37,16 +37,10 @@ class NewUserForm extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    }
-}
-
 const mapDispatchToProps = dispatch => {
     return {
         createUser: (user) => dispatch(actions.user.create(user))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewUserForm)
+export default connect(null, mapDispatchToProps)(NewUserForm)

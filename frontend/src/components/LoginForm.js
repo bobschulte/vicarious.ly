@@ -17,9 +17,9 @@ class LoginForm extends React.Component {
         return <>
             <Form id="user-form" onSubmit={this.handleSubmit}>
               <label htmlFor="user-email"> Email: </label>
-              <Text type="email" field="email" id="user-email" initialValue={this.state.user.email} />
+              <Text type="email" field="email" id="user-email" />
               <label htmlFor="user-password"> Password: </label>
-              <Text type="password" field="password" id="user-password" initialValue={this.state.user.password} />
+              <Text type="password" field="password" id="user-password" />
               <Button variant="outlined" type="submit">
                 {" "}
                 Login{" "}
