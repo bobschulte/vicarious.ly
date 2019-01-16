@@ -28,7 +28,7 @@ class NavBar extends React.Component {
     }
 
     render() {
-        let { user } = this.props
+        let token = localStorage.getItem('vicariouslyToken')
 
         return <div style={{ flexgrow: 1 }}>
             <AppBar position="static">
@@ -39,7 +39,7 @@ class NavBar extends React.Component {
                 <Typography style={{ flexgrow: 1, marginLeft: 10, marginRight: 10 }} variant="h4" color="inherit">
                   VICARIOUS.LY
                 </Typography>
-                {this.renderButtons(!!user.id)}
+                {this.renderButtons(!!token)}
               </ToolBar>
             </AppBar>
           </div>;

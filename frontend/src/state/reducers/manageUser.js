@@ -21,10 +21,11 @@ const manageUser = (state = defaultState, action) => {
             return state
         case 'LOGIN_USER':
             apiCall('POST', '/login', action.user)
-                .then(res => res.json())
+                .catch(err => console.log(err))
+                .then(res => res.status === 200 ? res.json() : { errors: [{ msg: "Invalid credentials" }] })
                 .then(res => {
                     if (res.errors) {
-                        res.errors.map(error => console.log(error.msg))
+                        alert(res.errors.map(err => err.msg).join(', '))
                         return state
                     } else {
                         console.log('registration successful, your token: ', res.token)

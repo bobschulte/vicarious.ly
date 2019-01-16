@@ -1,38 +1,47 @@
 import React from 'react'
-import { connect } from 'react-redux';
 import { Form, Text } from 'informed'
 import Button from '@material-ui/core/Button'
-import actions from '../state/actions/index';
 // import FormControl from '@material-ui/core/FormControl'
 
 
-class LoginForm extends React.Component {
+export default function (props) {
 
-    handleSubmit = user => {
-        this.props.loginUser(user)
-        this.props.history.push('/')
-    }
+    const handleSubmit = user => {
+      props.login(user);
+      props.history.push("/");
+    };
 
-    render() {
-        return <>
-            <Form id="user-form" onSubmit={this.handleSubmit}>
-              <label htmlFor="user-email"> Email: </label>
-              <Text type="email" field="email" id="user-email" />
-              <label htmlFor="user-password"> Password: </label>
-              <Text type="password" field="password" id="user-password" />
-              <Button variant="outlined" type="submit">
+    return <>
+        <Form id="user-form" onSubmit={handleSubmit}>
+            <label htmlFor="user-email"> Email: </label>
+            <Text type="email" field="email" id="user-email" />
+            <label htmlFor="user-password"> Password: </label>
+            <Text type="password" field="password" id="user-password" />
+            <Button variant="outlined" type="submit">
                 {" "}
                 Login{" "}
-              </Button>
-            </Form>
-          </>;
-    }
+            </Button>
+        </Form>
+    </>;
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        loginUser: user => dispatch(actions.user.login(user))
-    }
-}
 
-export default connect(null, mapDispatchToProps)(LoginForm)
+// class LoginForm extends React.Component {
+
+//     render() {
+//         return <>
+//             <Form id="user-form" onSubmit={this.props.login}>
+//               <label htmlFor="user-email"> Email: </label>
+//               <Text type="email" field="email" id="user-email" />
+//               <label htmlFor="user-password"> Password: </label>
+//               <Text type="password" field="password" id="user-password" />
+//               <Button variant="outlined" type="submit">
+//                 {" "}
+//                 Login{" "}
+//               </Button>
+//             </Form>
+//           </>;
+//     }
+// }
+
+// export default LoginForm

@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import NavBar from './NavBar'
-import Dashboard from './Dashboard'
-import Register from './Register'
-import Login from './Login'
+import Dashboard from '../containers/Dashboard'
+import Register from '../containers/Register'
+import Login from '../containers/Login'
 
 export default class App extends React.Component {
 
