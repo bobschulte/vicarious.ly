@@ -1,9 +1,9 @@
 export const defaultState = {
-    id: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    createdAt: '',
-    updatedAt: '',
+    id: null,
+    email: null,
+    firstName: null,
+    lastName: null,
+    createdAt: null,
+    updatedAt: null,
     Stays: []
 }

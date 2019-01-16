@@ -13,9 +13,9 @@ export default class App extends React.Component {
         <div>
           <Route path="/" component={NavBar} />
           <Switch>
-            <Route path="/users/:id" component={Dashboard} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
+            <Route path="/users/:id" component={Dashboard} />
             <Route path="/" render={routerProps => <Redirect {...routerProps} to="/users/:id" />} />
           </Switch>
         </div>
