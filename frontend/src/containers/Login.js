@@ -13,13 +13,13 @@ class Login extends React.Component {
 
   render() {
     let { path } = this.props.match;
-    return <div>
+    return <>
         {path === "/register" ? (
-          <RegisterForm {...this.props} handleSubmit={this.props.register} />
+          <RegisterForm {...this.props} register={this.props.register} />
         ) : (
-          <LoginForm {...this.props} handleSubmit={this.props.login} />
+          <LoginForm {...this.props} login={this.props.login} />
         )}
-      </div>;
+      </>;
   }
 }
 
