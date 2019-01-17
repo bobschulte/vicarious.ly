@@ -5,14 +5,13 @@ const userReducer = (state=null, action) => {
     switch(action.type) {
         case 'LOGIN_USER':
             setStorageToken(action.token)
-            setStorageId(action.id)
+            setStorageId(action.userId)
             history.push(`/${action.userId}`)
             return state
         case 'SET_USER':
             return action.user // { ...state, user: action.user }  <-- if switch to other rootReducer implementation
         case 'RELOCATE_USER':
             console.log('relocate user action triggered for id: ', action.userId)
-            history.push(`/users/${action.userId}/relocate`)
             return state
         case 'LOGOUT_USER':
             removeStorageToken()

@@ -45,8 +45,13 @@ const styles = theme => ({
 
 class RelocateForm extends React.Component {
 
-    state = {
-
+    constructor(props) {
+        super(props)
+        let token = localStorage.getItem("vicariouslyToken");
+        !token && this.props.history.push("/");
+        this.state = {
+            city: ''
+        }
     }
 
     handleInputChange = e => {
@@ -75,11 +80,7 @@ class RelocateForm extends React.Component {
                 <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>
                     <InputLabel htmlFor="firstName">First Name</InputLabel>
-                    <Input value={this.state.firstName} onChange={this.handleInputChange} name="firstName" type="firstName" id="firstName" autoFocus />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="password">Last Name</InputLabel>
-                    <Input value={this.state.lastName} onChange={this.handleInputChange} name="lastName" type="lastName" id="lastName" />
+                    <Input value={this.state.city} onChange={this.handleInputChange} name="firstName" type="firstName" id="firstName" autoFocus />
                 </FormControl>
                 <Button
                     type="submit"

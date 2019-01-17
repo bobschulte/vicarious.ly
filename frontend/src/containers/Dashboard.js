@@ -18,11 +18,19 @@ class Dashboard extends React.Component {
     this.props.fetchUser(userId)
   }
 
+  renderRelocateButton = () => {
+    return <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.history.push(`/users/${this.props.user.id}/relocate`)}>
+      {" "}
+      Move to a New City{" "}
+    </Button>
+  }
+
   renderUserData = () => {
     return <div>
       <h2 style={{ marginLeft: 20 }}>
         Welcome, {this.props.user.firstName}. You are in {this.props.user.location}.
         </h2>
+      {this.renderRelocateButton()}
       <h4 style={{ marginLeft: 20 }}>
         You have visited:
         </h4>
@@ -31,10 +39,6 @@ class Dashboard extends React.Component {
           <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
         ))}
       </ul>
-      <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.relocateUser(this.props.user.id)}>
-        {" "}
-        Move to a New City{" "}
-      </Button>
     </div>;
   }
 
