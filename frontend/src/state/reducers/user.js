@@ -4,7 +4,8 @@ const userReducer = (state=null, action) => {
     switch(action.type) {
         case 'LOGIN_USER':
             localStorage.setItem('vicariouslyToken', action.token)
-            history.push('/')
+            localStorage.setItem('vicariouslyId', action.id)
+            history.push(`/${action.id}`)
             return state
         case 'SET_USER':
             return action.user // { ...state, user: action.user }  <-- if switch to other rootReducer implementation

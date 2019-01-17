@@ -1,9 +1,10 @@
 import apiCall from './helpers/apiCall'
 
-const loginUserWith = token => {
+const loginUserWith = (token, id) => {
   return {
     type: 'LOGIN_USER',
-    token
+    token,
+    id
   }
 }
 
@@ -14,7 +15,7 @@ export const registerUser = user => {
         if (res.errors) {
           alert('Invalid Registration Data')
         } else {
-          dispatch(loginUserWith(res.token))
+          dispatch(loginUserWith(res.token, res.id))
         }
       })
   }
@@ -27,7 +28,7 @@ export const loginUser = user => {
         if (res.error) {
           alert('Invalid credentials')
         } else {
-          dispatch(loginUserWith(res.token))
+          dispatch(loginUserWith(res.token, res.id))
         }
       })
   }
@@ -43,7 +44,11 @@ const setUser = user => {
 export const fetchUser = userId => {
   return (dispatch) => {
     return apiCall("GET", `/users/${userId}`)
-      .then(user => dispatch(setUser(user)))
+      .then(res => {
+        if (!res.error) {
+          dispatch(setUser(res));
+        }
+      })
   }
 }
 
