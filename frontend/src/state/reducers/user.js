@@ -1,10 +1,11 @@
 import history from '../history/history'
+import { setStorageToken, removeStorageToken, setStorageId, removeStorageId } from './helpers/storage'
 
 const userReducer = (state=null, action) => {
     switch(action.type) {
         case 'LOGIN_USER':
-            localStorage.setItem('vicariouslyToken', action.token)
-            localStorage.setItem('vicariouslyId', action.id)
+            setStorageToken(action.token)
+            setStorageId(action.id)
             history.push(`/${action.id}`)
             return state
         case 'SET_USER':
@@ -13,8 +14,8 @@ const userReducer = (state=null, action) => {
             console.log('relocate user action triggered for id: ', action.userId)
             return state
         case 'LOGOUT_USER':
-            localStorage.removeItem('vicariouslyToken')
-            localStorage.removeItem('vicariouslyId')
+            removeStorageToken()
+            removeStorageId()
             history.push('/login')
             return null
         default:

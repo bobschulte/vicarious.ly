@@ -1,15 +1,18 @@
 const tokenName = 'vicariouslyToken'
 const idName = 'vicariouslyId'
 
-export function setToken(token) {
+export const setStorageToken = token => {
     localStorage.setItem(tokenName, token)
 }
-export function removeToken() {
+
+export const removeStorageToken = () => {
     localStorage.removeItem(tokenName)
 }
-export function setId(id) {
+
+export const setStorageId = id => {
     localStorage.setItem(idName, id)
 }
-export function removeId() {
+
+export const removeStorageId = () => {
     localStorage.removeItem(idName)
 }
