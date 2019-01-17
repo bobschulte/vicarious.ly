@@ -1,15 +1,14 @@
 import React from 'react'
-import { Route } from 'react-router'
 import { connect } from 'react-redux'
 import Button from "@material-ui/core/Button";
 import actions from '../state/actions/index'
-import { storageToken } from '../helpers/storageItems'
 
 class Dashboard extends React.Component {
 
   constructor(props) {
     super(props)
-    !storageToken && this.props.history.push("/login");
+    let token = localStorage.getItem("vicariouslyToken");
+    !token && this.props.history.push("/login");
   }
 
   componentDidMount = () => {

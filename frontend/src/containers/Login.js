@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../state/actions/index'
-import { storageToken } from '../helpers/storageItems'
 import LoginForm from '../components/LoginForm'
 import RegisterForm from "../components/RegisterForm";
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    !!storageToken && this.props.history.push("/");
+    let token = localStorage.getItem("vicariouslyToken");
+    !!token && this.props.history.push("/");
   }
 
   render() {
