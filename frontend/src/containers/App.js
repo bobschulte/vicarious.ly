@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import history from '../state/history/history'
+import { storageId } from '../helpers/storageItems'
 import NavBar from './NavBar'
 import Dashboard from './Dashboard'
 import Login from './Login'
@@ -16,7 +17,7 @@ export default class App extends React.Component {
             <Route exact path="/register" component={Login} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/users/:id" component={Dashboard} />
-            <Route path="/" render={() => <Redirect to={`/users/${localStorage.getItem('vicariouslyId')}`} />} />
+            <Route path="/" render={() => <Redirect to={`/users/${storageId}`} />} />
           </Switch>
         </div>
       </Router>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { storageToken } from '../helpers/storageItems'
 import actions from '../state/actions/index'
 import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/Toolbar'
@@ -27,8 +28,6 @@ class NavBar extends React.Component {
     }
 
     render() {
-        let token = localStorage.getItem('vicariouslyToken')
-
         return <div style={{ flexgrow: 1 }}>
             <AppBar position="static">
               <ToolBar>
@@ -38,7 +37,7 @@ class NavBar extends React.Component {
                 <Typography style={{ flexgrow: 1, marginLeft: 10, marginRight: 10 }} variant="h4" color="inherit">
                   VICARIOUS.LY
                 </Typography>
-                {this.renderButtons(!!token)}
+                {this.renderButtons(!!storageToken)}
               </ToolBar>
             </AppBar>
           </div>;
