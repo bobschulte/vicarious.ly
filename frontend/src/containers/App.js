@@ -13,9 +13,9 @@ export default class App extends React.Component {
           <Route path="/" component={NavBar} />
           {/* bottom menu bar? */}
           <Switch>
-            <Route exact path="/register" component={Login} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/users/:id" component={Dashboard} />
+            <Route path="/register" component={Login} />
+            <Route path="/login" component={Login} />
+            <Route path="/users/:id" component={Dashboard} />
             <Route path="/" render={() => <Redirect to={`/users/${localStorage.getItem('vicariouslyId')}`} />} />
           </Switch>
         </div>

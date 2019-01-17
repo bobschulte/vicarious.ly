@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
 import Button from "@material-ui/core/Button";
 import actions from '../state/actions/index'
+import RelocateForm from '../components/RelocateForm'
 
 class Dashboard extends React.Component {
 
@@ -37,12 +39,13 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { user } = this.props
+    const { user, match } = this.props
 
     return (
       <div>
         {user && this.renderUserData()}
         {!user && <h1>Loading...</h1>}
+        <Route path={`${match.path}/relocate`} component={RelocateForm} />
       </div>
     )
   }

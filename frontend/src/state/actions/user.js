@@ -1,10 +1,10 @@
 import apiCall from './helpers/apiCall'
 
-const loginUserWith = (token, id) => {
+const loginUserWith = (token, userId) => {
   return {
     type: 'LOGIN_USER',
     token,
-    id
+    userId
   }
 }
 
