@@ -16,6 +16,11 @@ class Dashboard extends React.Component {
     this.props.fetchUser(userId)
   }
 
+  componentDidUpdate= () => {
+    let userId = this.props.match.params.id
+    this.props.fetchUser(userId)
+  }
+
   renderUserData = () => {
     return <div>
       <h2 style={{ marginLeft: 20 }}>

@@ -60,7 +60,7 @@ exports.register = (req, res, next) => {
 exports.login = (req, res, next) => {
     const timestamp = new Date().getTime()
     const token = jwt.encode({ sub: req.user.id, iat: timestamp }, process.env.SECRET);
-    res.status(200).json({ token })
+    res.status(200).json({ token: token, id: req.user.id })
 }
 
 // DO WE NEED THIS AT ALL WITH JWT (CLIENT CLEARS TOKEN)... RESPONSE MAY NEED WORK
