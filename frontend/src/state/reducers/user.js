@@ -14,6 +14,7 @@ const userReducer = (state=null, action) => {
             return state
         case 'LOGOUT_USER':
             localStorage.removeItem('vicariouslyToken')
+            localStorage.removeItem('vicariouslyId')
             history.push('/login')
             return null
         default:

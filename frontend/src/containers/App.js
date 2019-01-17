@@ -7,6 +7,7 @@ import Login from './Login'
 
 export default class App extends React.Component {
   render() {
+    console.log(localStorage.getItem('vicariouslyId'))
     return (
       <Router history={history} >
         <div>
