@@ -25,6 +25,10 @@ router.get('/cities',
     cityController.index
 );
 
+router.post('/cities',
+    cityController.create
+)
+
 router.get('/stays',
     // isAuthenticated,
     stayController.index

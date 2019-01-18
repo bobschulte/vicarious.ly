@@ -1,6 +1,6 @@
 const rootUrl = 'http://localhost:7777'
 
-const apiCall = (method, route, userData={}) => {
+const apiCall = (method, route, data={}) => {
     let headers = {
         'Content-Type': 'application/json'
     }
@@ -15,7 +15,7 @@ const apiCall = (method, route, userData={}) => {
         headers: headers,
     }
     if (method === 'POST') {
-        options.body = JSON.stringify(userData)
+        options.body = JSON.stringify(data)
     }
 
     return fetch(`${rootUrl}${route}`, options)

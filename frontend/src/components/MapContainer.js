@@ -14,7 +14,6 @@ class MapContainer extends React.Component {
     // }
 
     render() {
-        console.log(API_KEY)
         return (
             <div style={{ height: '40vh', width: '100%', float: 'right' }}>
                 <GoogleMapReact bootstrapURLKeys={{ key: API_KEY }} center={this.props.coords} zoom={4} />

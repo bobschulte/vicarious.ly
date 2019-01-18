@@ -39,6 +39,15 @@ class Dashboard extends React.Component {
           <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
         ))}
       </ul>
+      <h4 style={{ marginLeft: 20 }}>
+        Cities from backend:
+        </h4>
+      <ul>
+        {this.props.cities.map(city => (
+          <li key={city.id}>{city.name}</li>
+        ))}
+      </ul>
+      <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.fetchCities()}>Get Cities</Button>
     </div>;
   }
 
@@ -57,14 +66,16 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    cities: state.cities
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: userId => dispatch(actions.user.fetch(userId)),
-    relocateUser: userId => dispatch(actions.user.relocate(userId))
+    relocateUser: userId => dispatch(actions.user.relocate(userId)),
+    fetchCities: () => dispatch(actions.city.fetch())
   }
 }
 

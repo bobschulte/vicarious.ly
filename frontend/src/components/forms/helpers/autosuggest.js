@@ -27,8 +27,8 @@ export const renderInputComponent = function(inputProps) {
 }
 
 export const renderSuggestion = function(suggestion, { query, isHighlighted }) {
-  const matches = match(suggestion.name, query);
-  const parts = parse(suggestion.name, matches);
+  const matches = match(suggestion, query);
+  const parts = parse(suggestion, matches);
 
   return (
     <MenuItem selected={isHighlighted} component="div">
@@ -58,7 +58,7 @@ export const getSuggestions = function(value, suggestions) {
     ? []
     : suggestions.filter(suggestion => {
         const keep =
-          count < 5 && suggestion.name.slice(0, inputLength).toLowerCase() === inputValue;
+          count < 5 && suggestion.slice(0, inputLength).toLowerCase() === inputValue;
 
         if (keep) {
           count += 1;
@@ -69,5 +69,5 @@ export const getSuggestions = function(value, suggestions) {
 }
 
 export const getSuggestionValue = function(suggestion) {
-  return suggestion.name;
+  return suggestion;
 }

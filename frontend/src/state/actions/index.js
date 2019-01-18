@@ -1,5 +1,5 @@
 import { registerUser, loginUser, fetchUser, relocateUser, logoutUser } from './user'
-import { exampleCityAction } from './city'
+import { fetchCities } from './city'
 import { exampleStayAction } from './stay'
 
 const actions = {
@@ -11,7 +11,7 @@ const actions = {
         logout: logoutUser
     },
     city: {
-        example: exampleCityAction
+        fetch: fetchCities
     },
     stay: {
         example: exampleStayAction

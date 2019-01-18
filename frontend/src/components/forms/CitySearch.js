@@ -5,18 +5,20 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { styles } from './helpers/styles/citySearchStyles'
 import { renderInputComponent, renderSuggestion, getSuggestions, getSuggestionValue } from './helpers/autosuggest'
+import apiCall from '../../state/actions/helpers/apiCall'
 import cities from "./helpers/cities";
 
 class CitySearch extends React.Component {
   state = {
-    single: '',
+    city: '',
     popper: '',
     suggestions: [],
+    cityNames: []
   };
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value, cities),
+      suggestions: getSuggestions(value, this.state.cityNames),
     });
   };
 
@@ -31,6 +33,13 @@ class CitySearch extends React.Component {
       [name]: newValue,
     });
   };
+
+  componentDidMount = () => {
+    apiCall('GET', '/cities')
+    .then(cityNames => {
+      this.setState({ cityNames })
+    })
+  }
 
   render() {
     const { classes } = this.props;
@@ -51,8 +60,8 @@ class CitySearch extends React.Component {
           inputProps={{
             classes,
             placeholder: 'Search for a city...',
-            value: this.state.single,
-            onChange: this.handleChange('single'),
+            value: this.state.city,
+            onChange: this.handleChange('city'),
           }}
           theme={{
             container: classes.container,
