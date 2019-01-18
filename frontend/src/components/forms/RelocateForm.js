@@ -53,14 +53,13 @@ class RelocateForm extends React.Component {
                 <Typography component="h1" variant="h5">
                 Find your next home!
                 </Typography>
-                <br/ >
                 <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
-                <MapContainer coords={this.state.coords} />
                 <FormControl margin="normal" required fullWidth>
                     {/* <InputLabel htmlFor="firstName">Select a City...</InputLabel>
                     <Input value={this.state.name} onChange={this.handleInputChange} name="name" type="name" id="name" autoFocus /> */}
                     <CitySearch />
                 </FormControl>
+                    <MapContainer coords={this.state.coords} />
                 <Button
                     type="submit"
                     fullWidth
