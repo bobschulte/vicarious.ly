@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
 import Button from "@material-ui/core/Button";
 import actions from '../state/actions/index'
-import RelocateForm from '../components/RelocateForm'
+import RelocateForm from '../components/forms/RelocateForm'
 
 class Dashboard extends React.Component {
 

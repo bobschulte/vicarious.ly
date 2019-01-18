@@ -12,6 +12,7 @@ const userReducer = (state=null, action) => {
             return action.user // { ...state, user: action.user }  <-- if switch to other rootReducer implementation
         case 'RELOCATE_USER':
             console.log('relocate user action triggered for id: ', action.userId)
+            console.log('moving user to: ', action.city)
             return state
         case 'LOGOUT_USER':
             removeStorageToken()

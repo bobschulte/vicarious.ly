@@ -52,10 +52,13 @@ export const fetchUser = userId => {
   }
 }
 
-export const relocateUser = userId => {
+export const relocateUser = (userId, city) => {
+  console.log('relocate action creator hit!')
+  // this needs to be a thunk function that patches the user!
   return {
     type: 'RELOCATE_USER',
-    userId
+    userId,
+    city
   };
 };
 

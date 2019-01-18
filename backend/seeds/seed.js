@@ -9,7 +9,7 @@ const seed = async (db) => {
         db.City.create( { name: 'London', country: 'United Kingdom', createdAt: new Date(), updatedAt: new Date() } ),
         db.City.create( { name: 'Madrid', country: 'Spain', createdAt: new Date(), updatedAt: new Date() } ),
         db.City.create( { name: 'Tokyo', country: 'Japan', createdAt: new Date(), updatedAt: new Date() } ),
-        db.City.create( { name: 'Johannesburg', country: 'South Africa', createdAt: new Date(), updatedAt: new Date() } ),
+        db.City.create( { name: 'Cape Town', country: 'South Africa', createdAt: new Date(), updatedAt: new Date() } ),
         db.City.create( { name: 'Buenos Aires', country: 'Argentina', createdAt: new Date(), updatedAt: new Date() } )
     ])
     
