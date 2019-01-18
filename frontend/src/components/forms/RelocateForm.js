@@ -36,7 +36,7 @@ class RelocateForm extends React.Component {
         console.log('passed it back: ', cityNameWithCountry)
         let slug = sluggify(cityNameWithCountry)
         console.log(slug)
-        apiCall('GET', `/cities/${slug}`) // figure out how to send the city name or coords thru params
+        apiCall('GET', `/cities/${slug}`)
         .then(city => this.setState({
             coords: {
               lat: city.lat,
@@ -49,8 +49,10 @@ class RelocateForm extends React.Component {
         this.setState({ [e.target.id]: e.target.value })
     }
     
-    handleSubmit = e => {
+    // this is buggy - it submits when an option is selected, doesnt wait for the form button
+    handleSubmitButton = e => {
         e.preventDefault()
+        console.log('submit hit! with: ', this.state)
         // this.props.relocate(localStorage.getItem('vicariouslyToken'), this.state)
         this.setState({
             cityName: '',
@@ -64,7 +66,7 @@ class RelocateForm extends React.Component {
     render() {
         const { classes, cities } = this.props;
         const { coords } = this.state
-        console.log('user location prop: ', this.props)
+
         return (
             <main className={classes.main}>
             <CssBaseline />
@@ -75,7 +77,7 @@ class RelocateForm extends React.Component {
                 <Typography component="h1" variant="h5">
                 Find your next home!
                 </Typography>
-                <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
+                <form id="user-form" className={classes.form} >
                 <FormControl margin="normal" required fullWidth>
                     <CitySearch cities={cities} getCoordsFor={this.setCoords} />
                 </FormControl>
@@ -85,6 +87,7 @@ class RelocateForm extends React.Component {
                     fullWidth
                     variant="contained"
                     color="primary"
+                    onClick={this.handleSubmitButton}
                     className={classes.submit}
                 >
                     I'm on the Move!
