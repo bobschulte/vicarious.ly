@@ -5,19 +5,17 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { styles } from './helpers/styles/citySearchStyles'
 import { renderInputComponent, renderSuggestion, getSuggestions, getSuggestionValue } from './helpers/autosuggest'
-import apiCall from '../../state/actions/helpers/apiCall'
 
 class CitySearch extends React.Component {
   state = {
     cityName: '',
     popper: '',
-    suggestions: [],
-    cities: []
+    suggestions: []
   };
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value, this.state.cities),
+      suggestions: getSuggestions(value, this.props.cities),
     });
   };
 
@@ -32,13 +30,6 @@ class CitySearch extends React.Component {
       [name]: newValue,
     });
   };
-
-  componentDidMount = () => {
-    apiCall('GET', '/cities')
-    .then(cities => {
-      this.setState({ cities })
-    })
-  }
 
   render() {
     const { classes } = this.props;

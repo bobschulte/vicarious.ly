@@ -50,8 +50,14 @@ class RelocateForm extends React.Component {
         })
     }
 
+    componentDidMount = () => {
+        this.props.fetchCities()
+    }
+
     render() {
-        const { classes } = this.props;
+        const { classes, cities } = this.props;
+        const { coords } = this.state
+
         return (
             <main className={classes.main}>
             <CssBaseline />
@@ -64,9 +70,9 @@ class RelocateForm extends React.Component {
                 </Typography>
                 <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>
-                    <CitySearch setCoords={this.setCoords} />
+                    <CitySearch cities={cities} setCoords={this.setCoords} />
                 </FormControl>
-                    <MapContainer coords={this.state.coords} />
+                    <MapContainer coords={coords} />
                 <Button
                     type="submit"
                     fullWidth
@@ -89,13 +95,15 @@ RelocateForm.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        cities: state.cities
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        relocate: (userId, city) => dispatch(actions.user.relocate(userId, city))
+        relocate: (userId, city) => dispatch(actions.user.relocate(userId, city)),
+        fetchCities: () => dispatch(actions.city.fetch())
     }
 }
 

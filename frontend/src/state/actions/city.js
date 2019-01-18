@@ -8,7 +8,6 @@ const setCities = cities => {
 }
 
 export const fetchCities = () => {
-  console.log('hit!')
   return dispatch => {
     return apiCall("GET", '/cities').then(res => {
       if (!res.error) {

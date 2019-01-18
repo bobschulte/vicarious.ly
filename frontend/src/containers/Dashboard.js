@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import actions from '../state/actions/index'
 import RelocateForm from '../components/forms/RelocateForm'
 
@@ -31,7 +31,6 @@ class Dashboard extends React.Component {
           <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
         ))}
       </ul>
-      <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.fetchCities()}>Get Cities</Button>
     </div>;
   }
 
