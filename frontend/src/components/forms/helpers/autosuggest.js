@@ -4,8 +4,6 @@ import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import suggestions from "./cities";
-
 
 
 export const renderInputComponent = function(inputProps) {
@@ -51,7 +49,7 @@ export const renderSuggestion = function(suggestion, { query, isHighlighted }) {
   );
 }
 
-export const getSuggestions = function(value) {
+export const getSuggestions = function(value, suggestions) {
   const inputValue = deburr(value.trim()).toLowerCase();
   const inputLength = inputValue.length;
   let count = 0;

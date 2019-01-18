@@ -28,11 +28,11 @@ class Dashboard extends React.Component {
   renderUserData = () => {
     return <div>
       <h2 style={{ marginLeft: 20 }}>
-        Welcome, {this.props.user.firstName}. You are in {this.props.user.location}.
+        {this.props.user.firstName} is in {this.props.user.location}.
         </h2>
       {this.renderRelocateButton()}
       <h4 style={{ marginLeft: 20 }}>
-        You have visited:
+        Cities visited:
         </h4>
       <ul>
         {this.props.user.Stays.map(stay => (

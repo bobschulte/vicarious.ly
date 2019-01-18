@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { styles } from './helpers/styles/citySearchStyles'
 import { renderInputComponent, renderSuggestion, getSuggestions, getSuggestionValue } from './helpers/autosuggest'
+import cities from "./helpers/cities";
 
 class CitySearch extends React.Component {
   state = {
@@ -15,7 +16,7 @@ class CitySearch extends React.Component {
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value),
+      suggestions: getSuggestions(value, cities),
     });
   };
 
