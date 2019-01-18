@@ -25,8 +25,8 @@ class CitySearch extends React.Component {
     });
   };
 
-  handleSuggestionSelected = () => {
-    console.log('selected!')
+  handleSuggestionSelected = (e, { suggestion }) => {
+    this.props.getCoordsFor(suggestion)
   }
 
   handleChange = name => (event, { newValue }) => {

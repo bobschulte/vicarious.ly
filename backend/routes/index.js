@@ -30,7 +30,7 @@ router.get('/cities',
 //     cityController.create
 // )
 
-router.get('/cities/:id',
+router.get('/cities/:slug',
     cityController.show
 )
 

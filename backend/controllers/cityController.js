@@ -19,8 +19,15 @@ exports.index = (req, res) => {
 }
 
 exports.show = (req, res) => {
-    City.findOne({ where: { nameWithCountry: 'Bogotá, Colombia'} })
-    .then(city => res.status(200).json(city))
+    // City.findOne({ where: { slug: req.params.slug } })
+    // // .then(city => res.status(200).json(city))
+    // .then(city => console.log('found city: ', city))
+
+    City.findAll()
+    .then(cities => {
+        let city = cities.find(city => city.slug === req.params.slug)
+        res.status(200).json(city)
+    })
 }
 
 

@@ -13,7 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { styles } from "./helpers/styles/relocateStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CitySearch from './CitySearch'
-// import apiCall from '../../state/actions/helpers/apiCall'
+import { sluggify } from './helpers/sluggify';
+import apiCall from '../../state/actions/helpers/apiCall'
 
 
 class RelocateForm extends React.Component {
@@ -31,11 +32,17 @@ class RelocateForm extends React.Component {
         }
     }
 
-    setCoords = coords => {
-        // apiCall('/GET', ) // figure out how to send the city name or coords thru params
-        // .then(res => this.setState({
-        //     coords: res.coords
-        // }))
+    setCoords = cityNameWithCountry => {
+        console.log('passed it back: ', cityNameWithCountry)
+        let slug = sluggify(cityNameWithCountry)
+        console.log(slug)
+        apiCall('GET', `/cities/${slug}`) // figure out how to send the city name or coords thru params
+        .then(city => this.setState({
+            coords: {
+              lat: city.lat,
+              lng: city.lng  
+            }
+        }))
     }
 
     handleInputChange = e => {
@@ -51,13 +58,13 @@ class RelocateForm extends React.Component {
     }
 
     componentDidMount = () => {
-        this.props.fetchCities()
+        this.props.fetchAllCities()
     }
 
     render() {
         const { classes, cities } = this.props;
         const { coords } = this.state
-
+        console.log('user location prop: ', this.props)
         return (
             <main className={classes.main}>
             <CssBaseline />
@@ -70,7 +77,7 @@ class RelocateForm extends React.Component {
                 </Typography>
                 <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>
-                    <CitySearch cities={cities} setCoords={this.setCoords} />
+                    <CitySearch cities={cities} getCoordsFor={this.setCoords} />
                 </FormControl>
                     <MapContainer coords={coords} />
                 <Button
@@ -103,7 +110,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         relocate: (userId, city) => dispatch(actions.user.relocate(userId, city)),
-        fetchCities: () => dispatch(actions.city.fetch())
+        fetchAllCities: () => dispatch(actions.city.fetchAll())
     }
 }
 

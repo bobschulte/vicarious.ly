@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
         </h4>
       <ul>
         {this.props.user.Stays.map(stay => (
-          <li key={stay.City.id}>{stay.City.slug}</li>
+          <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
         ))}
       </ul>
     </div>;

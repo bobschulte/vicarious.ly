@@ -7,7 +7,7 @@ const setCities = cities => {
   }
 }
 
-export const fetchCities = () => {
+export const fetchAllCities = () => {
   return dispatch => {
     return apiCall("GET", '/cities').then(res => {
       if (!res.error) {
