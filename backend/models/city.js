@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       nameWithCountry() {
         return this.name + ', ' + this.country
       },
+      slug() {
+        let name = this.name.split(' ').join('-').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase()
+        let country = this.country.split(' ').join('-').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase()
+        return [name, country].join('-')
+      }
     }
   });
   City.associate = function(db) {

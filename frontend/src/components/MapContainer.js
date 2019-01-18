@@ -5,6 +5,10 @@ import API_KEY from '../api/googlemaps/API_KEY'
 
 class MapContainer extends React.Component {
 
+    // displayFlightPath = () => {
+    //     // blah blah blah
+    // }
+
     // displayCityLocation = (city) => {
     //     <Marker key={index} rank={index + 1} lat={city.location.lat} lng={city.location.lng} name={city.name} img="https://freeiconshop.com/wp-content/uploads/edd/burger-outline-filled.png" />;
     // }

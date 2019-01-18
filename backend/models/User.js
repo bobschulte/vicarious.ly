@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
           return currentStay.City.nameWithCountry
         }
       },
+      slug() {
+        let slugFirstName = this.firstName.split(' ').join('-').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase()
+        let slugLastName = this.lastName.split(' ').join('-').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase()
+        return [slugFirstName, slugLastName].join('-')
+      },
       gravatar() {
         const hash = md5(this.email);
         return `https://gravatar.com/avatar/${hash}?s=200`;

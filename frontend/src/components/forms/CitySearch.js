@@ -25,6 +25,10 @@ class CitySearch extends React.Component {
     });
   };
 
+  handleSuggestionSelected = () => {
+    console.log('selected!')
+  }
+
   handleChange = name => (event, { newValue }) => {
     this.setState({
       [name]: newValue,
@@ -39,6 +43,7 @@ class CitySearch extends React.Component {
       suggestions: this.state.suggestions,
       onSuggestionsFetchRequested: this.handleSuggestionsFetchRequested,
       onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
+      onSuggestionSelected: this.handleSuggestionSelected,
       getSuggestionValue,
       renderSuggestion,
     };
