@@ -57,7 +57,7 @@ export const getSuggestions = function(value, suggestions) {
   return inputLength === 0
     ? []
     : suggestions.filter(suggestion => {
-      let substringsToMatch = suggestion.split(' ').map(substring => substring.slice(0, inputLength).toLowerCase())
+      let substringsToMatch = suggestion.split(', ').map(substring => substring.slice(0, inputLength).toLowerCase())
         const keep =
           count < 5 && substringsToMatch.includes(inputValue);
 

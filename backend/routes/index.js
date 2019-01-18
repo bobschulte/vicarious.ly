@@ -25,9 +25,10 @@ router.get('/cities',
     cityController.index
 );
 
-router.post('/cities',
-    cityController.create
-)
+// USED TO SEED
+// router.post('/cities',
+//     cityController.create
+// )
 
 router.get('/cities/:id',
     cityController.show

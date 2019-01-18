@@ -1,7 +1,6 @@
 const db = require("../models/index");
 const City = db.City;
 const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 
 // NEEDS ERROR HANDLING
 exports.index = (req, res) => {
@@ -24,7 +23,9 @@ exports.show = (req, res) => {
     .then(city => res.status(200).json(city))
 }
 
-exports.create = (req, res) => {
+
+// USED TO SEED
+// exports.create = (req, res) => {
     // console.log('city data posted: ', req.body)
     // City.findOrCreate({ where: req.body })
     // .catch(errors => {
@@ -39,6 +40,4 @@ exports.create = (req, res) => {
     //         res.json({error: 'couldnt seed'})
     //     }
     // })
-    City.findAndCountAll({where: {population: {[Op.gt]: 100000}}, offset: 1, limit: 1})
-    .then(res => console.log('# of cities seeded: ', res.count))
-}
+// }

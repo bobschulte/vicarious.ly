@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const City = sequelize.define('City', {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-    name: { type: DataTypes.STRING, allowNull: false, unique: true },
+    name: { type: DataTypes.STRING, allowNull: false },
     country: { type: DataTypes.STRING, allowNull: false },
     population: DataTypes.INTEGER,
     lat: DataTypes.FLOAT,

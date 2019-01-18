@@ -27,17 +27,16 @@ export const fetchCities = () => {
   let count = 0
   fetch(`${teleportRootUrl}/countries`).then(res => res.json())
   .then(countries => {
-    console.log(countries["_links"]["country:items"].length)
-    countries['_links']['country:items'].slice(0,1).forEach(country => { // goes up to index 251! // through 99
+    countries['_links']['country:items'].slice(238,239).forEach(country => { // goes up to index 251! // USA is 238
       fetch(`${country.href}/admin1_divisions`).then(res => res.json())
       .then(divisions => {
         divisions['_links']['a1:items'].slice(0,1).forEach(division => {
           fetch(`${division.href}/cities`).then(res => res.json())
           .then(cities => {
-            cities['_links']['city:items'].slice(0,1).forEach(city => {
+            cities['_links']['city:items'].forEach(city => {
               fetch(`${city.href}`).then(res => res.json())
               .then(cityData => {
-                if (cityData.population && cityData.population > 10000) {
+                if (cityData.population && cityData.population > 99999) {
                   count++
                   let city = {
                     name: cityData.name,
@@ -53,7 +52,7 @@ export const fetchCities = () => {
             })
           })
         })
-      }).then(() => console.log('done!'))
+      })
     })
   })
 
