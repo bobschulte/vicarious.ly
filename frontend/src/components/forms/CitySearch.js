@@ -9,15 +9,15 @@ import apiCall from '../../state/actions/helpers/apiCall'
 
 class CitySearch extends React.Component {
   state = {
-    city: '',
+    cityName: '',
     popper: '',
     suggestions: [],
-    cityNames: []
+    cities: []
   };
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value, this.state.cityNames),
+      suggestions: getSuggestions(value, this.state.cities),
     });
   };
 
@@ -35,8 +35,8 @@ class CitySearch extends React.Component {
 
   componentDidMount = () => {
     apiCall('GET', '/cities')
-    .then(cityNames => {
-      this.setState({ cityNames })
+    .then(cities => {
+      this.setState({ cities })
     })
   }
 
@@ -59,8 +59,8 @@ class CitySearch extends React.Component {
           inputProps={{
             classes,
             placeholder: 'Type a city or country...',
-            value: this.state.city,
-            onChange: this.handleChange('city'),
+            value: this.state.cityName,
+            onChange: this.handleChange('cityName'),
           }}
           theme={{
             container: classes.container,

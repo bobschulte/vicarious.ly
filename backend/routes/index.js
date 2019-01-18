@@ -29,6 +29,10 @@ router.post('/cities',
     cityController.create
 )
 
+router.get('/cities/:id',
+    cityController.show
+)
+
 router.get('/stays',
     // isAuthenticated,
     stayController.index

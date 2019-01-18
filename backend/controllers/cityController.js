@@ -5,8 +5,6 @@ const Op = Sequelize.Op
 
 // NEEDS ERROR HANDLING
 exports.index = (req, res) => {
-    console.log('hit city index controller!')
-    // res.status(200).json([{id: 0, name: 'Bogotá'},{id: 1, name: 'Hanoi'}, {id: 2, name: 'London'}])
     City.findAll({
         include: [{
             model: db.Stay,
@@ -14,9 +12,16 @@ exports.index = (req, res) => {
         }]
     })
     .then(cities => {
-        cities = cities.map(city => city.nameWithCountry)
+        cities = cities.sort((a, b) => {
+            return b.population - a.population
+        }).map(city => city.nameWithCountry)
         res.status(200).json(cities);
     })
+}
+
+exports.show = (req, res) => {
+    City.findOne({ where: { nameWithCountry: 'Bogotá, Colombia'} })
+    .then(city => res.status(200).json(city))
 }
 
 exports.create = (req, res) => {
@@ -35,5 +40,5 @@ exports.create = (req, res) => {
     //     }
     // })
     City.findAndCountAll({where: {population: {[Op.gt]: 100000}}, offset: 1, limit: 1})
-    .then(res => console.log('# of cities seeded: ',res.count))
+    .then(res => console.log('# of cities seeded: ', res.count))
 }

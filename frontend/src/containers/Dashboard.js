@@ -18,19 +18,11 @@ class Dashboard extends React.Component {
     this.props.fetchUser(userId)
   }
 
-  renderRelocateButton = () => {
-    return <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.history.push(`/users/${this.props.user.id}/relocate`)}>
-      {" "}
-      Move to a New City{" "}
-    </Button>
-  }
-
   renderUserData = () => {
     return <div>
       <h2 style={{ marginLeft: 20 }}>
         {this.props.user.firstName} is in {this.props.user.location}.
         </h2>
-      {this.renderRelocateButton()}
       <h4 style={{ marginLeft: 20 }}>
         Cities visited:
         </h4>
@@ -66,7 +58,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: userId => dispatch(actions.user.fetch(userId)),
-    relocateUser: userId => dispatch(actions.user.relocate(userId)),
     fetchCities: () => dispatch(actions.city.fetch())
   }
 }

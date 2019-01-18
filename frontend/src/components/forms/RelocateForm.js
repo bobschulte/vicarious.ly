@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { styles } from "./helpers/styles/relocateStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CitySearch from './CitySearch'
+import apiCall from '../../state/actions/helpers/apiCall'
 
 
 class RelocateForm extends React.Component {
@@ -22,12 +23,19 @@ class RelocateForm extends React.Component {
         let token = localStorage.getItem("vicariouslyToken");
         !token && this.props.history.push("/");
         this.state = {
-            name: 'Bogotá',
+            cityName: '',
             coords: {
-                lat: 4.7110,
-                lng: -74.0721
+                lat: 4,
+                lng: -78
             }
         }
+    }
+
+    setCoords = coords => {
+        // apiCall('/GET', ) // figure out how to send the city name or coords thru params
+        // .then(res => this.setState({
+        //     coords: res.coords
+        // }))
     }
 
     handleInputChange = e => {
@@ -36,8 +44,9 @@ class RelocateForm extends React.Component {
     
     handleSubmit = e => {
         e.preventDefault()
+        // this.props.relocate(localStorage.getItem('vicariouslyToken'), this.state)
         this.setState({
-            name: '',
+            cityName: '',
         })
     }
 
@@ -55,9 +64,7 @@ class RelocateForm extends React.Component {
                 </Typography>
                 <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>
-                    {/* <InputLabel htmlFor="firstName">Select a City...</InputLabel>
-                    <Input value={this.state.name} onChange={this.handleInputChange} name="name" type="name" id="name" autoFocus /> */}
-                    <CitySearch />
+                    <CitySearch setCoords={this.setCoords} />
                 </FormControl>
                     <MapContainer coords={this.state.coords} />
                 <Button

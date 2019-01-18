@@ -14,7 +14,8 @@ const apiCall = (method, route, data={}) => {
         method: method,
         headers: headers,
     }
-    if (method === 'POST') {
+
+    if (method === 'POST' || method === 'PATCH') {
         options.body = JSON.stringify(data)
     }
 

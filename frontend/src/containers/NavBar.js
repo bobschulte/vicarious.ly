@@ -14,13 +14,15 @@ class NavBar extends React.Component {
         let sourceButton = e.target.textContent;
         if (sourceButton === 'logout') {
             this.props.logoutUser()
+        } else if (sourceButton === 'relocate') {
+            this.props.history.push(`/users/${localStorage.getItem('vicariouslyId')}/${sourceButton}`)
         } else {
             this.props.history.push(`/${sourceButton}`)
         }
     }
 
     renderButtons = (isLoggedIn) => {
-        let buttons = isLoggedIn ? ['logout'] : ['login', 'register']
+        let buttons = isLoggedIn ? ['logout', 'relocate'] : ['login', 'register']
         return buttons.map(text => <Button key={text} style={{ marginLeft: 20, marginRight: 20 }} variant="contained" onClick={this.handleButtonClick}>
             {text}
         </Button>)
