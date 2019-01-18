@@ -39,14 +39,6 @@ class Dashboard extends React.Component {
           <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
         ))}
       </ul>
-      <h4 style={{ marginLeft: 20 }}>
-        Cities from backend:
-        </h4>
-      <ul>
-        {this.props.cities.map(city => (
-          <li key={city.id}>{city.name}</li>
-        ))}
-      </ul>
       <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.fetchCities()}>Get Cities</Button>
     </div>;
   }

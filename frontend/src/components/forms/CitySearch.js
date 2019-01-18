@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { styles } from './helpers/styles/citySearchStyles'
 import { renderInputComponent, renderSuggestion, getSuggestions, getSuggestionValue } from './helpers/autosuggest'
 import apiCall from '../../state/actions/helpers/apiCall'
-import cities from "./helpers/cities";
 
 class CitySearch extends React.Component {
   state = {
@@ -59,7 +58,7 @@ class CitySearch extends React.Component {
           {...autosuggestProps}
           inputProps={{
             classes,
-            placeholder: 'Search for a city...',
+            placeholder: 'Type a city or country...',
             value: this.state.city,
             onChange: this.handleChange('city'),
           }}
