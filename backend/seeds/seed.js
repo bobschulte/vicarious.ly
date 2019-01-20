@@ -2,7 +2,7 @@ const seed = async (db) => {
     // db.User.destroy({ where: {} })
     // db.Stay.destroy({ where: {} })
 
-    let cities = await Promise.all([
+    // let cities = await Promise.all([
         // db.City.findOne({ where: { name: 'Buenos Aires', country: 'Argentina' } }),
         // db.City.findOne({ where: { name: 'Bogotá', country: 'Colombia' } }),
         // db.City.findOne({ where: { name: 'Tokyo', country: 'Japan' } }),
@@ -10,7 +10,7 @@ const seed = async (db) => {
         // db.City.findOne({ where: { name: 'Madrid', country: 'Spain' } }),
         // db.City.findOne({ where: { name: 'Bangkok', country: 'Thailand' } }),
         // db.City.findOne({ where: { name: 'London', country: 'United Kingdom' } }),
-    ])
+    // ])
     
     // const buenosAires = cities[0]
     // const bogota = cities[1]
@@ -23,7 +23,7 @@ const seed = async (db) => {
     // console.log('BUENOS AIRES: ', buenosAires)
     // console.log('BOGOTÁ: ', bogota)
     
-    let users = await Promise.all([
+    // let users = await Promise.all([
         // db.User.findOne({ where: { firstName: 'Robert' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
         // db.User.findOne({ where: { firstName: 'Dawson' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
         // db.User.findOne({ where: { firstName: 'Milam' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
@@ -31,7 +31,7 @@ const seed = async (db) => {
         // db.User.findOne({ where: { firstName: 'Jackson' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
         // db.User.findOne({ where: { firstName: 'Wilson' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
         // db.User.findOne({ where: { firstName: 'Will' }, include: [{ model: db.Stay, include: [ db.City ] }] })
-    ])
+    // ])
     
     // const robert = users[0]
     // const dawson = users[1]
