@@ -1,10 +1,10 @@
 const seed = async (db) => {
     // db.User.destroy({ where: {} })
-    db.Stay.destroy({ where: {} })
+    // db.Stay.destroy({ where: {} })
 
     let cities = await Promise.all([
-        db.City.findOne({ where: { name: 'Buenos Aires', country: 'Argentina' } }),
-        db.City.findOne({ where: { name: 'Bogotá', country: 'Colombia' } }),
+        // db.City.findOne({ where: { name: 'Buenos Aires', country: 'Argentina' } }),
+        // db.City.findOne({ where: { name: 'Bogotá', country: 'Colombia' } }),
         // db.City.findOne({ where: { name: 'Tokyo', country: 'Japan' } }),
         // db.City.findOne({ where: { name: 'Cape Town', country: 'South Africa' } }),
         // db.City.findOne({ where: { name: 'Madrid', country: 'Spain' } }),
@@ -12,8 +12,8 @@ const seed = async (db) => {
         // db.City.findOne({ where: { name: 'London', country: 'United Kingdom' } }),
     ])
     
-    const buenosAires = cities[0]
-    const bogota = cities[1]
+    // const buenosAires = cities[0]
+    // const bogota = cities[1]
     // const tokyo = cities[2]
     // const capeTown = cities[3]
     // const madrid = cities[4]
@@ -24,8 +24,8 @@ const seed = async (db) => {
     // console.log('BOGOTÁ: ', bogota)
     
     let users = await Promise.all([
-        db.User.findOne({ where: { firstName: 'Robert' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
-        db.User.findOne({ where: { firstName: 'Dawson' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
+        // db.User.findOne({ where: { firstName: 'Robert' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
+        // db.User.findOne({ where: { firstName: 'Dawson' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
         // db.User.findOne({ where: { firstName: 'Milam' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
         // db.User.findOne({ where: { firstName: 'Charlie' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
         // db.User.findOne({ where: { firstName: 'Jackson' }, include: [{ model: db.Stay, include: [ db.City ] }] }),
@@ -33,8 +33,8 @@ const seed = async (db) => {
         // db.User.findOne({ where: { firstName: 'Will' }, include: [{ model: db.Stay, include: [ db.City ] }] })
     ])
     
-    const robert = users[0]
-    const dawson = users[1]
+    // const robert = users[0]
+    // const dawson = users[1]
     // const milam = users[2]
     // const charlie = users[3]
     // const jackson = users[4]
@@ -58,8 +58,8 @@ const seed = async (db) => {
     //     console.log(res)
     // })
 
-    robert.createStay({ CityId: buenosAires.id, arrival: new Date() }).then(res => console.log(res.dataValues)).catch(err => console.log(err))
-    dawson.createStay({ CityId: bogota.id, arrival: new Date() }).then(res => console.log(res.dataValues)).catch(err => console.log(err))
+    // robert.createStay({ CityId: buenosAires.id, arrival: new Date() }).then(res => console.log(res.dataValues)).catch(err => console.log(err))
+    // dawson.createStay({ CityId: bogota.id, arrival: new Date() }).then(res => console.log(res.dataValues)).catch(err => console.log(err))
     
     // await Promise.all([
     //     db.Stay.create( { UserId: robert.id, CityId: buenosAires.id, arrival: new Date(2018, 11, 24), departure: new Date(2019, 1, 4) } ),
