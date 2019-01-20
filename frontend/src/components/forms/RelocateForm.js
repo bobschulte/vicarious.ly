@@ -24,7 +24,7 @@ class RelocateForm extends React.Component {
         let token = localStorage.getItem("vicariouslyToken");
         !token && this.props.history.push("/");
         this.state = {
-            cityName: '',
+            cityNameWithCountry: '',
             coords: {
                 lat: 4,
                 lng: -78
@@ -33,6 +33,7 @@ class RelocateForm extends React.Component {
     }
 
     setCoordsFor = cityNameWithCountry => {
+         if (!cityNameWithCountry) return
         let slug = sluggify(cityNameWithCountry)
         apiCall('GET', `/cities/${slug}`)
         .then(city => this.setState({
@@ -51,10 +52,10 @@ class RelocateForm extends React.Component {
     
     handleSubmit = e => {
         e.preventDefault()
-        console.log('submit hit! with: ', this.state)
-        // this.props.relocate(localStorage.getItem('vicariouslyToken'), this.state)
+        this.props.endStay(this.props.user)
+        // this.props.relocateTo(this.state.cityNameWithCountry, this.props.user)
         this.setState({
-            cityName: '',
+            cityNameWithCountry: '',
         })
     }
 
@@ -83,7 +84,7 @@ class RelocateForm extends React.Component {
                 </Typography>
                 <form id="user-form" className={classes.form} >
                 <FormControl margin="normal" required fullWidth>
-                    <CitySearch handleSubmit={this.handleSubmit} handleChange={this.handleInputChange} cityName={this.state.cityName} cities={cities} getCoordsFor={this.setCoordsFor} />
+                    <CitySearch handleChange={this.handleInputChange} value={this.state.cityNameWithCountry} cities={cities} getCoordsFor={this.setCoordsFor} />
                 </FormControl>
                 <Button
                     type="button"
@@ -116,7 +117,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        relocate: (userId, city) => dispatch(actions.user.relocate(userId, city)),
+        endStay: (user) => dispatch(actions.user.endStay(user)),
+        relocateTo: (city, user) => dispatch(actions.user.relocateTo(city, user)),
         fetchAllCities: () => dispatch(actions.city.fetchAll())
     }
 }

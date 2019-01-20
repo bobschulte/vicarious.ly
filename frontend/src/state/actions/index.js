@@ -1,22 +1,22 @@
-import { registerUser, loginUser, fetchUser, relocateUser, logoutUser } from './user'
+import { registerUser, loginUser, fetchUser, endStay, relocateUserTo, logoutUser } from './user'
 import { fetchAllCities } from './city'
-import { endStay, beginStay } from './stay'
+// import {  } from './stay'
 
 const actions = {
     user: {
         register: registerUser,
         login: loginUser,
         fetch: fetchUser,
-        relocate: relocateUser,
+        endStay: endStay,
+        relocateTo: relocateUserTo,
         logout: logoutUser
     },
     city: {
         fetchAll: fetchAllCities
     },
-    stay: {
-        end: endStay,
-        begin: beginStay
-    }
+    // stay: {
+        
+    // }
 }
 
 export default actions

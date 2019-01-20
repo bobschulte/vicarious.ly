@@ -9,12 +9,39 @@ exports.index = (req, res) => {
 
 exports.show = (req, res) => {
     if (req.user) {
-        delete req.user.passwordHash
-        delete req.user.passwordSalt
+        // const user = req.user
+        req.user.id = 'hidden'
+        req.user.passwordHash = 'hidden'
+        req.user.passwordSalt = 'hidden'
         res.status(200).json(req.user)
     } else {
         res.status(403).json({ error: 'Please log in' })
     }
+}
+
+exports.patch = (req, res) => {
+    console.log("TESTS: ", !!req.user, req.user.userIdSlug === req.params.userIdSlug);
+    if (req.user && req.user.userIdSlug === req.params.userIdSlug) {
+        const currentStay = req.user.Stays.find(stay => stay.departure === null)
+        currentStay.update({
+            departure: new Date()
+        }).then(stay => res.status(200).json(req.user))
+    }
+    
+    
+    // User.update({
+    //     Stays: req.body.Stays   
+    // }, {
+    //     where: { id: req.user.id },
+    //     include: [{
+    //         model: db.Stay,
+    //         include: [ db.City ]
+    //     }]
+    // })
+    // .then((user, error) => {
+    //     console.log('user:', user)
+    //     console.log('error:', error)
+    // })
 }
 
 // middleware that ensures cleanliness of user-submitted registration data
@@ -58,8 +85,9 @@ exports.register = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     const timestamp = new Date().getTime()
+    const userIdSlug = req.user.userIdSlug
     const token = jwt.encode({ sub: req.user.id, iat: timestamp }, process.env.SECRET);
-    res.status(200).json({ token: token, id: req.user.id })
+    res.status(200).json({ token, userIdSlug })
 }
 
 // DO WE NEED THIS AT ALL WITH JWT (CLIENT CLEARS TOKEN)... RESPONSE MAY NEED WORK

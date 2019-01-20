@@ -49,8 +49,8 @@ class CitySearch extends React.Component {
           inputProps={{
             classes,
             placeholder: 'Type a city or country...',
-            value: this.props.cityName,
-            onChange: this.props.handleChange('cityName'),
+            value: this.props.value,
+            onChange: this.props.handleChange('cityNameWithCountry'),
           }}
           theme={{
             container: classes.container,

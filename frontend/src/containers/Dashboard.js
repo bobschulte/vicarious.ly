@@ -14,29 +14,33 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount = () => {
-    let userId = this.props.match.params.id
-    this.props.fetchUser(userId)
+    const { userIdSlug } = this.props.match.params
+    this.props.fetchUser(userIdSlug)
   }
 
   renderUserData = () => {
+    let { firstName, location, Stays } = this.props.user
+
     return <div>
       <h2 style={{ marginLeft: 20 }}>
-        {this.props.user.firstName} is in {this.props.user.location}.
+        {firstName} {location ? `is in ${location}` : 'has not taken a trip yet'}.
         </h2>
       <h4 style={{ marginLeft: 20 }}>
         Cities visited:
         </h4>
       <ul>
-        {this.props.user.Stays.map(stay => (
-          <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
-        ))}
+        {Stays.length > 0
+          && 
+          Stays.map(stay => <li key={stay.City.id}>{stay.City.nameWithCountry}</li>)
+          // : 
+          // this.props.history.push(`/users/${localStorage.getItem('vicariouslyId')}/relocate`)
+        }
       </ul>
     </div>;
   }
 
   render() {
     const { user, match } = this.props
-
     return (
       <div>
         {user && this.renderUserData()}

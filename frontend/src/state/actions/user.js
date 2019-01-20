@@ -1,10 +1,10 @@
 import apiCall from './helpers/apiCall'
 
-const loginUserWith = (token, userId) => {
+const loginUserWith = (userIdSlug, token) => {
   return {
     type: 'LOGIN_USER',
     token,
-    userId
+    userIdSlug
   }
 }
 
@@ -15,7 +15,7 @@ export const registerUser = user => {
         if (res.errors) {
           alert('Invalid Registration Data')
         } else {
-          dispatch(loginUserWith(res.token, res.id))
+          dispatch(loginUserWith(res.userIdSlug, res.token))
         }
       })
   }
@@ -28,7 +28,7 @@ export const loginUser = user => {
         if (res.error) {
           alert('Invalid credentials')
         } else {
-          dispatch(loginUserWith(res.token, res.id))
+          dispatch(loginUserWith(res.userIdSlug, res.token))
         }
       })
   }
@@ -41,26 +41,29 @@ const setUser = user => {
   }
 }
 
-export const fetchUser = userId => {
+export const fetchUser = userIdSlug => {
   return (dispatch) => {
-    return apiCall("GET", `/users/${userId}`)
+    return apiCall("GET", `/users/${userIdSlug}`)
       .then(res => {
-        if (!res.error) {
-          dispatch(setUser(res));
-        }
+        if (!res.error) dispatch(setUser(res))
       })
   }
 }
 
-export const relocateUser = (userId, city) => {
-  console.log('relocate action creator hit!')
-  // this needs to be a thunk function that patches the user!
-  return {
-    type: 'RELOCATE_USER',
-    userId,
-    city
-  };
-};
+export const endStay = (user) => {
+  user.Stays.find(stay => stay.departure === null).departure = new Date()
+  return (dispatch) => {
+    return apiCall('PATCH', `/users/${user.userIdSlug}`, user)
+      .then(res => {
+        if (!res.error) dispatch(setUser(res))
+      })
+  }
+}
+
+export const relocateUserTo = (cityNameWithCountry, user) => {
+  console.log('time to relocate!')
+  console.log(cityNameWithCountry, user)
+}
 
 export const logoutUser = () => {
   return {

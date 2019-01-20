@@ -10,15 +10,20 @@ const authenticateCredentials = passport.authenticate('local', { session: false 
 const isAuthenticated = passport.authenticate('jwt', { session: false })
 
 
-router.get('/users/:id',
-isAuthenticated,
-userController.show
+router.get('/users/:userIdSlug',
+    isAuthenticated,
+    userController.show
 );
 
 router.get('/users',
-isAuthenticated,
-userController.index
+    isAuthenticated,
+    userController.index
 );
+
+router.patch('/users/:userIdSlug',
+    isAuthenticated,
+    userController.patch
+)
 
 router.get('/cities',
     // isAuthenticated,
@@ -30,7 +35,7 @@ router.get('/cities/:slug',
 )
 
 router.get('/stays',
-    // isAuthenticated,
+    isAuthenticated,
     stayController.index
 );
 
