@@ -1,6 +1,6 @@
 import { registerUser, loginUser, fetchUser, relocateUser, logoutUser } from './user'
 import { fetchAllCities } from './city'
-import { exampleStayAction } from './stay'
+import { endStay, beginStay } from './stay'
 
 const actions = {
     user: {

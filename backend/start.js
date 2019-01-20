@@ -4,7 +4,6 @@ const teleport = require('./seeds/teleportCities')
 const app = require('./app')
 
 db.sequelize.sync().then(async () => { // { force: true }
-    console.log('PREPARING TO SEED...')
     // await seed(db)
     await teleport(db)
 
