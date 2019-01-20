@@ -22,7 +22,7 @@ const teleport = async (db) => {
     [ error, countries ] = await to(fetch(`${teleportRootUrl}/countries`))
     if (error) console.log('ERROR!!!! TELEPORT 1: ', error) && errors.countries.count++ && errors.countries.msgs.push(error)
     countries = countries ? await countries.json() : []
-    countries = countries['_links']['country:items'].slice(82)
+    countries = countries['_links']['country:items'].slice(108)
 
     await asyncForEach(countries, async (country) => { // goes up to index 251! USA is 238
         [ error, divisions ] = await to(fetch(`${country.href}/admin1_divisions`))

@@ -25,7 +25,6 @@ class CitySearch extends React.Component {
 
   handleSuggestionSelected = (e, { suggestion }) => {
     e.preventDefault()
-    console.log('select hit for: ', suggestion)
     this.props.getCoordsFor(suggestion)
   }
 

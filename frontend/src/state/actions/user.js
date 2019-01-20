@@ -50,21 +50,6 @@ export const fetchUser = userIdSlug => {
   }
 }
 
-export const endStay = (user) => {
-  user.Stays.find(stay => stay.departure === null).departure = new Date()
-  return (dispatch) => {
-    return apiCall('PATCH', `/users/${user.userIdSlug}`, user)
-      .then(res => {
-        if (!res.error) dispatch(setUser(res))
-      })
-  }
-}
-
-export const relocateUserTo = (cityNameWithCountry, user) => {
-  console.log('time to relocate!')
-  console.log(cityNameWithCountry, user)
-}
-
 export const logoutUser = () => {
   return {
     type: 'LOGOUT_USER'

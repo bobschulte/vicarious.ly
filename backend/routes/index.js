@@ -39,6 +39,16 @@ router.get('/stays',
     stayController.index
 );
 
+router.post('/stays',
+    isAuthenticated,
+    stayController.create
+),
+
+router.patch('/stays/:id',
+    isAuthenticated,
+    stayController.update
+)
+
 // USER/AUTH ROUTES
 router.post('/login',
     authenticateCredentials,

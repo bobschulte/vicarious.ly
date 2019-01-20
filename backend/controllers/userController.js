@@ -20,12 +20,20 @@ exports.show = (req, res) => {
 }
 
 exports.patch = (req, res) => {
-    console.log("TESTS: ", !!req.user, req.user.userIdSlug === req.params.userIdSlug);
+    console.log("TESTS: ", !!req.user, req.user.userIdSlug === req.body.userIdSlug)
     if (req.user && req.user.userIdSlug === req.params.userIdSlug) {
-        const currentStay = req.user.Stays.find(stay => stay.departure === null)
-        currentStay.update({
-            departure: new Date()
-        }).then(stay => res.status(200).json(req.user))
+        User.findOne({ 
+            where: req.user,
+            include: [{ 
+                model: db.Stay, 
+                include: [db.City] 
+            }]
+        })
+        .then(user => {
+            // cant do nested updates in sequelize
+            // user.setStays(req.body.Stays)
+            // .then(done => console.log("DONE: ", done.Stays))
+        })
     }
     
     

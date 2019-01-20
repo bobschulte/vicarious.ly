@@ -1,7 +1,9 @@
+import history from "../history/history";
+
 const staysReducer = (state = [], action) => {
     switch(action.type) {
-        case 'EXAMPLE_STAY_ACTION':
-            console.log('example stay action triggered')
+        case 'BEGIN_STAY':
+            history.push('/')
             return state
         default:
             return state

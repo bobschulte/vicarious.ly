@@ -25,6 +25,7 @@ class RelocateForm extends React.Component {
         !token && this.props.history.push("/");
         this.state = {
             cityNameWithCountry: '',
+            cityId: null,
             coords: {
                 lat: 4,
                 lng: -78
@@ -37,6 +38,7 @@ class RelocateForm extends React.Component {
         let slug = sluggify(cityNameWithCountry)
         apiCall('GET', `/cities/${slug}`)
         .then(city => this.setState({
+            cityId: city.id,
             coords: {
               lat: city.lat,
               lng: city.lng  
@@ -52,8 +54,9 @@ class RelocateForm extends React.Component {
     
     handleSubmit = e => {
         e.preventDefault()
-        this.props.endStay(this.props.user)
-        // this.props.relocateTo(this.state.cityNameWithCountry, this.props.user)
+        let { cityId, coords } = this.state
+        let selectedCity = { cityId, coords }
+        this.props.relocate(this.props.user, selectedCity)
         this.setState({
             cityNameWithCountry: '',
         })
@@ -117,8 +120,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        endStay: (user) => dispatch(actions.user.endStay(user)),
-        relocateTo: (city, user) => dispatch(actions.user.relocateTo(city, user)),
+        relocate: (user, city) => dispatch(actions.stay.relocate(user, city)),
         fetchAllCities: () => dispatch(actions.city.fetchAll())
     }
 }
