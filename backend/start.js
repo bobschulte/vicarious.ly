@@ -1,10 +1,13 @@
 const db = require('./models/index')
 const seed = require('./seeds/seed')
+const teleport = require('./seeds/teleportCities')
 const app = require('./app')
 
 db.sequelize.sync().then(async () => { // { force: true }
-
+    console.log('PREPARING TO SEED...')
     // await seed(db)
+    await teleport(db)
+
     app.set('port', process.env.PORT || 7777)
 
     const server = app.listen(app.get('port'), error => {

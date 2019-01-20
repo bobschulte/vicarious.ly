@@ -29,22 +29,3 @@ exports.show = (req, res) => {
         res.status(200).json(city)
     })
 }
-
-
-// USED TO SEED
-// exports.create = (req, res) => {
-    // console.log('city data posted: ', req.body)
-    // City.findOrCreate({ where: req.body })
-    // .catch(errors => {
-    //     console.log('seed error: ', errors.message)
-    //     res.status(500).json({ errors: errors.message });
-    // })
-    // .spread(instance => {
-    //     console.log('seeded!', instance.dataValues)
-    //     if (instance) {
-    //         res.json(instance.dataValues)
-    //     } else {
-    //         res.json({error: 'couldnt seed'})
-    //     }
-    // })
-// }

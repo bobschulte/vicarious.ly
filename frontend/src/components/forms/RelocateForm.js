@@ -32,10 +32,8 @@ class RelocateForm extends React.Component {
         }
     }
 
-    setCoords = cityNameWithCountry => {
-        console.log('passed it back: ', cityNameWithCountry)
+    setCoordsFor = cityNameWithCountry => {
         let slug = sluggify(cityNameWithCountry)
-        console.log(slug)
         apiCall('GET', `/cities/${slug}`)
         .then(city => this.setState({
             coords: {
@@ -45,12 +43,13 @@ class RelocateForm extends React.Component {
         }))
     }
 
-    handleInputChange = e => {
-        this.setState({ [e.target.id]: e.target.value })
-    }
+    handleInputChange = name => (event, { newValue }) => {
+        this.setState({
+            [name]: newValue,
+        });
+    };
     
-    // this is buggy - it submits when an option is selected, doesnt wait for the form button
-    handleSubmitButton = e => {
+    handleSubmit = e => {
         e.preventDefault()
         console.log('submit hit! with: ', this.state)
         // this.props.relocate(localStorage.getItem('vicariouslyToken'), this.state)
@@ -61,6 +60,11 @@ class RelocateForm extends React.Component {
 
     componentDidMount = () => {
         this.props.fetchAllCities()
+        this.props.user && this.setCoordsFor(this.props.user.location)
+    }
+    
+    componentDidUpdate = prevProps => {
+        this.props.user !== prevProps.user && this.setCoordsFor(this.props.user.location)
     }
 
     render() {
@@ -79,19 +83,19 @@ class RelocateForm extends React.Component {
                 </Typography>
                 <form id="user-form" className={classes.form} >
                 <FormControl margin="normal" required fullWidth>
-                    <CitySearch cities={cities} getCoordsFor={this.setCoords} />
+                    <CitySearch handleSubmit={this.handleSubmit} handleChange={this.handleInputChange} cityName={this.state.cityName} cities={cities} getCoordsFor={this.setCoordsFor} />
                 </FormControl>
-                    <MapContainer coords={coords} />
                 <Button
-                    type="submit"
+                    type="button"
                     fullWidth
                     variant="contained"
                     color="primary"
-                    onClick={this.handleSubmitButton}
+                    onClick={this.handleSubmit}
                     className={classes.submit}
                 >
                     I'm on the Move!
                 </Button>
+                    <MapContainer userLocation={coords} coords={coords} />
                 </form>
             </Paper>
             </main>

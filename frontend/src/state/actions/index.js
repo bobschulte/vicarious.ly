@@ -14,7 +14,8 @@ const actions = {
         fetchAll: fetchAllCities
     },
     stay: {
-        example: exampleStayAction
+        end: endStay,
+        begin: beginStay
     }
 }
 

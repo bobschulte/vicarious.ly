@@ -8,8 +8,6 @@ import { renderInputComponent, renderSuggestion, getSuggestions, getSuggestionVa
 
 class CitySearch extends React.Component {
   state = {
-    cityName: '',
-    popper: '',
     suggestions: []
   };
 
@@ -26,15 +24,10 @@ class CitySearch extends React.Component {
   };
 
   handleSuggestionSelected = (e, { suggestion }) => {
-    console.log('select hit!')
+    e.preventDefault()
+    console.log('select hit for: ', suggestion)
     this.props.getCoordsFor(suggestion)
   }
-
-  handleChange = name => (event, { newValue }) => {
-    this.setState({
-      [name]: newValue,
-    });
-  };
 
   render() {
     const { classes } = this.props;
@@ -56,8 +49,8 @@ class CitySearch extends React.Component {
           inputProps={{
             classes,
             placeholder: 'Type a city or country...',
-            value: this.state.cityName,
-            onChange: this.handleChange('cityName'),
+            value: this.props.cityName,
+            onChange: this.props.handleChange('cityName'),
           }}
           theme={{
             container: classes.container,
