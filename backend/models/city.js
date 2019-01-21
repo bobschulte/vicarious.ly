@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     country: { type: DataTypes.STRING, allowNull: false },
     population: DataTypes.INTEGER,
     lat: DataTypes.FLOAT,
-    lng: DataTypes.FLOAT
+    lng: DataTypes.FLOAT,
+    imgUrl: DataTypes.STRING
   }, {
     getterMethods: {
       nameWithCountry() {

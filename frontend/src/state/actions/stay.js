@@ -21,16 +21,22 @@ const arriveStay = (UserId, CityId) => {
 };
 
 export const relocate = (user, city) => {
-    const currentStay = user.Stays.find(stay => stay.departure ===  null)
-    currentStay.departure = new Date()
-    
-    return dispatch => {
-        return apiCall("PATCH", `/stays/${currentStay.id}`, currentStay).then(res => {
-            if (!res.error) {
-                dispatch(arriveStay(user.id, city.cityId));
-            } else {
-                console.log('nope, error: ', res.error)
-            }
-        });
-    };
+    if(user.Stays.length > 0) {
+        const currentStay = user.Stays.find(stay => stay.departure ===  null)
+        currentStay.departure = new Date()
+        
+        return dispatch => {
+            return apiCall("PATCH", `/stays/${currentStay.id}`, currentStay).then(res => {
+                if (!res.error) {
+                    dispatch(arriveStay(user.id, city.cityId));
+                } else {
+                    console.log('nope, error: ', res.error)
+                }
+            });
+        };
+    } else {
+        return dispatch => {
+            dispatch(arriveStay(user.id, city.cityId))
+        }
+    }
 };

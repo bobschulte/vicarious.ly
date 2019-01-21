@@ -16,13 +16,13 @@ const teleport = async (db) => {
     console.log("PREPARING TO SEED...")
     let thisCountrysCities
     let counts = { counts: { citiesScanned: 0, citiesSeeded: 0, countriesSeeded: 0 } }
-    let errors = { errors: { countries: { msgs: [], count: 0}, divisions: { msgs: [], count: 0}, cities: { msgs: [], count: 0}, cityData: { msgs: [], count: 0}, app: { msgs: [], count: 0} } }
-    let error, countries, divisions, cities, cityData, newCity
+    let errors = { errors: { countries: { msgs: [], count: 0}, divisions: { msgs: [], count: 0}, cities: { msgs: [], count: 0}, cityData: { msgs: [], count: 0}, urbanArea: { msgs: [], count: 0}, app: { msgs: [], count: 0} } }
+    let error, countries, divisions, cities, cityData, photo, newCity;
 
     [ error, countries ] = await to(fetch(`${teleportRootUrl}/countries`))
     if (error) console.log('ERROR!!!! TELEPORT 1: ', error) && errors.countries.count++ && errors.countries.msgs.push(error)
     countries = countries ? await countries.json() : []
-    countries = countries['_links']['country:items'].slice(108)
+    countries = countries['_links']['country:items']
 
     await asyncForEach(countries, async (country) => { // goes up to index 251! USA is 238
         [ error, divisions ] = await to(fetch(`${country.href}/admin1_divisions`))
@@ -44,9 +44,16 @@ const teleport = async (db) => {
                 cityData = cityData ? await cityData.json() : []
                 
                 counts.counts.citiesScanned++
+                photo = null
                 
-                if (cityData.population && cityData.population > 99999) {
-                    console.log("its working... ITS WORKIIIIINGGGG")
+                if (cityData.population) {
+                    if (cityData["_links"]["city:urban_area"]) {
+                        [ error, photo ] = await to(fetch(`${cityData["_links"]["city:urban_area"]["href"]}images`))
+                        if (error) console.log('ERROR!!!! TELEPORT 5: ', error) && errors.cityData.count++ && errors.urbanArea.msgs.push({ country, error })
+                        photo = photo ? await photo.json() : []
+                        photo = photo.photos[0].image.web
+                    }
+                
                     thisCountrysCities++
                     counts.counts.citiesSeeded++
                     [ error, newCity ] = await to(db.City.findOrCreate({ where: {
@@ -54,9 +61,10 @@ const teleport = async (db) => {
                             country: cityData['_links']['city:country'].name,
                             population: cityData.population,
                             lat: cityData.location.latlon.latitude,
-                            lng: cityData.location.latlon.longitude
-                        
+                            lng: cityData.location.latlon.longitude,
+                            imgUrl: photo,
                     } }))
+
                     if (error) console.log('ERROR!!!! APP: ', error) && errors.app++
                     if (newCity) console.log('SEEDED: ', newCity[0].name, newCity[0].country)
                     console.log("COUNTRY SEED COUNT: ", thisCountrysCities, "  TOTAL SEED COUNT: ", counts.counts.citiesSeeded);
@@ -64,6 +72,7 @@ const teleport = async (db) => {
             })
         })
         counts.counts.countriesSeeded++
+        console.log('COUNTS SO FAR: ', counts)
         console.log('ERRORS SO FAR: ', errors)
     })
     console.log('DONE SEEDING! COUNTS: ', counts, 'ERRORS: ', errors)

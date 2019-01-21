@@ -29,7 +29,8 @@ class RelocateForm extends React.Component {
             coords: {
                 lat: 4,
                 lng: -78
-            }
+            },
+            showMap: false
         }
     }
 
@@ -62,6 +63,45 @@ class RelocateForm extends React.Component {
         })
     }
 
+    toggleMap = () => {
+        this.setState({
+            showMap: !this.state.showMap
+        })
+    }
+
+    renderMap = () => {
+        return <MapContainer userLocation={this.state.coords} coords={this.state.coords} />
+    }
+
+    renderForm = () => {
+        const { classes, cities, user } = this.props
+        return (
+            <main className={classes.main}>
+            <CssBaseline />
+            <Paper className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                <FlightOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    {user.Stays.length > 0 ? "Find your next home!" : "Let's get you started, select your current location!"}
+                </Typography>
+                <Button type="button" center="true" variant="contained" color="primary" onClick={this.toggleMap} className={classes.submit}>
+                    Toggle Map
+                </Button>
+                {this.state.showMap && this.renderMap()}
+                <form id="user-form" className={classes.form} >
+                <FormControl margin="normal" required fullWidth>
+                    <CitySearch handleChange={this.handleInputChange} value={this.state.cityNameWithCountry} cities={cities} getCoordsFor={this.setCoordsFor} />
+                </FormControl>
+                <Button type="button" fullWidth variant="contained" color="primary" onClick={this.handleSubmit} className={classes.submit}>
+                    {user.Stays.length > 0 ? "I'm on the Move!" : "Set Location!"}
+                </Button>
+                </form>
+            </Paper>
+            </main>
+        )
+    }
+
     componentDidMount = () => {
         this.props.fetchAllCities()
         this.props.user && this.setCoordsFor(this.props.user.location)
@@ -72,38 +112,10 @@ class RelocateForm extends React.Component {
     }
 
     render() {
-        const { classes, cities } = this.props;
-        const { coords } = this.state
-
-        return (
-            <main className={classes.main}>
-            <CssBaseline />
-            <Paper className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                <FlightOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                Find your next home!
-                </Typography>
-                <form id="user-form" className={classes.form} >
-                <FormControl margin="normal" required fullWidth>
-                    <CitySearch handleChange={this.handleInputChange} value={this.state.cityNameWithCountry} cities={cities} getCoordsFor={this.setCoordsFor} />
-                </FormControl>
-                <Button
-                    type="button"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleSubmit}
-                    className={classes.submit}
-                >
-                    I'm on the Move!
-                </Button>
-                    <MapContainer userLocation={coords} coords={coords} />
-                </form>
-            </Paper>
-            </main>
-        )
+        const { user } = this.props
+        return <div>
+            {user && this.renderForm()}
+        </div>;
   }
 }
 

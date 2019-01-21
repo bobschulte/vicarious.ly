@@ -18,6 +18,17 @@ class Dashboard extends React.Component {
     this.props.fetchUser(userIdSlug)
   }
 
+  renderCitiesVisited = stays => {
+    return <div>
+      <h4 style={{ marginLeft: 20 }}>
+        Cities visited:
+        </h4>
+      <ul>
+        {stays.map(stay => <li key={stay.City.id}>{stay.City.nameWithCountry}</li>)}
+      </ul>
+    </div>
+  }
+
   renderUserData = () => {
     let { firstName, location, Stays } = this.props.user
 
@@ -25,29 +36,17 @@ class Dashboard extends React.Component {
       <h2 style={{ marginLeft: 20 }}>
         {firstName} {location ? `is in ${location}` : 'has not taken a trip yet'}.
         </h2>
-      <h4 style={{ marginLeft: 20 }}>
-        Cities visited:
-        </h4>
-      <ul>
-        {Stays.length > 0
-          && 
-          Stays.map(stay => <li key={stay.City.id}>{stay.City.nameWithCountry}</li>)
-          // : 
-          // this.props.history.push(`/users/${localStorage.getItem('vicariouslyId')}/relocate`)
-        }
-      </ul>
+      {Stays.length > 0 && this.renderCitiesVisited(Stays)}
     </div>;
   }
 
   render() {
     const { user, match } = this.props
-    return (
-      <div>
+    return <div>
         {user && this.renderUserData()}
         {!user && <h1>Loading...</h1>}
-        <Route path={`${match.path}/relocate`} component={RelocateForm} />
-      </div>
-    )
+        <Route path={`${match.path}/relocate/`} component={RelocateForm} />
+      </div>;
   }
 }
 

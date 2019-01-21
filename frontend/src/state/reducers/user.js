@@ -9,6 +9,7 @@ const userReducer = (state=null, action) => {
             history.push(`/${action.userIdSlug}`)
             return state
         case 'SET_USER':
+            if (action.user.Stays.length === 0) history.push(`/users/${localStorage.getItem("vicariouslyId")}/relocate`)
             return action.user // { ...state, user: action.user }  <-- if switch to other rootReducer implementation
         case 'RELOCATE_USER':
             console.log('relocate user action triggered for id: ', action.userId)
