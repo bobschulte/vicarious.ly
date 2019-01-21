@@ -15,12 +15,13 @@ class NavBar extends React.Component {
         if (sourceButton === 'logout') {
             this.props.logoutUser()
         } else {
-            this.props.history.push(`/${sourceButton}`)
+            console.log(this.props.match)
+            this.props.history.push(`/users/${localStorage.getItem('vicariouslyId')}/${sourceButton}`)
         }
     }
 
     renderButtons = (isLoggedIn) => {
-        let buttons = isLoggedIn ? ['logout', 'relocate'] : ['login', 'register']
+        let buttons = isLoggedIn ? ['logout', 'relocate', 'album'] : ['login', 'register']
         return buttons.map(text => <Button key={text} style={{ marginLeft: 20, marginRight: 20 }} variant="contained" onClick={this.handleButtonClick}>
             {text}
         </Button>)
@@ -35,7 +36,7 @@ class NavBar extends React.Component {
                 <IconButton style={{ marginLeft: -12, marginRight: 20 }} color='inherit' >
                     <MenuIcon />
                 </IconButton>
-                <Typography style={{ flexgrow: 1, marginLeft: 10, marginRight: 10 }} variant="h4" color="inherit">
+                <Typography onClick={() => this.props.history.push('/')} style={{ flexgrow: 1, marginLeft: 10, marginRight: 10 }} variant="h4" color="inherit">
                   VICARIOUS.LY
                 </Typography>
                 {this.renderButtons(!!token)}

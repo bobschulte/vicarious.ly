@@ -57,7 +57,16 @@ export const getSuggestions = function(value, suggestions) {
   return inputLength === 0
     ? []
     : suggestions.filter(suggestion => {
-      let substringsToMatch = suggestion.split(', ').map(substring => substring.slice(0, inputLength).toLowerCase())
+      let substringsToMatch = suggestion.split(', ').map(substring => {
+        return substring
+          .slice(0, inputLength)
+          .toLowerCase()
+          .replace(/[á]/g, "a")
+          .replace(/[é]/g, "e")
+          .replace(/[í]/g, "i")
+          .replace(/[ó]/g, "o")
+          .replace(/[ú]/g, "u")
+      })
         const keep =
           count < 8 && substringsToMatch.includes(inputValue);
 

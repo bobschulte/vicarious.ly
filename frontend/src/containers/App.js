@@ -16,7 +16,8 @@ export default class App extends React.Component {
             <Route path="/register" component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/users/:userIdSlug" component={Dashboard} />
-            <Route path="/relocate" render={() => <Redirect to={`/users/${localStorage.getItem('vicariouslyId')}/relocate`} />} />
+            {/* <Route path="/relocate" render={() => <Redirect to={`/users/${localStorage.getItem('vicariouslyId')}/relocate`} />} />
+            <Route path="/album" render={() => <Redirect to={`/users/${localStorage.getItem('vicariouslyId')}/album`} />} /> */}
             <Route path="/" render={() => <Redirect to={`/users/${localStorage.getItem('vicariouslyId')}`} />} />
           </Switch>
         </div>

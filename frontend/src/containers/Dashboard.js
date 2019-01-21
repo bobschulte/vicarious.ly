@@ -45,7 +45,8 @@ class Dashboard extends React.Component {
     return <div>
         {user && this.renderUserData()}
         {!user && <h1>Loading...</h1>}
-        <Route path={`${match.path}/relocate/`} component={RelocateForm} />
+        <Route exact path={`${match.path}/relocate`} component={RelocateForm} />
+        <Route path={`${match.path}/album`} component={RelocateForm} />
       </div>;
   }
 }
