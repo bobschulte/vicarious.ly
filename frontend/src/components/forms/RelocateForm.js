@@ -12,7 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { styles } from "./helpers/styles/relocateStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
-import CitySearch from './CitySearch'
+import SearchAutoSuggest from './SearchAutoSuggest'
 import { sluggify } from './helpers/sluggify';
 import apiCall from '../../state/actions/helpers/apiCall'
 
@@ -87,7 +87,7 @@ class RelocateForm extends React.Component {
                 {this.state.showMap && this.renderMap()}
                 <form id="user-form" className={classes.form} >
                 <FormControl margin="normal" required fullWidth>
-                    <CitySearch handleChange={this.handleInputChange} value={this.state.cityNameWithCountry} cities={cities} getCoordsFor={this.setCoordsFor} />
+                    <SearchAutoSuggest handleChange={this.handleInputChange} value={this.state.cityNameWithCountry} suggestions={cities} getCoordsFor={this.setCoordsFor} />
                 </FormControl>
                 <Button type="button" fullWidth variant="contained" color="primary" onClick={this.handleSubmit} className={classes.submit}>
                     {user.Stays.length > 0 ? "I'm on the Move!" : "Set Location!"}

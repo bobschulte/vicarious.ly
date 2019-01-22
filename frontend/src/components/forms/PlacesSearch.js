@@ -28,7 +28,7 @@ class PlacesSearch extends React.Component {
         }
       },
       radius: 100,
-      type: ['establishment']
+      type: 'establishment'
     }
     
     return <div>
@@ -38,6 +38,7 @@ class PlacesSearch extends React.Component {
                   placeholder: "Search Places ...",
                   className: "location-search-input"
                 })} />
+                
               <div className="autocomplete-dropdown-container">
                 {loading && <div>Loading...</div>}
                 {suggestions.map(suggestion => {

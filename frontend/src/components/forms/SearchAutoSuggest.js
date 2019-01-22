@@ -6,14 +6,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { styles } from './helpers/styles/citySearchStyles'
 import { renderInputComponent, renderSuggestion, getSuggestions, getSuggestionValue } from './helpers/citiesAutosuggest'
 
-class CitySearch extends React.Component {
+class SearchAutoSuggest extends React.Component {
   state = {
     suggestions: []
   };
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: getSuggestions(value, this.props.cities),
+      suggestions: getSuggestions(value, this.props.suggestions),
     });
   };
 
@@ -69,8 +69,8 @@ class CitySearch extends React.Component {
   }
 }
 
-CitySearch.propTypes = {
+SearchAutoSuggest.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CitySearch);
+export default withStyles(styles)(SearchAutoSuggest);
