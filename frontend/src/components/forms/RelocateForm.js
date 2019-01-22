@@ -36,7 +36,7 @@ class RelocateForm extends React.Component {
     }
 
     setCoordsFor = cityNameWithCountry => {
-         if (!cityNameWithCountry) return
+        if (!cityNameWithCountry) return
         let slug = sluggify(cityNameWithCountry)
         apiCall('GET', `/cities/${slug}`)
         .then(city => this.setState({
@@ -65,15 +65,9 @@ class RelocateForm extends React.Component {
         })
     }
 
-    toggleMap = () => {
-        this.setState({
-            showMap: !this.state.showMap
-        })
-    }
+    toggleMap = () => this.setState({ showMap: !this.state.showMap })
 
-    renderMap = () => {
-        return <MapContainer userLocation={this.state.coords} coords={this.state.coords} zoom={this.state.zoom} />
-    }
+    renderMap = () => <MapContainer userLocation={this.state.coords} coords={this.state.coords} zoom={this.state.zoom} />
 
     renderForm = () => {
         const { classes, cities, user } = this.props

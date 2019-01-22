@@ -6,6 +6,7 @@ import actions from '../state/actions/index'
 import RelocateForm from '../components/forms/RelocateForm'
 import StaysList from '../components/StaysList'
 import Album from './Album'
+import StayDashboard from './StayDashboard'
 
 class Dashboard extends React.Component {
 
@@ -36,7 +37,7 @@ class Dashboard extends React.Component {
         {!user && <h1>Loading...</h1>}
         <Switch>
           <Route exact path={`${match.path}/relocate`} component={RelocateForm} />
-          {/* <Route path={`${match.path}/album/:id`} component={RelocateForm} /> */}
+          <Route path={`${match.path}/album/:stayId`} component={StayDashboard} />
           {/* <Route path={`${match.path}/album`} component={Album} /> */}
         </Switch>
       </div>;

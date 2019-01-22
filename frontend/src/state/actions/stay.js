@@ -1,6 +1,6 @@
 import apiCall from "./helpers/apiCall";
 
-const beginStay = userIdSlug => {
+const beginStay = () => {
     return {
         type: 'BEGIN_STAY'
     }
@@ -44,3 +44,22 @@ export const relocate = (user, city) => {
         }
     }
 };
+
+// const setStay = stay => {
+//   return {
+//     type: "SET_STAY",
+//     stay
+//   };
+// };
+
+// export const fetchStay = stayId => {
+//     return dispatch => {
+//         return apiCall('GET', `/stays/${stayId}`).then(res => {
+//             if (!res.error) {
+//                 dispatch(setStay(res))
+//             } else {
+//                 console.log('nope, couldnt set stay: ', res.error)
+//             }
+//         })
+//     }
+// }
