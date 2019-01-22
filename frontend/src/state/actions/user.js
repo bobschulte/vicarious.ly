@@ -41,11 +41,17 @@ const setUser = user => {
   }
 }
 
+const invalidUser = () => {
+  return {
+    type: 'INVALID_USER'
+  }
+}
+
 export const fetchUser = userIdSlug => {
   return (dispatch) => {
-    return apiCall("GET", `/users/${userIdSlug}`)
+    return apiCall("GET", `/users/${userIdSlug}/${localStorage.getItem('vicariouslyId')}`)
       .then(res => {
-        if (!res.error) dispatch(setUser(res))
+        return !res.error ? dispatch(setUser(res)) : dispatch(invalidUser())
       })
   }
 }

@@ -14,8 +14,9 @@ class NavBar extends React.Component {
         let sourceButton = e.target.textContent;
         if (sourceButton === 'logout') {
             this.props.logoutUser()
+        } else if (sourceButton === 'login' || sourceButton === 'register') {
+            this.props.history.push(`/${sourceButton}`)
         } else {
-            console.log(this.props.match)
             this.props.history.push(`/users/${localStorage.getItem('vicariouslyId')}/${sourceButton}`)
         }
     }

@@ -15,14 +15,14 @@ async function asyncForEach(array, callback) {
 const teleport = async (db) => {
     console.log("PREPARING TO SEED...")
     let thisCountrysCities
-    let counts = { counts: { citiesScanned: 2000, citiesSeeded: 1265, countriesSeeded: 11 } }
+    let counts = { counts: { citiesScanned: 4109, citiesSeeded: 3366, countriesSeeded: 14 } }
     let errors = { errors: { countries: { msgs: [], count: 0}, divisions: { msgs: [], count: 0}, cities: { msgs: [], count: 0}, cityData: { msgs: [], count: 0}, urbanArea: { msgs: [], count: 0}, app: { msgs: [], count: 0} } }
     let error, countries, divisions, cities, cityData, photo, newCity;
 
     [ error, countries ] = await to(fetch(`${teleportRootUrl}/countries`))
     if (error) console.log('ERROR!!!! TELEPORT 1: ', error) && errors.countries.count++ && errors.countries.msgs.push(error)
     countries = countries ? await countries.json() : []
-    countries = countries['_links']['country:items'].slice(11) // Armenia
+    countries = countries['_links']['country:items'].slice(14) // Austria
 
     await asyncForEach(countries, async (country) => { // goes up to index 251! USA is 238
         [ error, divisions ] = await to(fetch(`${country.href}/admin1_divisions`))
