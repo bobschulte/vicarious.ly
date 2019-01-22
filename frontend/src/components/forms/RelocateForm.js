@@ -30,6 +30,7 @@ class RelocateForm extends React.Component {
                 lat: 4,
                 lng: -78
             },
+            zoom: 1,
             showMap: false
         }
     }
@@ -43,7 +44,8 @@ class RelocateForm extends React.Component {
             coords: {
               lat: city.lat,
               lng: city.lng  
-            }
+            },
+            zoom: 8
         }))
     }
 
@@ -70,7 +72,7 @@ class RelocateForm extends React.Component {
     }
 
     renderMap = () => {
-        return <MapContainer userLocation={this.state.coords} coords={this.state.coords} />
+        return <MapContainer userLocation={this.state.coords} coords={this.state.coords} zoom={this.state.zoom} />
     }
 
     renderForm = () => {

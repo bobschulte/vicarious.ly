@@ -14,32 +14,18 @@ class Dashboard extends React.Component {
     this.props.fetchUser(userIdSlug)
   }
 
-  renderCitiesVisited = () => {
-    const { user } = this.props
-    return <div>
-      <StaysList user={user} viewStay={this.visitStayPage} />
-      <h4 style={{ marginLeft: 20 }}>
-        Cities visited:
-        </h4>
-      <ul>
-        {user.Stays.map(stay => <li key={stay.City.id}>{stay.City.nameWithCountry}</li>)}
-      </ul>
-    </div>
-  }
+  renderCitiesVisited = () => <StaysList user={this.props.user} viewStay={this.visitStayPage} />
 
-  visitStayPage = stayId => {
-    const { userIdSlug } = this.props.match.params
-    this.props.history.push(`/users/${userIdSlug}/album/${stayId}`);
-  }
+  visitStayPage = stayId => this.props.history.push(`/users/${this.props.match.params.userIdSlug}/album/${stayId}`)
 
   renderDashboard = () => {
     let { firstName, location, Stays } = this.props.user
 
     return <div>
+      {Stays.length > 0 && this.renderCitiesVisited()}
       <h2 style={{ marginLeft: 20 }}>
         {firstName} {location ? `is in ${location}` : 'has not taken a trip yet'}.
         </h2>
-      {Stays.length > 0 && this.renderCitiesVisited()}
     </div>;
   }
 

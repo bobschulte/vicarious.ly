@@ -6,10 +6,11 @@ const userReducer = (state=null, action) => {
         case 'LOGIN_USER':
             setStorageToken(action.token)
             setStorageId(action.userIdSlug)
-            history.push(`/${action.userIdSlug}`)
+            history.push(`/users/${action.userIdSlug}`)
             return state
         case 'SET_USER':
-            if (action.user.Stays.length === 0) history.push(`/users/${localStorage.getItem("vicariouslyId")}/relocate`)
+            const { user } = action
+            if (user.Stays.length === 0 && user.userIdSlug === localStorage.getItem('vicariouslyId')) history.push(`/users/${user.userIdSlug}/relocate`)
             return action.user // { ...state, user: action.user }  <-- if switch to other rootReducer implementation
         case 'INVALID_USER':
             const token = localStorage.getItem('vicariouslyId')

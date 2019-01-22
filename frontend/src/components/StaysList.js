@@ -16,7 +16,7 @@ function StaysList(props) {
 
   return (
     <div className={classes.root}>
-      <GridList className={classes.gridList} cols={5}>
+      <GridList className={classes.gridList} cols={6}>
         {stays.map(stay => {
             const imgUrl = stay.City.imgUrl ? stay.City.imgUrl : altImgUrl
             return (
