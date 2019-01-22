@@ -3,7 +3,7 @@ import history from "../history/history";
 const staysReducer = (state = [], action) => {
     switch(action.type) {
         case 'BEGIN_STAY':
-            history.push('/')
+            history.push(`/staybegun`)
             return state
         default:
             return state

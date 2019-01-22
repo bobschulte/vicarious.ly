@@ -28,7 +28,8 @@ class Dashboard extends React.Component {
   }
 
   visitStayPage = stayId => {
-    this.props.history.push(`/users/${localStorage.getItem("vicariouslyId")}/album/${stayId}`);
+    const { userIdSlug } = this.props.match.params
+    this.props.history.push(`/users/${userIdSlug}/album/${stayId}`);
   }
 
   renderDashboard = () => {

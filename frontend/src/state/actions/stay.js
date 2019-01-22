@@ -1,13 +1,14 @@
 import apiCall from "./helpers/apiCall";
 
-const beginStay = () => {
+const beginStay = userIdSlug => {
     return {
         type: 'BEGIN_STAY'
     }
 }
 
-const arriveStay = (UserId, CityId) => {
-    const newStay = { UserId, CityId }
+const arriveStay = (user, city) => {
+    const newStay = { UserId: user.id, CityId: city.cityId }
+    console.log(newStay)
 
     return dispatch => {
         return apiCall("POST", '/stays', newStay).then(res => {
@@ -22,6 +23,7 @@ const arriveStay = (UserId, CityId) => {
 };
 
 export const relocate = (user, city) => {
+    console.log('user: ', user, 'city: ', city)
     const hasVisitedBefore = user.Stays.find(stay => stay.City.id === city.cityId);
     if(user.Stays.length > 0 && !hasVisitedBefore) {
         const currentStay = user.Stays.find(stay => stay.departure ===  null)
@@ -30,7 +32,7 @@ export const relocate = (user, city) => {
         return dispatch => {
             return apiCall("PATCH", `/stays/${currentStay.id}`, currentStay).then(res => {
                 if (!res.error) {
-                    dispatch(arriveStay(user.id, city.cityId));
+                    dispatch(arriveStay(user, city));
                 } else {
                     console.log('nope, error: ', res.error)
                 }
@@ -38,7 +40,7 @@ export const relocate = (user, city) => {
         };
     } else {
         return dispatch => {
-            dispatch(arriveStay(user.id, city.cityId))
+            dispatch(arriveStay(user, city))
         }
     }
 };

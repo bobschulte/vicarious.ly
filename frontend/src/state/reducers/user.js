@@ -15,10 +15,6 @@ const userReducer = (state=null, action) => {
             const token = localStorage.getItem('vicariouslyId')
             token ? history.push(`/users/${token}`) : history.push('/')
             return state
-        case 'RELOCATE_USER':
-            console.log('relocate user action triggered for id: ', action.userId)
-            console.log('moving user to: ', action.city)
-            return state
         case 'LOGOUT_USER':
             removeStorageToken()
             removeStorageId()
