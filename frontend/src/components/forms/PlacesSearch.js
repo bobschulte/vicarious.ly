@@ -17,9 +17,22 @@ class PlacesSearch extends React.Component {
   }
 
   render() {
+    const { lat, lng } = this.props
+    let searchOptions = {
+      location: {
+        lat: function() {
+          return lat
+        },
+        lng: function() {
+          return lng
+        }
+      },
+      radius: 100,
+      type: ['establishment']
+    }
     
     return <div>
-        <PlacesAutocomplete value={this.props.value} onChange={this.handleChange} onSelect={this.handleSelect}>
+        <PlacesAutocomplete value={this.props.value} onChange={this.handleChange} onSelect={this.handleSelect} searchOptions={searchOptions} >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => <div>
               <input {...getInputProps({
                   placeholder: "Search Places ...",
@@ -30,7 +43,7 @@ class PlacesSearch extends React.Component {
                 {suggestions.map(suggestion => {
                   const className = suggestion.active ? "suggestion-item--active" : "suggestion-item";
                   // inline style for demonstration purpose
-                  const style = suggestion.active ? { backgroundColor: "#fafafa", cursor: "pointer" } : { backgroundColor: "#ffffff", cursor: "pointer" };
+                  const style = suggestion.active ? { backgroundColor: "#808080", cursor: "pointer" } : { backgroundColor: "#ffffff", cursor: "pointer" };
                   return <div {...getSuggestionItemProps(suggestion, {
                         className,
                         style

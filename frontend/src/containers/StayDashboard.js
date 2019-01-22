@@ -27,11 +27,11 @@ class StayDashboard extends React.Component {
 
     renderContent = user => {
         const stay = user.Stays.find(stay => stay.id === this.props.match.params.stayId)
-        
+
         return <div>
             {this.renderDateMessage(stay)}
             <h4>Search local places:</h4>
-            <PlacesSearch onChange={this.handlePlaceInputChange} onSubmit={this.handlePlaceSubmit} value={this.state.value} getCoordsFor={this.setCoordsFor} />
+            <PlacesSearch onChange={this.handlePlaceInputChange} onSubmit={this.handlePlaceSubmit} value={this.state.value} lat={stay.City.lat} lng={stay.City.lng} />
           </div>;
     }
 
