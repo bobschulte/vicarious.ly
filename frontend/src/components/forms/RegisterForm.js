@@ -51,10 +51,17 @@ class RegisterForm extends React.Component {
                 <Typography component="h1" variant="h5">
                 Sign Up
                 </Typography>
+                <Button
+                    type="button"
+                    fullWidth
+                    variant="outlined"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={() => this.props.history.push('/login')}
+                >
+                    Already have an account?
+                </Button>
                 <br/>
-                <Typography component="h6" variant="subtitle1" color="textSecondary" >
-                Already have an account? <a href="/login">Log in here</a>
-                </Typography>
                 <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>
                     <InputLabel htmlFor="firstName">First Name</InputLabel>

@@ -52,10 +52,17 @@ class LoginForm extends React.Component {
                 <Typography component="h1" variant="h5">
                 Sign In
                 </Typography>
-                <br/>
-                <Typography component="h6" variant="subtitle1" color="textSecondary" >
-                Not a member yet? <a href="/register">Sign up here</a>
-                </Typography>
+                <Button
+                    type="button"
+                    fullWidth
+                    variant="outlined"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={() => this.props.history.push('/register')}
+                >
+                    Not a member yet?
+                </Button>
+                    <br />
                 <form className={classes.form} onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>
                     <InputLabel htmlFor="email">Email Address</InputLabel>

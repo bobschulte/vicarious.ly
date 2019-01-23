@@ -50,11 +50,10 @@ class NavBar extends React.Component {
         const { classes } = this.props
         return <>
             <Button
-                // color="inherit"
                 variant="text"
                 underline="none"
                 className={classes.rightLink}
-                href="/login"
+                onClick={() => this.props.history.push('/login')}
             >
                 {'Log In'}
             </Button>
@@ -62,7 +61,7 @@ class NavBar extends React.Component {
                 variant="text"
                 underline="none"
                 className={classNames(classes.rightLink)}
-                href="/register"
+                onClick={() => this.props.history.push('/register')}
             >
                 {'Register'}
             </Button> 
@@ -72,14 +71,14 @@ class NavBar extends React.Component {
     renderUserLinks(userIdSlug) {
         const { classes, logoutUser } = this.props
         
-        return <>
-            <Button color="inherit" variant="text" underline="none" className={classes.rightLink} href={`/users/${userIdSlug}`}>
+        return <> 
+            <Button color="inherit" variant="text" underline="none" className={classes.rightLink} onClick={() => this.props.history.push(`/users/${userIdSlug}`)}>
               {"My Travel Profile"}
             </Button>
-            <Button variant="text" underline="none" className={classNames(classes.rightLink)} href="/cities">
+            <Button variant="text" underline="none" className={classNames(classes.rightLink)} onClick={() => this.props.history.push('/cities')}>
               {"Browse Cities"}
             </Button>
-            <Button onClick={logoutUser} variant="text" underline="none" className={classNames(classes.rightLink)} href="/">
+            <Button onClick={logoutUser} variant="text" underline="none" className={classNames(classes.rightLink)}>
               {"Logout"}
             </Button>
           </>;

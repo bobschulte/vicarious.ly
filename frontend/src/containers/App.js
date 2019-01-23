@@ -21,14 +21,16 @@ const theme = createMuiTheme({
 export default class App extends React.Component {
   render() {
     return <MuiThemeProvider theme={theme}>
-      <NavBar />
       <Router history={history}>
-        <Switch>
-          <Route path="/register" component={Login} />
-          <Route path="/login" component={Login} />
-          <Route path="/users/:userIdSlug" component={Dashboard} />
-          <Route path='/' component={Home} />
-        </Switch>
+        <React.Fragment>
+          <NavBar history={history} />
+          <Switch>
+            <Route path="/register" component={Login} />
+            <Route path="/login" component={Login} />
+            <Route path="/users/:userIdSlug" component={Dashboard} />
+            <Route path='/' component={Home} />
+          </Switch>
+        </React.Fragment>
       </Router>
     </MuiThemeProvider>
   }

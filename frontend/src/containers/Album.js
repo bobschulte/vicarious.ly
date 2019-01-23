@@ -177,7 +177,7 @@ class Album extends React.Component {
 
   renderAlbumSection() {
     const { user, classes } = this.props
-    const stays = [...user.Stays].slice(1)
+    const stays = [...user.Stays].filter(stay => stay.departure !== null).sort((cityA, cityB) => Date.parse(cityB.arrival) - Date.parse(cityA.arrival))
     return <div className={classNames(classes.layout, classes.cardGrid)}>
       <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
         Past stays:
@@ -200,7 +200,7 @@ class Album extends React.Component {
                   {stay.City.country}
                 </Typography>
                 <Typography gutterBottom variant="subtitle1" component="h4" color="textSecondary">
-                  {dateParser(stay.arrival)} to {dateParser(stay.departure)}
+                  {dateParser(stay.arrival)} to {dateParser(stay.arrival)}
                 </Typography>
               </CardContent>
               <CardActions>
