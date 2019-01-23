@@ -2,12 +2,45 @@ import React from 'react'
 import { connect } from 'react-redux';
 import actions from '../state/actions/index'
 import PlacesSearch from '../components/forms/PlacesSearch'
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
 import StaysList from "../components/StaysList";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+
+const styles = theme => ({
+    appBar: {
+        position: 'relative',
+    },
+    heroUnit: {
+        backgroundColor: theme.palette.secondary.main
+    },
+    heroContent: {
+        maxWidth: '100%',
+        margin: '0 auto',
+        padding: `${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 1}px`,
+    },
+    layout: {
+        width: 'auto',
+        marginLeft: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
+        [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
+            width: 1100,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        }
+    }
+})
 
 class StayDashboard extends React.Component {
 
     state = {
         value: ''
+    }
+
+    isLoggedIn(user) {
+        const token = localStorage.getItem('vicariouslyId')
+        return token === user.userIdSlug
     }
 
     handlePlaceInputChange = value => this.setState({ value })
@@ -20,6 +53,42 @@ class StayDashboard extends React.Component {
 
     setCoordsFor = coords => {
         console.log(coords)
+    }
+
+    renderLoadingMessage() {
+        const { classes } = this.props
+        return <div className={classes.heroUnit}>
+            <div className={classes.heroContent}>
+                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                    Loading...
+                 </Typography>
+            </div>
+        </div>
+    }
+
+    renderReturnToAlbumButton(user) {
+        const isLoggedIn = this.isLoggedIn(user)
+        return <Button variant="contained" color="primary">
+            Return to {isLoggedIn ? "your" : `${user.firstName}'s`} profile
+        </Button>
+    }
+
+    renderBannerSection() {
+        const { user, classes } = this.props
+        return <div className={classes.heroUnit}>
+            <div className={classes.heroContent}>
+                <Typography component="h4" variant="h6" align="center" color="textPrimary" gutterBottom>
+                    {user.name}<br />
+                </Typography>
+                <div className={classes.heroButtons}>
+                    <Grid container spacing={16} justify="center">
+                        <Grid item>
+                            {this.renderReturnToAlbumButton(user)}
+                        </Grid>
+                    </Grid>
+                </div>
+            </div>
+        </div>;
     }
 
     renderDateMessage = stay => {
@@ -36,6 +105,7 @@ class StayDashboard extends React.Component {
         const stay = user.Stays.find(stay => stay.id === this.props.match.params.stayId)
 
         return <div>
+            {this.renderBannerSection()}
             {this.renderStaysList()}
             {this.renderDateMessage(stay)}
             <h4>Search local places:</h4><br/>
@@ -46,8 +116,7 @@ class StayDashboard extends React.Component {
     render() {
         let { user } = this.props
         return <div>
-            {user && this.renderContent(user)}
-            {!user && "Loading..."}
+            {user ? this.renderContent(user) : this.renderLoadingMessage()}
         </div>
     }
 }
@@ -65,4 +134,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StayDashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StayDashboard))
