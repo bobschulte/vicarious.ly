@@ -3,6 +3,7 @@ const passport = require('passport')
 const userController = require('../controllers/userController')
 const cityController = require('../controllers/cityController')
 const stayController = require('../controllers/stayController')
+const placeController = require('../controllers/placeController')
 
 const router = express.Router();
 
@@ -48,6 +49,11 @@ router.patch('/stays/:id',
     isAuthenticated,
     stayController.update
 )
+
+router.post('/places',
+    isAuthenticated,
+    placeController.create
+),
 
 // USER/AUTH ROUTES
 router.post('/login',

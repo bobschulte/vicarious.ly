@@ -19,7 +19,7 @@ const userReducer = (state=null, action) => {
         case 'LOGOUT_USER':
             removeStorageToken()
             removeStorageId()
-            history.push('/login')
+            history.push('/')
             return null
         default:
             return state

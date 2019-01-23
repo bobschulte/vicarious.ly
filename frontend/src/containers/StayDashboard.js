@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-// import actions from '../state/actions/index'
+import actions from '../state/actions/index'
 import PlacesSearch from '../components/forms/PlacesSearch'
 
 class StayDashboard extends React.Component {
@@ -11,7 +11,11 @@ class StayDashboard extends React.Component {
 
     handlePlaceInputChange = value => this.setState({ value })
 
-    handlePlaceSubmit = value => this.setState({ value })
+    handlePlaceSubmit = value => {
+        const place = { name: value, stayId: this.props.match.params.stayId }
+        this.props.addPlace(place)
+        this.setState({ value: '' })
+    }
 
     setCoordsFor = coords => {
         console.log(coords)
@@ -50,4 +54,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(StayDashboard)
+const mapDispatchToProps = dispatch => {
+    return {
+        addPlace: place => dispatch(actions.places.add(place))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StayDashboard)

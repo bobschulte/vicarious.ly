@@ -6,7 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from '@material-ui/core/FormControl'
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { styles } from './helpers/styles/loginStyles'
@@ -46,10 +46,14 @@ class RegisterForm extends React.Component {
             <CssBaseline />
             <Paper className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
+                <DescriptionOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                 Sign Up
+                </Typography>
+                <br/>
+                <Typography component="h6" variant="subtitle1" color="textSecondary" >
+                Already have an account? <a href="/login">Log in here</a>
                 </Typography>
                 <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>

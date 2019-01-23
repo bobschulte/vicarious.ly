@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 // import Button from "@material-ui/core/Button";
 import actions from '../state/actions/index'
+import Album from './Album'
 import RelocateForm from '../components/forms/RelocateForm'
 import StaysList from '../components/StaysList'
-import Album from './Album'
 import StayDashboard from './StayDashboard'
 
 class Dashboard extends React.Component {
@@ -17,7 +17,7 @@ class Dashboard extends React.Component {
 
   renderCitiesVisited = () => <StaysList user={this.props.user} viewStay={this.visitStayPage} />
 
-  visitStayPage = stayId => this.props.history.push(`/users/${this.props.match.params.userIdSlug}/album/${stayId}`)
+  visitStayPage = stayId => this.props.history.push(`/users/${this.props.match.params.userIdSlug}/${stayId}`)
 
   renderDashboard = () => {
     let { firstName, location, Stays } = this.props.user
@@ -36,8 +36,9 @@ class Dashboard extends React.Component {
         {user && this.renderDashboard()}
         {!user && <h1>Loading...</h1>}
         <Switch>
+          {/* <Route exact path={`${match.path}/`} component={Album} /> */}
           <Route exact path={`${match.path}/relocate`} component={RelocateForm} />
-          <Route path={`${match.path}/album/:stayId`} component={StayDashboard} />
+          <Route path={`${match.path}/:stayId`} component={StayDashboard} />
           {/* <Route path={`${match.path}/album`} component={Album} /> */}
         </Switch>
       </div>;
@@ -46,15 +47,13 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
-    cities: state.cities
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUser: (userId) => dispatch(actions.user.fetch(userId)),
-    fetchCities: () => dispatch(actions.city.fetch())
+    fetchUser: (userId) => dispatch(actions.user.fetch(userId))
   }
 }
 

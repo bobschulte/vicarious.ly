@@ -13,7 +13,7 @@ class PlacesSearch extends React.Component {
   }
 
   handleSubmit = e => {
-    console.log('submitted: ', this.props.value)
+    this.props.onSubmit(this.props.value)
   }
 
   render() {

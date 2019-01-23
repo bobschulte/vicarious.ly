@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 import user from './user'
 import cities from './cities'
-// import stay from './stays'
+import stay from './stays'
+import places from './places'
 
 const rootReducer = combineReducers({
     user,
     cities,
-    // stay
+    stay,
+    places
 })
 
 export default rootReducer

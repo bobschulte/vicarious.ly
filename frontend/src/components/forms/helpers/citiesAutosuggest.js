@@ -62,10 +62,11 @@ export const getSuggestions = function(value, suggestions) {
           .slice(0, inputLength)
           .toLowerCase()
           .replace(/[á]/g, "a")
+          .replace(/[ã]/g, "a")
           .replace(/[é]/g, "e")
           .replace(/[í]/g, "i")
           .replace(/[ó]/g, "o")
-          .replace(/[ú]/g, "u")
+          .replace(/[ú]/g, "u");
       })
         const keep =
           count < 8 && substringsToMatch.includes(inputValue);

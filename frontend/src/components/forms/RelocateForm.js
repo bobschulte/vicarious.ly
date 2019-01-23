@@ -84,6 +84,7 @@ class RelocateForm extends React.Component {
                 <Button type="button" center="true" variant="contained" color="primary" onClick={this.toggleMap} className={classes.submit}>
                     Toggle Map
                 </Button>
+                <br/>
                 {this.state.showMap && this.renderMap()}
                 <form id="user-form" className={classes.form} >
                 <FormControl margin="normal" required fullWidth>
