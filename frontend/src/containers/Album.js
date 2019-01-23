@@ -81,6 +81,11 @@ class Album extends React.Component {
     return user.Stays.length > 0
   }
 
+  handleButtonClick(e) {
+    e.persist()
+    console.log(e.target)
+  }
+
   calculateStats(user) {
     Array.prototype.unique = function () {
       return this.filter(function (value, index, self) {
@@ -93,11 +98,14 @@ class Album extends React.Component {
   }
 
   renderLoadingMessage() {
-    return <React.Fragment>
-      <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-        Loading...
-      </Typography>
-    </React.Fragment>
+    const { classes } = this.props
+    return <div className={classes.heroUnit}>
+      <div className={classes.heroContent}>
+        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+          Loading...
+        </Typography>
+      </div>
+    </div>
   }
 
   renderFooter() {
@@ -173,7 +181,6 @@ class Album extends React.Component {
 
   renderAlbumSection() {
     const { user, classes } = this.props
-    console.log(user.Stays)
     const stays = [...user.Stays].slice(1)
     return <div className={classNames(classes.layout, classes.cardGrid)}>
       <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
@@ -202,7 +209,7 @@ class Album extends React.Component {
               </CardContent>
               <CardActions>
                 <Tooltip title={`View ${user.firstName}'s past stay in ${stay.City.name}`} >
-                  <Button size="small" color="primary">
+                  <Button href={`/users/${user.userIdSlug}/stays/${stay.id}`} size="small" color="primary">
                     View
                   </Button>
                 </Tooltip>

@@ -27,7 +27,7 @@ export default class App extends React.Component {
         <Switch>
           <Route path="/register" component={Login} />
           <Route path="/login" component={Login} />
-          <Route path="/users/:userIdSlug" component={Album} />
+          <Route path="/users/:userIdSlug" component={Dashboard} />
           {/* <Route path="/staybegun" render={() => <Redirect to={`/users/${localStorage.getItem('vicariouslyId')}`} />} /> */}
           <Route path='/' component={Home} />
         </Switch>

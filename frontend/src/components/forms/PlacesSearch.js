@@ -55,6 +55,7 @@ class PlacesSearch extends React.Component {
               </div>
             </div>}
         </PlacesAutocomplete>
+        <br/>
         <Button type="button" variant="contained" color="primary" onClick={this.handleSubmit}>
           Add to My List
         </Button>

@@ -1,13 +1,13 @@
 import apiCall from "./helpers/apiCall";
 import { fetchUser } from './user'
 
-// const beginStay = (stay, userIdSlug) => {
-//     return {
-//         type: 'BEGIN_STAY',
-//         stay,
-//         userIdSlug
-//     }
-// }
+export const viewStay = (stay, userIdSlug) => {
+    return {
+        type: 'VIEW_STAY',
+        stay,
+        userIdSlug
+    }
+}
 
 const arriveStay = (user, city) => {
     const newStay = { UserId: user.id, CityId: city.cityId }

@@ -7,7 +7,7 @@ import places from './places'
 const rootReducer = combineReducers({
     user,
     cities,
-    // stay,
+    stay,
     places
 })
 
