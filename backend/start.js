@@ -4,7 +4,7 @@ const teleport = require('./seeds/teleportCities')
 const app = require('./app')
 
 db.sequelize.sync().then(async () => { // { force: true }
-    await seed(db)
+    // await seed(db)
     // await teleport(db)
 
     app.set('port', process.env.PORT || 7777)
