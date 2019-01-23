@@ -17,9 +17,9 @@ const teleport = async (db) => {
     let thisCountrysCities
     let counts = {
         counts: {
-            citiesScanned: 17486,
-            citiesSeeded: 13284,
-            countriesSeeded: 59
+            citiesScanned: 28000,
+            citiesSeeded: 23720,
+            countriesSeeded: 81
         }
     };
     let errors = { errors: { countries: { msgs: [], count: 0}, divisions: { msgs: [], count: 0}, cities: { msgs: [], count: 0}, cityData: { msgs: [], count: 0}, urbanArea: { msgs: [], count: 0}, app: { msgs: [], count: 0} } }
@@ -28,7 +28,7 @@ const teleport = async (db) => {
     [ error, countries ] = await to(fetch(`${teleportRootUrl}/countries`))
     if (error) console.log('ERROR!!!! TELEPORT 1: ', error) && errors.countries.count++ && errors.countries.msgs.push(error)
     countries = countries ? await countries.json() : []
-    countries = countries['_links']['country:items'].slice(59) // Denmark
+    countries = countries['_links']['country:items'].slice(81) // Georgia
 
     await asyncForEach(countries, async (country) => { // goes up to index 251! USA is 238
         [ error, divisions ] = await to(fetch(`${country.href}/admin1_divisions`))

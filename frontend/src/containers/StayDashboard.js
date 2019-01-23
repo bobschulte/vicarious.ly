@@ -114,8 +114,10 @@ class StayDashboard extends React.Component {
             <Typography component="h4" variant="h5" align="center" color="textPrimary" gutterBottom>
                 <PlaceIcon/> {this.renderDateMessage(stay)}
             </Typography>
-            <h4>Search local places:</h4><br/>
-            <PlacesSearch onChange={this.handlePlaceInputChange} onSubmit={this.handlePlaceSubmit} value={this.state.value} lat={stay.City.lat} lng={stay.City.lng} />
+            <Typography component="h4" variant="h6" align="center" color="textPrimary" gutterBottom>
+                {/* Search local places: */}
+                <PlacesSearch onChange={this.handlePlaceInputChange} onSubmit={this.handlePlaceSubmit} value={this.state.value} lat={stay.City.lat} lng={stay.City.lng} />
+            </Typography>
           </div>;
     }
 

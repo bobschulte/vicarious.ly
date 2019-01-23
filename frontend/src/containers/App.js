@@ -1,10 +1,9 @@
 import React from 'react';
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import history from '../state/history/history'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import Home from '../components/Home'
 import NavBar from './NavBar'
-import Album from './Album'
 import Dashboard from './Dashboard'
 import Login from './Login'
 
@@ -28,7 +27,6 @@ export default class App extends React.Component {
           <Route path="/register" component={Login} />
           <Route path="/login" component={Login} />
           <Route path="/users/:userIdSlug" component={Dashboard} />
-          {/* <Route path="/staybegun" render={() => <Redirect to={`/users/${localStorage.getItem('vicariouslyId')}`} />} /> */}
           <Route path='/' component={Home} />
         </Switch>
       </Router>

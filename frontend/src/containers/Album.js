@@ -116,14 +116,9 @@ class Album extends React.Component {
         <div className={classes.heroButtons}>
           <Grid container spacing={16} justify="center">
             <Grid item>
-              <Button variant="contained" color="primary">
-                Main call to action
-            </Button>
-            </Grid>
-            <Grid item>
-              <Button variant="contained" color="primary">
-                Secondary action
-            </Button>
+              {/* <Button variant="contained" color="primary">
+                Return to Home Page
+              </Button> */}
             </Grid>
           </Grid>
         </div>
