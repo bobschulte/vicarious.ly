@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import actions from '../state/actions/index'
+import { dateParser } from '../components/helpers/dateParser'
 import PlacesSearch from '../components/forms/PlacesSearch'
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import StaysList from "../components/StaysList";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import PlaceIcon from "@material-ui/icons/Place";
 
 const styles = theme => ({
     appBar: {
@@ -95,9 +97,9 @@ class StayDashboard extends React.Component {
     renderDateMessage = stay => {
         const { user } = this.props
         return stay.departure === null ? 
-            <h1>{`${user.firstName} has been in ${stay.City.nameWithCountry} since ${stay.arrival.split("T")[0]}`}</h1>
+            `${user.firstName} has been in ${stay.City.nameWithCountry} since ${dateParser(stay.arrival)}`
             : 
-            <h1>{`${user.firstName} visited ${stay.City.nameWithCountry} from ${stay.arrival.split("T")[0]} to ${stay.departure.split("T")[0]}`}</h1>
+            `${user.firstName} visited ${stay.City.nameWithCountry} from ${dateParser(stay.arrival)} to ${dateParser(stay.departure)}`
     }
 
     renderStaysList = () => <StaysList viewStay={this.props.viewStay} />
@@ -108,7 +110,10 @@ class StayDashboard extends React.Component {
         return <div>
             {this.renderBannerSection()}
             {this.renderStaysList()}
-            {this.renderDateMessage(stay)}
+            <br/>
+            <Typography component="h4" variant="h5" align="center" color="textPrimary" gutterBottom>
+                <PlaceIcon/> {this.renderDateMessage(stay)}
+            </Typography>
             <h4>Search local places:</h4><br/>
             <PlacesSearch onChange={this.handlePlaceInputChange} onSubmit={this.handlePlaceSubmit} value={this.state.value} lat={stay.City.lat} lng={stay.City.lng} />
           </div>;
