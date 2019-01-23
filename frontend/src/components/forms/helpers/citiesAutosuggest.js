@@ -69,7 +69,7 @@ export const getSuggestions = function(value, suggestions) {
           .replace(/[ú]/g, "u");
       })
         const keep =
-          count < 8 && substringsToMatch.includes(inputValue);
+          count < 5 && substringsToMatch.includes(inputValue);
 
         if (keep) {
           count += 1;

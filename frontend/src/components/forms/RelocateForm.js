@@ -27,8 +27,8 @@ class RelocateForm extends React.Component {
             cityNameWithCountry: '',
             cityId: null,
             coords: {
-                lat: 4,
-                lng: -78
+                lat: 0,
+                lng: 0
             },
             zoom: 1,
             showMap: false
@@ -60,6 +60,7 @@ class RelocateForm extends React.Component {
         let { cityId, coords } = this.state
         let selectedCity = { cityId, coords }
         this.props.relocate(this.props.user, selectedCity)
+        this.props.closeForm()
         this.setState({
             cityNameWithCountry: '',
         })
@@ -84,12 +85,12 @@ class RelocateForm extends React.Component {
                 <Button type="button" center="true" variant="contained" color="primary" onClick={this.toggleMap} className={classes.submit}>
                     Toggle Map
                 </Button>
-                <br/>
-                {this.state.showMap && this.renderMap()}
                 <form id="user-form" className={classes.form} >
                 <FormControl margin="normal" required fullWidth>
                     <SearchAutoSuggest handleChange={this.handleInputChange} value={this.state.cityNameWithCountry} suggestions={cities} getCoordsFor={this.setCoordsFor} />
                 </FormControl>
+                
+                {this.state.showMap && this.renderMap()}
                 <Button type="button" fullWidth variant="contained" color="primary" onClick={this.handleSubmit} className={classes.submit}>
                     {user.Stays.length > 0 ? "I'm on the Move!" : "Set Location!"}
                 </Button>

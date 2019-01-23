@@ -1,10 +1,13 @@
 import apiCall from "./helpers/apiCall";
+import { fetchUser } from './user'
 
-const beginStay = () => {
-    return {
-        type: 'BEGIN_STAY'
-    }
-}
+// const beginStay = (stay, userIdSlug) => {
+//     return {
+//         type: 'BEGIN_STAY',
+//         stay,
+//         userIdSlug
+//     }
+// }
 
 const arriveStay = (user, city) => {
     const newStay = { UserId: user.id, CityId: city.cityId }
@@ -13,7 +16,7 @@ const arriveStay = (user, city) => {
     return dispatch => {
         return apiCall("POST", '/stays', newStay).then(res => {
             if (!res.error) {
-                dispatch(beginStay());
+                dispatch(fetchUser(user.userIdSlug));
             } else {
                 console.log('nope, error: ', res.error)
                 alert("User already has already been here (fix this)")

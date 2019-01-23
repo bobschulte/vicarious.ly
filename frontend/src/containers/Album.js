@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import RelocateDialogForm from '../components/forms/RelocateDialogForm'
+import RelocateDialog from '../components/forms/RelocateDialog'
 import PlaceIcon from '@material-ui/icons/Place'
 import { altImgUrl, altBannerImgUrls } from '../components/helpers/styles/altImgUrl'
 
@@ -70,13 +70,15 @@ const styles = theme => ({
   }
 });
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
 class Album extends React.Component {
 
   isLoggedIn(user) {
     const token = localStorage.getItem('vicariouslyId')
     return token === user.userIdSlug
+  }
+
+  hasTakenTrip(user) {
+    return user.Stays.length > 0
   }
 
   calculateStats(user) {
@@ -123,35 +125,44 @@ class Album extends React.Component {
   renderRelocateButtonAndForm() {
     return <Grid container spacing={16} justify="center">
       <Grid item>
-        <RelocateDialogForm />
+        <RelocateDialog />
       </Grid>
     </Grid>;
+  }
+
+  renderStayDetailButton(user) {
+    const isLoggedIn = this.isLoggedIn(user)
+    return <Button variant="contained" color="primary">
+      View {isLoggedIn ? "your" : `${user.firstName}'s`} stay in {user.location.split(",")[0]}
+    </Button>
+  }
+
+  renderBannerDetail(user, isLoggedIn, currentStay) {
+    const { citiesCount, countriesCount } = this.calculateStats(user)
+    return <Typography variant="h6" align="center" color="textSecondary" paragraph>
+      {isLoggedIn ? "You have" : `${user.name} has`} been in {currentStay.City.name} since {currentStay.arrival.split('T')[0]}.<br />
+      {isLoggedIn ? "You have" : `${user.name} has`} visited {citiesCount} cities in {countriesCount} {countriesCount > 1 ? "countries" : "country"}.<br />
+    </Typography>
   }
 
   renderBannerSection() {
     const { user, classes } = this.props
     const currentStay = user.Stays.find(stay => stay.departure === null)
-    const { citiesCount, countriesCount } = this.calculateStats(user)
     const isLoggedIn = this.isLoggedIn(user)
+    const hasTakenTrip = this.hasTakenTrip(user)
     return <div className={classes.heroUnit}>
       <div className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
           {user.name}<br/>
-          {/* <PlaceIcon/>{user.location} */}
         </Typography>
         <Typography variant="h5" align="center" color="textPrimary" gutterBottom>
-          <PlaceIcon/>{user.location}
+          <PlaceIcon/>{hasTakenTrip ? user.location : `${user.firstName} has not taken a trip yet.`}
         </Typography>
-        <Typography variant="h6" align="center" color="textSecondary" paragraph>
-          {isLoggedIn ? "You have" : `${user.name} has`} been in {currentStay.City.name} since {currentStay.arrival.split('T')[0]}.<br/>
-          {isLoggedIn ? "You have" : `${user.name} has`} visited {citiesCount} cities in {countriesCount} countries.<br/>
-        </Typography>
+        {hasTakenTrip && this.renderBannerDetail(user, isLoggedIn, currentStay)}
         <div className={classes.heroButtons}>
           <Grid container spacing={16} justify="center">
             <Grid item>
-              <Button variant="contained" color="primary">
-                View {isLoggedIn ? "your" : `${user.firstName}'s`} stay in {user.location.split(",")[0]}
-              </Button>
+              {hasTakenTrip && this.renderStayDetailButton(user)}
             </Grid>
           </Grid>
             {isLoggedIn && this.renderRelocateButtonAndForm()}
@@ -162,7 +173,8 @@ class Album extends React.Component {
 
   renderAlbumSection() {
     const { user, classes } = this.props
-    const stays = [...user.Stays].reverse().slice(1)
+    console.log(user.Stays)
+    const stays = [...user.Stays].slice(1)
     return <div className={classNames(classes.layout, classes.cardGrid)}>
       <Typography component="h4" variant="h4" align="center" color="textPrimary" gutterBottom>
         Past stays:
@@ -229,7 +241,8 @@ Album.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        stay: state.stay
     }
 }
 
