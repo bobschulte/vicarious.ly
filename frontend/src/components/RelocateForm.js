@@ -43,14 +43,10 @@ const styles = theme => ({
   },
 });
 
-class RegisterForm extends React.Component {
+class RelocateForm extends React.Component {
 
     state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        'password-confirm': ''
+
     }
 
     handleInputChange = e => {
@@ -59,13 +55,8 @@ class RegisterForm extends React.Component {
     
     handleSubmit = e => {
         e.preventDefault()
-        this.props.register(this.state)
         this.setState({
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            'password-confirm': ''
+ 
         })
     }
 
@@ -79,7 +70,7 @@ class RegisterForm extends React.Component {
                 <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                Sign Up
+                Find your next home!
                 </Typography>
                 <form id="user-form" className={classes.form} onSubmit={this.handleSubmit}>
                 <FormControl margin="normal" required fullWidth>
@@ -90,18 +81,6 @@ class RegisterForm extends React.Component {
                     <InputLabel htmlFor="password">Last Name</InputLabel>
                     <Input value={this.state.lastName} onChange={this.handleInputChange} name="lastName" type="lastName" id="lastName" />
                 </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="email">Email Address</InputLabel>
-                    <Input value={this.state.email} onChange={this.handleInputChange} id="email" name="email" />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input value={this.state.password} onChange={this.handleInputChange} name="password" type="password" id="password" />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="password-confirm">Confirm Password</InputLabel>
-                    <Input value={this.state['password-confirm']} onChange={this.handleInputChange} name="password-confirm" type="password" id="password-confirm" />
-                </FormControl>
                 <Button
                     type="submit"
                     fullWidth
@@ -109,7 +88,7 @@ class RegisterForm extends React.Component {
                     color="primary"
                     className={classes.submit}
                 >
-                    Sign me up
+                    I'm Ready to Move!
                 </Button>
                 </form>
             </Paper>
@@ -118,29 +97,8 @@ class RegisterForm extends React.Component {
   }
 }
 
-RegisterForm.propTypes = {
+RelocateForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RegisterForm);
-
-// export default function (props) {
-//     return <Form id="user-form" onSubmit={props.register}>
-//         <label htmlFor="user-firstName">First Name:</label>
-//         <Text field="firstName" id="user-firstName" />
-//         <label htmlFor="user-lastName">Last Name:</label>
-//         <Text field="lastName" id="user-lastName" />
-//         <label htmlFor="user-email">Email:</label>
-//         <Text type="email" field="email" id="user-email" />
-//         <label htmlFor="user-password">Password:</label>
-//         <Text type="password" field="password" id="user-password" />
-//         <label htmlFor="user-password-confirm">
-//             Confirm Password:
-//             </label>
-//         <Text type="password" field="password-confirm" id="user-password-confirm" />
-//         <Button variant="outlined" type="submit">
-//             {" "}
-//             Register{" "}
-//         </Button>
-//     </Form>
-// }
+export default withStyles(styles)(RelocateForm);

@@ -1,25 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../state/actions/index'
+import { storageToken } from '../helpers/storageItems'
 import LoginForm from '../components/LoginForm'
 import RegisterForm from "../components/RegisterForm";
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    let token = localStorage.getItem("vicariouslyToken");
-    !!token && this.props.history.push("/");
+    !!storageToken && this.props.history.push("/");
   }
 
   render() {
     let { path } = this.props.match;
-    return <div>
+    return <>
         {path === "/register" ? (
-          <RegisterForm {...this.props} handleSubmit={this.props.register} />
+          <RegisterForm {...this.props} register={this.props.register} />
         ) : (
-          <LoginForm {...this.props} handleSubmit={this.props.login} />
+          <LoginForm {...this.props} login={this.props.login} />
         )}
-      </div>;
+      </>;
   }
 }
 

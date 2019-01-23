@@ -8,7 +8,6 @@ exports.index = (req, res) => {
 }
 
 exports.show = (req, res) => {
-    console.log('params: ', req.params)
     if (req.user) {
         delete req.user.passwordHash
         delete req.user.passwordSalt
