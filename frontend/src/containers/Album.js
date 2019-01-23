@@ -16,7 +16,7 @@ import { withStyles } from '@material-ui/core/styles';
 import RelocateDialog from '../components/forms/RelocateDialog'
 import PlaceIcon from '@material-ui/icons/Place'
 import { dateParser } from '../components/helpers/dateParser'
-import { altImgUrl, altBannerImgUrls } from '../components/helpers/styles/altImgUrl'
+import { altImgUrl } from '../components/helpers/styles/altImgUrl'
 
 const styles = theme => ({
   appBar: {
@@ -88,13 +88,14 @@ class Album extends React.Component {
   }
 
   calculateStats(user) {
-    Array.prototype.unique = function () {
-      return this.filter(function (value, index, self) {
-        return self.indexOf(value) === index;
-      });
+    function unique(array) {
+      return array.filter(function(value, index) {
+        return array.indexOf(value) === index
+      })
     }
+
     const citiesCount = user.Stays.length
-    const countriesCount = user.Stays.map(stay => stay.City.country).unique().length
+    const countriesCount = unique(user.Stays.map(stay => stay.City.country)).length
     return { citiesCount, countriesCount }
   }
 
@@ -227,7 +228,7 @@ class Album extends React.Component {
   }
 
   render() {
-    const { user, classes } = this.props
+    const { user } = this.props
     return <React.Fragment>
       <CssBaseline />
       <main>

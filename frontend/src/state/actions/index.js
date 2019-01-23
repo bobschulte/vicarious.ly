@@ -1,6 +1,6 @@
 import { registerUser, loginUser, fetchUser, logoutUser } from './user'
 import { fetchAllCities } from './city'
-import { relocate, fetchStay, viewStay } from './stay'
+import { relocate, viewStay } from './stay'
 import { addPlace } from './places'
 
 const actions = {
