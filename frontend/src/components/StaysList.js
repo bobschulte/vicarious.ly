@@ -14,7 +14,7 @@ import { altImgUrl } from './helpers/styles/altImgUrl'
 function StaysList(props) {
   const { classes, user } = props
   const stays = [...user.Stays].reverse()
-
+  console.log(user)
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={6}>

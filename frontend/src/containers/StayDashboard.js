@@ -61,7 +61,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addPlace: place => dispatch(actions.places.add(place)),
-        viewStay: stayId => dispatch(actions.stay.view(stayId))
+        viewStay: (stay, userIdSlug) => dispatch(actions.stay.view(stay, userIdSlug))
     }
 }
 
