@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import RelocateDialog from '../components/forms/RelocateDialog'
 import PlaceIcon from '@material-ui/icons/Place'
+import { dateParser } from '../components/helpers/dateParser'
 import { altImgUrl, altBannerImgUrls } from '../components/helpers/styles/altImgUrl'
 
 const styles = theme => ({
@@ -138,9 +139,9 @@ class Album extends React.Component {
     </Grid>;
   }
 
-  renderStayDetailButton(user) {
+  renderStayDetailButton(user, currentStay) {
     const isLoggedIn = this.isLoggedIn(user)
-    return <Button variant="contained" color="primary">
+    return <Button href={`/users/${user.userIdSlug}/stays/${currentStay.id}`} variant="contained" color="primary">
       View {isLoggedIn ? "your" : `${user.firstName}'s`} stay in {user.location.split(",")[0]}
     </Button>
   }
@@ -148,7 +149,7 @@ class Album extends React.Component {
   renderBannerDetail(user, isLoggedIn, currentStay) {
     const { citiesCount, countriesCount } = this.calculateStats(user)
     return <Typography variant="h6" align="center" color="textSecondary" paragraph>
-      {isLoggedIn ? "You have" : `${user.name} has`} been in {currentStay.City.name} since {currentStay.arrival.split('T')[0]}.<br />
+      {isLoggedIn ? "You have" : `${user.name} has`} been in {currentStay.City.name} since {dateParser(currentStay.arrival)}.<br />
       {isLoggedIn ? "You have" : `${user.name} has`} visited {citiesCount} cities in {countriesCount} {countriesCount > 1 ? "countries" : "country"}.<br />
     </Typography>
   }
@@ -170,7 +171,7 @@ class Album extends React.Component {
         <div className={classes.heroButtons}>
           <Grid container spacing={16} justify="center">
             <Grid item>
-              {hasTakenTrip && this.renderStayDetailButton(user)}
+              {hasTakenTrip && this.renderStayDetailButton(user, currentStay)}
             </Grid>
           </Grid>
             {isLoggedIn && this.renderRelocateButtonAndForm()}
@@ -204,7 +205,7 @@ class Album extends React.Component {
                   {stay.City.country}
                 </Typography>
                 <Typography gutterBottom variant="subtitle1" component="h4" color="textSecondary">
-                  {stay.arrival.split('T')[0]} to {stay.departure.split('T')[0]}
+                  {dateParser(stay.arrival)} to {dateParser(stay.departure)}
                 </Typography>
               </CardContent>
               <CardActions>
@@ -221,6 +222,7 @@ class Album extends React.Component {
           </Grid>
         ))}
       </Grid>
+      {this.renderFooter()}
     </div>
   }
 
@@ -235,9 +237,8 @@ class Album extends React.Component {
       <CssBaseline />
       <main>
         {user ? this.renderBannerSection() : this.renderLoadingMessage()}
-        {user && this.renderAlbumSection()}
+        {user && user.Stays.length > 1 && this.renderAlbumSection()}
       </main>
-      {user && this.renderFooter()}
     </React.Fragment>
   }
 }

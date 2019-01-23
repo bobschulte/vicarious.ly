@@ -68,7 +68,7 @@ class StayDashboard extends React.Component {
 
     renderReturnToAlbumButton(user) {
         const isLoggedIn = this.isLoggedIn(user)
-        return <Button variant="contained" color="primary">
+        return <Button href={`/users/${user.userIdSlug}`} variant="contained" color="primary">
             Return to {isLoggedIn ? "your" : `${user.firstName}'s`} profile
         </Button>
     }
@@ -77,7 +77,7 @@ class StayDashboard extends React.Component {
         const { user, classes } = this.props
         return <div className={classes.heroUnit}>
             <div className={classes.heroContent}>
-                <Typography component="h4" variant="h6" align="center" color="textPrimary" gutterBottom>
+                <Typography component="h4" variant="h5" align="center" color="textPrimary" gutterBottom>
                     {user.name}<br />
                 </Typography>
                 <div className={classes.heroButtons}>
@@ -86,6 +86,7 @@ class StayDashboard extends React.Component {
                             {this.renderReturnToAlbumButton(user)}
                         </Grid>
                     </Grid>
+                    <br/>
                 </div>
             </div>
         </div>;
