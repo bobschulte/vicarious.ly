@@ -13,7 +13,7 @@ const styles = theme => ({
     margin: theme.spacing.unit * 7
   },
   marginBottom: {
-    marginBottom: theme.spacing.unit * 12
+    marginBottom: theme.spacing.unit * 8
   },
   widthSmall: {
     width: "auto",

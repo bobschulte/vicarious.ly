@@ -76,7 +76,7 @@ class NavBar extends React.Component {
               {"My Travel Profile"}
             </Button>
             <Button variant="text" underline="none" className={classNames(classes.rightLink)} onClick={() => this.props.history.push('/cities')}>
-              {"Browse Cities"}
+              {"Browse"}
             </Button>
             <Button onClick={logoutUser} variant="text" underline="none" className={classNames(classes.rightLink)}>
               {"Logout"}
@@ -92,15 +92,9 @@ class NavBar extends React.Component {
             <AppBar position="static">
               <Toolbar className={classes.toolbar}>
                 <div className={classes.left} />
-                <Link
-                  variant="h6"
-                  underline="none"
-                  color="inherit"
-                  className={classes.title}
-                  href="/"
-                >
-                  {'vicarious.ly'}
-                </Link>
+                <Button variant="text" color='inherit' underline="none" className={classNames(classes.title)} onClick={() => this.props.history.push('/')}>
+                  {"vicarious.ly"}
+                </Button>
                 <div className={classes.right}>
                   {userIdSlug ? this.renderUserLinks(userIdSlug) : this.renderLoginLinks()}
                 </div>

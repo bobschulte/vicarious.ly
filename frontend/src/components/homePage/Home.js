@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import HomeBannerLayout from './HomeBannerLayout';
+import HomeBody from './HomeBody'
 
 const backgroundImage =
   "https://images.unsplash.com/photo-1534321238895-da3ab632df3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80";
@@ -52,10 +53,11 @@ function Home(props) {
             Share your travel experiences with your loved ones
           </Typography>
           <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
-            Stay connected to family and friends as you travel the globe
+            Feel connected to family and friends as you travel the globe
           </Typography>
           {!isLoggedIn() && renderRegisterButton()}
       </HomeBannerLayout>
+      <HomeBody />
   </React.Fragment>
 }
 

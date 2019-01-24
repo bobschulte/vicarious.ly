@@ -21,54 +21,55 @@ import LoadingCircle from '../components/Loading'
 
 const styles = theme => ({
   appBar: {
-    position: 'relative',
+    position: "relative"
   },
   icon: {
     marginRight: theme.spacing.unit * 2,
+    fontSize: "28px"
   },
   heroUnit: {
     backgroundColor: theme.palette.secondary.main
   },
   heroContent: {
-    maxWidth: '100%',
-    margin: '0 auto',
-    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
+    maxWidth: "100%",
+    margin: "0 auto",
+    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`
   },
   heroButtons: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing.unit * 4
   },
   layout: {
-    width: 'auto',
+    width: "auto",
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
       width: 1100,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
   },
   cardGrid: {
-    padding: `${theme.spacing.unit * 8}px 0`,
+    padding: `${theme.spacing.unit * 8}px 0`
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column"
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%" // 16:9
   },
   cardContent: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 6,
+    padding: theme.spacing.unit * 6
   },
   avatar: {
     margin: 10,
     width: 60,
-    height: 60,
+    height: 60
   }
 });
 
@@ -167,7 +168,7 @@ class Album extends React.Component {
           {user.name}<br/>
         </Typography>
         <Typography variant="h4" align="center" color="textPrimary" gutterBottom>
-          <PlaceIcon/>{hasTakenTrip ? user.location : `${user.firstName} has not taken a trip yet.`} {currentStay && this.renderFlagIcon(currentStay)}
+          <PlaceIcon className={classes.icon} />{hasTakenTrip ? user.location : `${user.firstName} has not taken a trip yet.`} {currentStay && this.renderFlagIcon(currentStay)}
         </Typography>
         {hasTakenTrip && this.renderBannerDetail(user, isLoggedIn, currentStay)}
         <div className={classes.heroButtons}>
