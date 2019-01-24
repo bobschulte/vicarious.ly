@@ -7,8 +7,8 @@ import RegisterForm from "../components/forms/RegisterForm";
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    let token = localStorage.getItem("vicariouslyToken");
-    !!token && this.props.history.push("/");
+    let idToken = localStorage.getItem("vicariouslyId");
+    !!idToken && this.props.history.push(`/users/${idToken}`);
   }
 
   render() {
