@@ -198,7 +198,7 @@ class Album extends React.Component {
                   {stay.City.name}
                 </Typography>
                 <Typography gutterBottom variant="subtitle1" component="h4" color="textSecondary">
-                  {stay.City.country}
+                  {stay.City.country} <span className={`flag-icon flag-icon-${stay.City.countryCode}`}></span>
                 </Typography>
                 <Typography gutterBottom variant="subtitle1" component="h4" color="textSecondary">
                   {dateParser(stay.arrival)} to {dateParser(stay.arrival)}
