@@ -25,10 +25,8 @@ class RadioButtons extends React.Component {
         <FormGroup className={classes.root} row>
           <FormControlLabel value="arts-culture" control={<Radio checked={this.props.placeType === 'arts-culture'} onChange={this.handleChange} />} label="Arts/Culture" />
           <FormControlLabel value="food-drink" control={<Radio checked={this.props.placeType === 'food-drink'} onChange={this.handleChange} />} label="Food/Drink" />
-          <FormControlLabel value="outdoors" control={<Radio checked={this.props.placeType === 'outdoors'} onChange={this.handleChange} />} label="Outdoors" />
-          <FormControlLabel value="shopping" control={<Radio checked={this.props.placeType === 'shopping'} onChange={this.handleChange} />} label="Shopping" />
-          <FormControlLabel value="sightseeing" control={<Radio checked={this.props.placeType === 'sightseeing'} onChange={this.handleChange} />} label="Sightseeing" />
-          <FormControlLabel value="other" control={<Radio checked={this.props.placeType === 'other'} onChange={this.handleChange} />} label="Other" />
+          <FormControlLabel value="nature-outdoors" control={<Radio checked={this.props.placeType === 'nature-outdoors'} onChange={this.handleChange} />} label="Nature/Outdoors" />
+          <FormControlLabel value="point-of-interest" control={<Radio checked={this.props.placeType === 'point-of-interest'} onChange={this.handleChange} />} label="Point of Interest/Other" />
         </FormGroup>
       </div>;
   }

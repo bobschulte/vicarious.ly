@@ -10,6 +10,8 @@ import StaysList from "../components/StaysList";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import PlaceIcon from "@material-ui/icons/Place";
+import LoadingCircle from '../components/Loading'
+import StayPlacesGrid from '../components/StayPlacesGrid'
 
 const styles = theme => ({
     appBar: {
@@ -56,7 +58,9 @@ class StayDashboard extends React.Component {
         if (this.state.placeType) {
             const place = { name: this.state.value, placeType: this.state.placeType, StayId: this.props.match.params.stayId }
             this.props.addPlace(place)
-            this.setState({ value: '', placeType: null })
+            .then(() => {
+                this.setState({ value: '', placeType: null })
+            })
         } else {
             alert('Please classify the place before adding to your list.')
         }
@@ -66,15 +70,15 @@ class StayDashboard extends React.Component {
         console.log(coords)
     }
 
-    renderLoadingMessage() {
+    renderLoading() {
         const { classes } = this.props
         return <div className={classes.heroUnit}>
             <div className={classes.heroContent}>
-                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                    Loading...
-                 </Typography>
+              <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                <LoadingCircle />
+              </Typography>
             </div>
-        </div>
+          </div>;
     }
 
     renderReturnToAlbumButton(user) {
@@ -105,10 +109,10 @@ class StayDashboard extends React.Component {
 
     renderDateMessage = stay => {
         const { user } = this.props
-        return stay.departure === null ? 
-            `${user.firstName} has been in ${stay.City.nameWithCountry} since ${dateParser(stay.arrival)}`
-            : 
+        return stay.departure ? 
             `${user.firstName} visited ${stay.City.nameWithCountry} from ${dateParser(stay.arrival)} to ${dateParser(stay.departure)}`
+            : 
+            `${user.firstName} has been in ${stay.City.nameWithCountry} since ${dateParser(stay.arrival)}`
     }
 
     renderStaysList = () => <StaysList />
@@ -120,14 +124,13 @@ class StayDashboard extends React.Component {
                 <PlacesSearch onChange={this.handlePlaceInputChange} value={this.state.value} lat={stay.City.lat} lng={stay.City.lng} />
                 <RadioButtons placeType={this.state.placeType} onChange={this.handleRadioChange} />
                 <Button type="submit" variant="contained" color="primary">
-                    Add to My List
+                    Add to My {stay.City.name} Places
                 </Button>
             </Typography>
         </form>
     }
 
-    renderContent = user => {
-        const stay = user.Stays.find(stay => stay.id === this.props.match.params.stayId)
+    renderContent = (user, stay) => {
         const isLoggedIn = this.isLoggedIn(user)
 
         return <div>
@@ -137,28 +140,36 @@ class StayDashboard extends React.Component {
             <Typography component="h4" variant="h5" align="center" color="textPrimary" gutterBottom>
                 <PlaceIcon /> {this.renderDateMessage(stay)}
                 {isLoggedIn && this.renderPlacesForm(stay)}
+                <br/>
+                <StayPlacesGrid stay={stay} />
             </Typography>
-          </div>;
+        </div>;
+    }
+
+    componentDidMount() {
+        const { stayId, userIdSlug } = this.props.match.params
+        this.props.viewStay(stayId, userIdSlug)
     }
 
     render() {
-        let { user } = this.props
+        let { user, stay } = this.props
         return <div>
-            {user ? this.renderContent(user) : this.renderLoadingMessage()}
+            {(user && stay) ? this.renderContent(user, stay) : this.renderLoading()}
         </div>
     }
 }
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user,
+        stay: state.stay
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addPlace: place => dispatch(actions.places.add(place)),
-        viewStay: (stay, userIdSlug) => dispatch(actions.stay.view(stay, userIdSlug))
+        viewStay: (stayId, userIdSlug) => dispatch(actions.stay.view(stayId, userIdSlug))
     }
 }
 

@@ -14,8 +14,8 @@ exports.show = (req, res) => {
     const { id } = req.params
     Stay.findOne({
         where: { id: id }, 
-        include: [db.City]
-        // include: [db.City, db.Place]
+        // include: [db.City]
+        include: [db.City, db.Place]
     })
     .then(stay => res.json(stay))
 }

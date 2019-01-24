@@ -1,4 +1,5 @@
-import history from '../history/history'
+// import history from '../history/history'
+import { redirect } from '../history/history'
 import { setStorageToken, removeStorageToken, setStorageId, removeStorageId } from './helpers/storage'
 
 const userReducer = (state=null, action) => {
@@ -6,20 +7,20 @@ const userReducer = (state=null, action) => {
         case 'LOGIN_USER':
             setStorageToken(action.token)
             setStorageId(action.userIdSlug)
-            history.push(`/users/${action.userIdSlug}`)
+            redirect(`/users/${action.userIdSlug}`)
             return state
         case 'SET_USER':
             const { user } = action
-            if (user.Stays.length === 0 && user.userIdSlug === localStorage.getItem('vicariouslyId')) history.push(`/users/${user.userIdSlug}`)
+            if (user.Stays.length === 0 && user.userIdSlug === localStorage.getItem('vicariouslyId')) redirect(`/users/${user.userIdSlug}`)
             return action.user // { ...state, user: action.user }  <-- if switch to other rootReducer implementation
         case 'INVALID_USER':
             const token = localStorage.getItem('vicariouslyId')
-            token ? history.push(`/users/${token}`) : history.push('/')
+            token ? redirect(`/users/${token}`) : redirect('/')
             return state
         case 'LOGOUT_USER':
             removeStorageToken()
             removeStorageId()
-            history.push('/')
+            redirect('/')
             return null
         default:
             return state

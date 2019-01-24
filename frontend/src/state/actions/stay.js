@@ -9,9 +9,9 @@ const setStay = (stay, userIdSlug) => {
     }
 }
 
-export const viewStay = (stay, userIdSlug) => {
+export const viewStay = (stayId, userIdSlug) => {
     return dispatch => {
-        return apiCall('GET', `/stays/${stay.id}`).then(res => {
+        return apiCall('GET', `/stays/${stayId}`).then(res => {
             if (!res.error) {
                 dispatch(setStay(res, userIdSlug))
             } else {

@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   Stay.associate = function(db) {
     Stay.belongsTo(db.User)
     Stay.belongsTo(db.City)
+    Stay.hasMany(db.Place);
   };
   return Stay;
 };

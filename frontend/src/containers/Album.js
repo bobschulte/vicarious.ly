@@ -17,6 +17,7 @@ import RelocateDialog from '../components/forms/RelocateDialog'
 import PlaceIcon from '@material-ui/icons/Place'
 import { dateParser } from '../components/helpers/dateParser'
 import { altImgUrl } from '../components/helpers/styles/altImgUrl'
+import LoadingCircle from '../components/Loading'
 
 const styles = theme => ({
   appBar: {
@@ -99,12 +100,12 @@ class Album extends React.Component {
     return { citiesCount, countriesCount }
   }
 
-  renderLoadingMessage() {
+  renderLoading() {
     const { classes } = this.props
     return <div className={classes.heroUnit}>
       <div className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-          Loading...
+          <LoadingCircle />
         </Typography>
       </div>
     </div>
@@ -137,7 +138,7 @@ class Album extends React.Component {
 
   renderStayDetailButton(user, currentStay) {
     const isLoggedIn = this.isLoggedIn(user)
-    return <Button onClick={() => this.props.viewStay(currentStay, user.userIdSlug)} variant="contained" color="primary">
+    return <Button onClick={() => this.props.viewStay(currentStay.id, user.userIdSlug)} variant="contained" color="primary">
       View {isLoggedIn ? "your" : `${user.firstName}'s`} stay in {user.location.split(",")[0]}
     </Button>
   }
@@ -148,6 +149,10 @@ class Album extends React.Component {
       {isLoggedIn ? "You have" : `${user.name} has`} been in {currentStay.City.name} since {dateParser(currentStay.arrival)}.<br />
       {isLoggedIn ? "You have" : `${user.name} has`} visited {citiesCount} cities in {countriesCount} {countriesCount > 1 ? "countries" : "country"}.<br />
     </Typography>
+  }
+
+  renderFlagIcon(stay) {
+    return <span className={`flag-icon flag-icon-${stay.City.countryCode}`} />;
   }
 
   renderBannerSection() {
@@ -161,7 +166,7 @@ class Album extends React.Component {
           {user.name}<br/>
         </Typography>
         <Typography variant="h4" align="center" color="textPrimary" gutterBottom>
-          <PlaceIcon/>{hasTakenTrip ? user.location : `${user.firstName} has not taken a trip yet.`} <span className={`flag-icon flag-icon-${currentStay.City.countryCode}`}/>
+          <PlaceIcon/>{hasTakenTrip ? user.location : `${user.firstName} has not taken a trip yet.`} {currentStay && this.renderFlagIcon(currentStay)}
         </Typography>
         {hasTakenTrip && this.renderBannerDetail(user, isLoggedIn, currentStay)}
         <div className={classes.heroButtons}>
@@ -201,12 +206,12 @@ class Album extends React.Component {
                   {stay.City.country} <span className={`flag-icon flag-icon-${stay.City.countryCode}`}></span>
                 </Typography>
                 <Typography gutterBottom variant="subtitle1" component="h4" color="textSecondary">
-                  {dateParser(stay.arrival)} to {dateParser(stay.arrival)}
+                  {dateParser(stay.arrival)} - {dateParser(stay.arrival)}
                 </Typography>
               </CardContent>
               <CardActions>
                 <Tooltip title={`View ${user.firstName}'s past stay in ${stay.City.name}`} >
-                  <Button onClick={() => this.props.viewStay(stay, user.userIdSlug)} size="small" color="primary">
+                  <Button onClick={() => this.props.viewStay(stay.id, user.userIdSlug)} size="small" color="primary">
                     View
                   </Button>
                 </Tooltip>
@@ -232,7 +237,7 @@ class Album extends React.Component {
     return <React.Fragment>
       <CssBaseline />
       <main>
-        {user ? this.renderBannerSection() : this.renderLoadingMessage()}
+        {user ? this.renderBannerSection() : this.renderLoading()}
         {user && user.Stays.length > 1 && this.renderAlbumSection()}
       </main>
     </React.Fragment>
@@ -253,7 +258,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchUser: (userId) => dispatch(actions.user.fetch(userId)),
-        viewStay: (stay, userIdSlug) => dispatch(actions.stay.view(stay, userIdSlug))
+        viewStay: (stayId, userIdSlug) => dispatch(actions.stay.view(stayId, userIdSlug))
     }
 }
 

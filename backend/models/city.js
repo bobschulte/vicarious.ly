@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       countryCode() {
         const countryData = countries.find(country => country["name"] === this.country)
-        return countryData["alpha2"].toLowerCase()
+        return countryData ? countryData["alpha2"].toLowerCase() : ''
       },
       slug() {
         let name = this.name.split(' ').join('-').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase()

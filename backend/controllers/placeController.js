@@ -1,6 +1,6 @@
 const db = require("../models/index");
 const googleMapsClient = require('../services/googleMapsClient')
-// const Place = db.Place;
+const Place = db.Place;
 
 exports.create = (req, res) => {
     console.log('backend controller hit: ', req.body)
@@ -13,43 +13,24 @@ exports.create = (req, res) => {
         googleMapsClient.place({ placeid: placeId, fields: ['name', 'formatted_address', 'geometry', 'type', 'url', 'website'] }).asPromise()
         .catch(err => console.log('error: ', err))
         .then(googleResponse2 => {
-            // const 
+            const address = googleResponse2.json.result.formatted_address
+            const lat = googleResponse2.json.result.geometry.location.lat
+            const lng = googleResponse2.json.result.geometry.location.lng
+            const name = googleResponse2.json.result.name
+            const url = googleResponse2.json.result.url
             
-            
-            const place = { ...googleResponse2.json.result, StayId: StayId, placeType: placeType }
+            const place = { StayId, name, placeType, address, url, lat, lng };
             console.log("PLACE TO SAVE: ", place)
-            res.status(200).json(place)
+
+            Place.create(place)
+            .catch(error => {
+                console.log('ERROR CREATING PLACE: ', error)
+                res.status(500).json(error)
+            })
+            .then(newPlace => {
+                console.log('WE BE CREATIN PLACES YALL: ', newPlace)
+                res.status(200).json(newPlace)
+            })
         })
     })
-
-    // Stay.create({
-    //     CityId: req.body.CityId,
-    //     UserId: req.user.id,
-    //     arrival: new Date()
-    // })
-    // .catch(error => {
-    //     console.log('ERROR CREATING STAY: ', error)
-    //     res.status(500).json(error)
-    // })
-    // .then(newStay => {
-    //     res.status(200).json(newStay)
-    // })
 }
-// {
-//     formatted_address: 'Cl. 30 #20-192, Cartagena, Bolívar, Colombia',
-//         geometry:
-//     {
-//         location: { lat: 10.42349, lng: -75.55315 },
-//         viewport: { northeast: [Object], southwest: [Object] }
-//     },
-//     name: 'Restaurante Bar La Vitrola',
-//         types:
-//     ['restaurant',
-//         'bar',
-//         'point_of_interest',
-//         'food',
-//         'establishment'],
-//         url: 'https://maps.google.com/?cid=16899653682543235191',
-//             StayId: 'ae7d135f-ccfb-48f1-a0a4-485021c78768',
-//                 placeType: 'food-drink'
-// }

@@ -11,6 +11,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from '@material-ui/core/IconButton';
 import DescriptionIcon from '@material-ui/icons/Description'
 import { altImgUrl } from './helpers/styles/altImgUrl'
+import { shortDateParser } from '../components/helpers/dateParser'
 
 function StaysList(props) {
   const { classes, user } = props
@@ -25,14 +26,14 @@ function StaysList(props) {
               <GridListTile key={stay.id}>
                 <img src={imgUrl} alt={stay.City.nameWithCountry} />
                 <GridListTileBar
-                    title={stay.City.nameWithCountry}
+                    title={`${stay.City.nameWithCountry} - ${shortDateParser(stay.arrival)}`}
                     classes={{
                         root: classes.titleBar,
                         title: classes.title,
                     }}
                     actionIcon={
                       <Tooltip title={`View ${user.firstName}'s stay in ${stay.City.name}`} >
-                        <IconButton onClick={() => props.viewStay(stay, user.userIdSlug)}>
+                        <IconButton onClick={() => props.viewStay(stay.id, user.userIdSlug)}>
                           <DescriptionIcon className={classes.title} />
                         </IconButton>
                     </Tooltip>
@@ -58,7 +59,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    viewStay: (stay, userIdSlug) => dispatch(actions.stay.view(stay, userIdSlug))
+    viewStay: (stayId, userIdSlug) => dispatch(actions.stay.view(stayId, userIdSlug))
   }
 }
 

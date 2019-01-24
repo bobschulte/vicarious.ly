@@ -44,7 +44,7 @@ class PlacesSearch extends React.Component {
                     className,
                     style
                   })}>
-                  <span>{suggestion.description.split(',')[0]}</span>
+                  <span>{suggestion.description}</span>
                 </div>;
             })}
           </div>

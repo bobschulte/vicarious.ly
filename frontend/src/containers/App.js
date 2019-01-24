@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from "react-router-dom";
-import history from '../state/history/history'
+import { history } from '../state/history/history'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import Home from '../components/Home'
 import NavBar from './NavBar'
