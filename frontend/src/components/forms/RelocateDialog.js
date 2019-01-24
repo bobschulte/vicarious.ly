@@ -5,7 +5,7 @@ import RelocateForm from './RelocateForm'
 
 export default class RelocateDialog extends React.Component {
     state = {
-        open: false,
+        open: this.props.open,
     };
     
     handleClickOpen = () => {
@@ -22,7 +22,7 @@ export default class RelocateDialog extends React.Component {
               Ready to move to a new city!
             </Button>
             <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-              <RelocateForm closeForm={this.handleClose} />
+              <RelocateForm closeForm={this.handleClose} cityName={this.props.cityName} />
                 <Button onClick={this.handleClose} color="primary">
                   Cancel
                 </Button>

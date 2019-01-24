@@ -1,5 +1,4 @@
-// import history from "../history/history";
-import { redirect } from '../history/history'
+// import { redirect } from '../history/history'
 
 
 const placesReducer = (state = [], action) => {
