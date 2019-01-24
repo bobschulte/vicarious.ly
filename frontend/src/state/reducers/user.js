@@ -1,23 +1,26 @@
-import history from '../history/history'
-import { storageId } from '../../helpers/storageItems'
+// import history from '../history/history'
+import { redirect } from '../history/history'
+import { setStorageToken, removeStorageToken, setStorageId, removeStorageId } from './helpers/storage'
 
 const userReducer = (state=null, action) => {
     switch(action.type) {
         case 'LOGIN_USER':
-            localStorage.setItem('vicariouslyToken', action.token)
-            localStorage.setItem('vicariouslyId', action.id)
-            history.push(`/${action.id}`)
+            setStorageToken(action.token)
+            setStorageId(action.userIdSlug)
+            redirect(`/users/${action.userIdSlug}`)
             return state
         case 'SET_USER':
+            const { user } = action
+            if (user.Stays.length === 0 && user.userIdSlug === localStorage.getItem('vicariouslyId')) redirect(`/users/${user.userIdSlug}`)
             return action.user // { ...state, user: action.user }  <-- if switch to other rootReducer implementation
-        case 'RELOCATE_USER':
-            console.log('relocate user action triggered for id: ', action.userId)
-            history.push(`/users/${storageId}/relocate`)
+        case 'INVALID_USER':
+            const token = localStorage.getItem('vicariouslyId')
+            token ? redirect(`/users/${token}`) : redirect('/')
             return state
         case 'LOGOUT_USER':
-            localStorage.removeItem('vicariouslyToken')
-            localStorage.removeItem('vicariouslyId')
-            history.push('/login')
+            removeStorageToken()
+            removeStorageId()
+            redirect('/')
             return null
         default:
             return state

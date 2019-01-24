@@ -1,48 +1,120 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux'
-import { storageToken } from '../helpers/storageItems'
 import actions from '../state/actions/index'
-import AppBar from '@material-ui/core/AppBar'
-import ToolBar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
+// import Toolbar, { styles as toolbarStyles } from '../components/Toolbar';
+
+const styles = theme => ({
+  title: {
+    fontSize: 24,
+  },
+//   placeholder: toolbarStyles(theme).root,
+  toolbar: {
+    justifyContent: 'space-between',
+  },
+  left: {
+    flex: 1,
+  },
+  leftLinkActive: {
+    color: theme.palette.common.white,
+  },
+  right: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  rightLink: {
+    fontSize: 16,
+    color: theme.palette.common.white,
+    marginLeft: theme.spacing.unit * 3,
+  },
+  linkSecondary: {
+    color: theme.palette.secondary.main,
+  },
+});
 
 class NavBar extends React.Component {
 
-    handleButtonClick = e => {
-        let sourceButton = e.target.textContent;
-        if (sourceButton === 'logout') {
-            this.props.logoutUser()
-        } else {
-            this.props.history.push(`/${sourceButton}`)
-        }
+    isLoggedIn() {
+        const userIdSlug = localStorage.getItem('vicariouslyId')
+        return userIdSlug
     }
 
-    renderButtons = (isLoggedIn) => {
-        let buttons = isLoggedIn ? ['logout'] : ['login', 'register']
-        return buttons.map(text => <Button key={text} style={{ marginLeft: 20, marginRight: 20 }} variant="contained" onClick={this.handleButtonClick}>
-            {text}
-        </Button>)
+    renderLoginLinks() {
+        const { classes } = this.props
+        return <>
+            <Button
+                variant="text"
+                underline="none"
+                className={classes.rightLink}
+                onClick={() => this.props.history.push('/login')}
+            >
+                {'Log In'}
+            </Button>
+            <Button
+                variant="text"
+                underline="none"
+                className={classNames(classes.rightLink)}
+                onClick={() => this.props.history.push('/register')}
+            >
+                {'Register'}
+            </Button> 
+        </>
     }
 
+    renderUserLinks(userIdSlug) {
+        const { classes, logoutUser } = this.props
+        
+        return <> 
+            <Button color="inherit" variant="text" underline="none" className={classes.rightLink} onClick={() => this.props.history.push(`/users/${userIdSlug}`)}>
+              {"My Travel Profile"}
+            </Button>
+            <Button variant="text" underline="none" className={classNames(classes.rightLink)} onClick={() => this.props.history.push('/cities')}>
+              {"Browse Cities"}
+            </Button>
+            <Button onClick={logoutUser} variant="text" underline="none" className={classNames(classes.rightLink)}>
+              {"Logout"}
+            </Button>
+          </>;
+    }
+    
     render() {
-        return <div style={{ flexgrow: 1 }}>
+        const { classes } = this.props;
+        const userIdSlug = this.isLoggedIn()
+        return (
+          <div>
             <AppBar position="static">
-              <ToolBar>
-                <IconButton style={{ marginLeft: -12, marginRight: 20 }} color='inherit' >
-                    <MenuIcon />
-                </IconButton>
-                <Typography style={{ flexgrow: 1, marginLeft: 10, marginRight: 10 }} variant="h4" color="inherit">
-                  VICARIOUS.LY
-                </Typography>
-                {this.renderButtons(!!storageToken)}
-              </ToolBar>
+              <Toolbar className={classes.toolbar}>
+                <div className={classes.left} />
+                <Link
+                  variant="h6"
+                  underline="none"
+                  color="inherit"
+                  className={classes.title}
+                  href="/"
+                >
+                  {'vicarious.ly'}
+                </Link>
+                <div className={classes.right}>
+                  {userIdSlug ? this.renderUserLinks(userIdSlug) : this.renderLoginLinks()}
+                </div>
+              </Toolbar>
             </AppBar>
-          </div>;
+            <div className={classes.placeholder} />
+          </div>
+        );
     }
 }
+
+NavBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => {
     return {
@@ -56,4 +128,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(NavBar))

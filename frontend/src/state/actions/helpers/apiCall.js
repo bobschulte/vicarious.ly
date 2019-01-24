@@ -1,6 +1,6 @@
 const rootUrl = 'http://localhost:7777'
 
-const apiCall = (method, route, userData={}) => {
+const apiCall = (method, route, data={}) => {
     let headers = {
         'Content-Type': 'application/json'
     }
@@ -14,15 +14,16 @@ const apiCall = (method, route, userData={}) => {
         method: method,
         headers: headers,
     }
-    if (method === 'POST') {
-        options.body = JSON.stringify(userData)
+
+    if (method === 'POST' || method === 'PATCH') {
+        options.body = JSON.stringify(data)
     }
 
     return fetch(`${rootUrl}${route}`, options)
     .then(res => {
         // console.log(res)
         if (res.status !== 200) {
-          console.log(`${res.status}: ${res.statusText}`)
+          console.log(`yikes: ${res.status}: ${res.statusText}`)
           return { error: { status: res.status, msg: res.statusText} }
         } else {
             return res.json()

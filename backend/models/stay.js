@@ -4,12 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
     arrival: { type: DataTypes.DATE, allowNull: false },
     departure: { type: DataTypes.DATE, defaultValue: null },
-    CityId: { type: DataTypes.UUID, allowNull: false },
-    UserId: { type: DataTypes.UUID, allowNull: false }
   }, {});
   Stay.associate = function(db) {
-    Stay.belongsTo(db.User);
-    Stay.belongsTo(db.City);
+    Stay.belongsTo(db.User)
+    Stay.belongsTo(db.City)
+    Stay.hasMany(db.Place);
   };
   return Stay;
 };

@@ -3,6 +3,7 @@ const passport = require('passport')
 const userController = require('../controllers/userController')
 const cityController = require('../controllers/cityController')
 const stayController = require('../controllers/stayController')
+const placeController = require('../controllers/placeController')
 
 const router = express.Router();
 
@@ -10,25 +11,49 @@ const authenticateCredentials = passport.authenticate('local', { session: false 
 const isAuthenticated = passport.authenticate('jwt', { session: false })
 
 
-router.get('/users/:id',
-isAuthenticated,
-userController.show
+router.get('/users/:userIdSlug/:idSlugToken',
+    userController.show
 );
 
 router.get('/users',
-isAuthenticated,
-userController.index
+    userController.index
 );
 
+router.patch('/users/:userIdSlug',
+    isAuthenticated,
+    userController.patch
+)
+
 router.get('/cities',
-    // isAuthenticated,
     cityController.index
 );
 
+router.get('/cities/:slug',
+    cityController.show
+)
+
+router.get('/stays/:id',
+    stayController.show
+);
+
 router.get('/stays',
-    // isAuthenticated,
     stayController.index
 );
+
+router.post('/stays',
+    isAuthenticated,
+    stayController.create
+),
+
+router.patch('/stays/:id',
+    isAuthenticated,
+    stayController.update
+)
+
+router.post('/places',
+    isAuthenticated,
+    placeController.create
+),
 
 // USER/AUTH ROUTES
 router.post('/login',

@@ -1,8 +1,10 @@
-const staysReducer = (state = [], action) => {
+import { redirect } from '../history/history'
+
+const staysReducer = (state = null, action) => {
     switch(action.type) {
-        case 'EXAMPLE_STAY_ACTION':
-            console.log('example stay action triggered')
-            return state
+        case 'SET_STAY':
+            redirect(`/users/${action.userIdSlug}/stays/${action.stay.id}`)
+            return action.stay
         default:
             return state
     }

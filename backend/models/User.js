@@ -21,8 +21,16 @@ module.exports = (sequelize, DataTypes) => {
       location() {
         if (this.Stays.length > 0) {
           let currentStay = this.Stays.find(stay => stay.departure === null)
-          return currentStay.City.nameWithCountry
+          if (currentStay) return currentStay.City.nameWithCountry
+          return null
+        } else {
+          return null
         }
+      },
+      userIdSlug() {
+        let slugFirstName = this.firstName.split(' ').join('-').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase()
+        let slugLastName = this.lastName.split(' ').join('-').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase()
+        return [slugFirstName, slugLastName, this.id.slice(0, 3)].join('-')
       },
       gravatar() {
         const hash = md5(this.email);

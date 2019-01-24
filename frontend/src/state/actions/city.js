@@ -1,6 +1,18 @@
-export const exampleCityAction = city => {
+import apiCall from './helpers/apiCall'
+
+const setCities = cities => {
   return {
-    type: 'EXAMPLE_CITY_ACTION',
-    city
+    type: 'SET_CITIES',
+    cities
+  }
+}
+
+export const fetchAllCities = () => {
+  return dispatch => {
+    return apiCall("GET", '/cities').then(res => {
+      if (!res.error) {
+        dispatch(setCities(res));
+      }
+    });
   };
 };

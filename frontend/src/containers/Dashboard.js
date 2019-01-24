@@ -1,51 +1,25 @@
 import React from 'react'
-import { Route } from 'react-router'
 import { connect } from 'react-redux'
-import Button from "@material-ui/core/Button";
+import { Route, Switch } from 'react-router-dom'
 import actions from '../state/actions/index'
-import { storageToken } from '../helpers/storageItems'
+import Album from './Album'
+import StayDashboard from './StayDashboard'
 
 class Dashboard extends React.Component {
 
-  constructor(props) {
-    super(props)
-    !storageToken && this.props.history.push("/login");
-  }
-
   componentDidMount = () => {
-    let userId = this.props.match.params.id
-    this.props.fetchUser(userId)
-  }
-
-  renderUserData = () => {
-    return <div>
-      <h2 style={{ marginLeft: 20 }}>
-        Welcome, {this.props.user.firstName}. You are in {this.props.user.location}.
-        </h2>
-      <h4 style={{ marginLeft: 20 }}>
-        You have visited:
-        </h4>
-      <ul>
-        {this.props.user.Stays.map(stay => (
-          <li key={stay.City.id}>{stay.City.nameWithCountry}</li>
-        ))}
-      </ul>
-      <Button style={{ marginLeft: 20 }} variant="outlined" onClick={() => this.props.relocateUser(this.props.user.id)}>
-        {" "}
-        Move to a New City{" "}
-      </Button>
-    </div>;
+    const { userIdSlug } = this.props.match.params
+    this.props.fetchUser(userIdSlug)
   }
 
   render() {
-    const { user } = this.props
-
-    return (
-      <div>
-        {user && this.renderUserData()}
-        {!user && <h1>Loading...</h1>}
-      </div>
-    )
+    const { match } = this.props
+    return <React.Fragment>
+        <Switch>
+          <Route exact path={`${match.path}/`} component={Album} />
+          <Route path={`${match.path}/stays/:stayId`} component={StayDashboard} />
+        </Switch>
+      </React.Fragment>;
   }
 }
 
@@ -57,8 +31,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUser: userId => dispatch(actions.user.fetch(userId)),
-    relocateUser: userId => dispatch(actions.user.relocate(userId))
+    fetchUser: (userId) => dispatch(actions.user.fetch(userId))
   }
 }
 

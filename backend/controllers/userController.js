@@ -8,13 +8,65 @@ exports.index = (req, res) => {
 }
 
 exports.show = (req, res) => {
-    if (req.user) {
-        delete req.user.passwordHash
-        delete req.user.passwordSalt
-        res.status(200).json(req.user)
-    } else {
-        res.status(403).json({ error: 'Please log in' })
+    const removeSensitiveData = function(user) {
+        user.passwordHash = 'hidden'
+        user.passwordSalt = 'hidden'
+        return user
     }
+
+    const { userIdSlug, idSlugToken } = req.params
+    
+    User.findAll({
+        where: {}, include: [{
+            model: db.Stay,
+            include: [db.City]
+        }] })
+    .then(users => {
+        let user = users.find(user => {
+            return user.userIdSlug === userIdSlug
+        })
+        if (user) {
+            res.status(200).json(removeSensitiveData(user))
+        } else if (idSlugToken) {
+            user = users.find(user => user.userIdSlug === idSlugToken)
+            user ? res.status(200).json(removeSensitiveData(user)) : res.status(400).send({})
+        } else {
+            res.status(400).send({});
+        }
+    })
+}
+
+exports.patch = (req, res) => {
+    console.log("TESTS: ", !!req.user, req.user.userIdSlug === req.body.userIdSlug)
+    if (req.user && req.user.userIdSlug === req.params.userIdSlug) {
+        User.findOne({ 
+            where: req.user,
+            include: [{ 
+                model: db.Stay, 
+                include: [db.City] 
+            }]
+        })
+        .then(user => {
+            // cant do nested updates in sequelize
+            // user.setStays(req.body.Stays)
+            // .then(done => console.log("DONE: ", done.Stays))
+        })
+    }
+    
+    
+    // User.update({
+    //     Stays: req.body.Stays   
+    // }, {
+    //     where: { id: req.user.id },
+    //     include: [{
+    //         model: db.Stay,
+    //         include: [ db.City ]
+    //     }]
+    // })
+    // .then((user, error) => {
+    //     console.log('user:', user)
+    //     console.log('error:', error)
+    // })
 }
 
 // middleware that ensures cleanliness of user-submitted registration data
@@ -58,8 +110,9 @@ exports.register = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     const timestamp = new Date().getTime()
+    const userIdSlug = req.user.userIdSlug
     const token = jwt.encode({ sub: req.user.id, iat: timestamp }, process.env.SECRET);
-    res.status(200).json({ token: token, id: req.user.id })
+    res.status(200).json({ token, userIdSlug })
 }
 
 // DO WE NEED THIS AT ALL WITH JWT (CLIENT CLEARS TOKEN)... RESPONSE MAY NEED WORK

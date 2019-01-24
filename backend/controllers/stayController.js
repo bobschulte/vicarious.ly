@@ -9,3 +9,45 @@ exports.index = (req, res) => {
     })
     .then(stays => res.status(200).json(stays))
 }
+
+exports.show = (req, res) => {
+    const { id } = req.params
+    Stay.findOne({
+        where: { id: id }, 
+        // include: [db.City]
+        include: [db.City, db.Place]
+    })
+    .then(stay => res.json(stay))
+}
+
+exports.create = (req, res) => {
+    Stay.create({
+        CityId: req.body.CityId,
+        UserId: req.user.id,
+        arrival: new Date()
+    })
+    .catch(error => {
+        console.log('ERROR CREATING STAY: ', error)
+        res.status(500).json(error)
+    })
+    .then(newStay => {
+        res.status(200).json(newStay)
+    })
+}
+
+exports.update = (req, res) => {
+    Stay.findOne({ where: {
+        CityId: req.body.CityId,
+        UserId: req.body.UserId
+    } })
+    .then(stay => {
+        if (req.user && req.user.id === stay.UserId) {
+            stay.update(req.body)
+            .catch(error => console.log('update did not work: ', error))
+            .then(updatedStay => res.status(200).json(updatedStay))
+        } else {
+            res.status(401).json({ error: 'Not authorized to alter this stay' })
+        }
+    })
+    
+}

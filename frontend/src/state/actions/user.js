@@ -1,10 +1,10 @@
 import apiCall from './helpers/apiCall'
 
-const loginUserWith = (token, id) => {
+const loginUserWith = (userIdSlug, token) => {
   return {
     type: 'LOGIN_USER',
     token,
-    id
+    userIdSlug
   }
 }
 
@@ -15,7 +15,7 @@ export const registerUser = user => {
         if (res.errors) {
           alert('Invalid Registration Data')
         } else {
-          dispatch(loginUserWith(res.token, res.id))
+          dispatch(loginUserWith(res.userIdSlug, res.token))
         }
       })
   }
@@ -28,7 +28,7 @@ export const loginUser = user => {
         if (res.error) {
           alert('Invalid credentials')
         } else {
-          dispatch(loginUserWith(res.token, res.id))
+          dispatch(loginUserWith(res.userIdSlug, res.token))
         }
       })
   }
@@ -41,23 +41,20 @@ const setUser = user => {
   }
 }
 
-export const fetchUser = userId => {
-  return (dispatch) => {
-    return apiCall("GET", `/users/${userId}`)
-      .then(res => {
-        if (!res.error) {
-          dispatch(setUser(res));
-        }
-      })
+const invalidUser = () => {
+  return {
+    type: 'INVALID_USER'
   }
 }
 
-export const relocateUser = userId => {
-  return {
-    type: 'RELOCATE_USER',
-    userId
-  };
-};
+export const fetchUser = userIdSlug => {
+  return (dispatch) => {
+    return apiCall("GET", `/users/${userIdSlug}/${localStorage.getItem('vicariouslyId')}`)
+      .then(res => {
+        return !res.error ? dispatch(setUser(res)) : dispatch(invalidUser())
+      })
+  }
+}
 
 export const logoutUser = () => {
   return {
