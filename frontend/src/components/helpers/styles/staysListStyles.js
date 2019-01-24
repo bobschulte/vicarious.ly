@@ -16,6 +16,6 @@ export const styles = theme => ({
   },
   titleBar: {
     background:
-      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 80%, rgba(0,0,0,0) 100%)',
+      'linear-gradient(to top, rgba(0,0,0,0.7) 100%, rgba(0,0,0,0.3) 80%, rgba(0,0,0,0) 100%)',
   }
 });

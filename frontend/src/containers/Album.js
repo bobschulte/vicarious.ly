@@ -161,7 +161,7 @@ class Album extends React.Component {
           {user.name}<br/>
         </Typography>
         <Typography variant="h4" align="center" color="textPrimary" gutterBottom>
-          <PlaceIcon/>{hasTakenTrip ? user.location : `${user.firstName} has not taken a trip yet.`}
+          <PlaceIcon/>{hasTakenTrip ? user.location : `${user.firstName} has not taken a trip yet.`} <span className={`flag-icon flag-icon-${currentStay.City.countryCode}`}/>
         </Typography>
         {hasTakenTrip && this.renderBannerDetail(user, isLoggedIn, currentStay)}
         <div className={classes.heroButtons}>
