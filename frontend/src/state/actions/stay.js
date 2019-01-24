@@ -1,11 +1,23 @@
 import apiCall from "./helpers/apiCall";
 import { fetchUser } from './user'
 
-export const viewStay = (stay, userIdSlug) => {
+const setStay = (stay, userIdSlug) => {
     return {
-        type: 'VIEW_STAY',
+        type: 'SET_STAY',
         stay,
         userIdSlug
+    }
+}
+
+export const viewStay = (stay, userIdSlug) => {
+    return dispatch => {
+        return apiCall('GET', `/stays/${stay.id}`).then(res => {
+            if (!res.error) {
+                dispatch(setStay(res, userIdSlug))
+            } else {
+                console.log('nope, couldnt set stay: ', res.error)
+            }
+        })
     }
 }
 
@@ -45,23 +57,4 @@ export const relocate = (user, city) => {
             dispatch(arriveStay(user, city))
         }
     }
-};
-
-// const setStay = stay => {
-//   return {
-//     type: "SET_STAY",
-//     stay
-//   };
-// };
-
-// export const fetchStay = stayId => {
-//     return dispatch => {
-//         return apiCall('GET', `/stays/${stayId}`).then(res => {
-//             if (!res.error) {
-//                 dispatch(setStay(res))
-//             } else {
-//                 console.log('nope, couldnt set stay: ', res.error)
-//             }
-//         })
-//     }
-// }
+}

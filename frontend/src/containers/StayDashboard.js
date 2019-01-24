@@ -4,6 +4,7 @@ import actions from '../state/actions/index'
 import { dateParser } from '../components/helpers/dateParser'
 import PlacesSearch from '../components/forms/PlacesSearch'
 import Typography from "@material-ui/core/Typography";
+import RadioButtons from '../components/forms/RadioButtons'
 import { withStyles } from "@material-ui/core/styles";
 import StaysList from "../components/StaysList";
 import Button from "@material-ui/core/Button";
@@ -37,7 +38,8 @@ const styles = theme => ({
 class StayDashboard extends React.Component {
 
     state = {
-        value: ''
+        value: '',
+        placeType: null
     }
 
     isLoggedIn(user) {
@@ -47,10 +49,17 @@ class StayDashboard extends React.Component {
 
     handlePlaceInputChange = value => this.setState({ value })
 
-    handlePlaceSubmit = value => {
-        const place = { name: value, stayId: this.props.match.params.stayId }
-        this.props.addPlace(place)
-        this.setState({ value: '' })
+    handleRadioChange = placeType => this.setState({ placeType })
+
+    handlePlaceSubmit = e => {
+        e.preventDefault()
+        if (this.state.placeType) {
+            const place = { name: this.state.value, placeType: this.state.placeType, StayId: this.props.match.params.stayId }
+            this.props.addPlace(place)
+            this.setState({ value: '', placeType: null })
+        } else {
+            alert('Please classify the place before adding to your list.')
+        }
     }
 
     setCoordsFor = coords => {
@@ -70,7 +79,7 @@ class StayDashboard extends React.Component {
 
     renderReturnToAlbumButton(user) {
         const isLoggedIn = this.isLoggedIn(user)
-        return <Button href={`/users/${user.userIdSlug}`} variant="contained" color="primary">
+        return <Button onClick={() => this.props.history.push(`/users/${user.userIdSlug}`)} variant="contained" color="primary">
             Return to {isLoggedIn ? "your" : `${user.firstName}'s`} profile
         </Button>
     }
@@ -102,21 +111,32 @@ class StayDashboard extends React.Component {
             `${user.firstName} visited ${stay.City.nameWithCountry} from ${dateParser(stay.arrival)} to ${dateParser(stay.departure)}`
     }
 
-    renderStaysList = () => <StaysList viewStay={this.props.viewStay} />
+    renderStaysList = () => <StaysList />
+
+    renderPlacesForm = stay => {
+        return <form onSubmit={this.handlePlaceSubmit}>
+            <Typography component="h4" variant="h6" color="textPrimary" gutterBottom>
+                <br />
+                <PlacesSearch onChange={this.handlePlaceInputChange} value={this.state.value} lat={stay.City.lat} lng={stay.City.lng} />
+                <RadioButtons placeType={this.state.placeType} onChange={this.handleRadioChange} />
+                <Button type="submit" variant="contained" color="primary">
+                    Add to My List
+                </Button>
+            </Typography>
+        </form>
+    }
 
     renderContent = user => {
         const stay = user.Stays.find(stay => stay.id === this.props.match.params.stayId)
+        const isLoggedIn = this.isLoggedIn(user)
 
         return <div>
             {this.renderBannerSection()}
             {this.renderStaysList()}
-            <br/>
+            <br />
             <Typography component="h4" variant="h5" align="center" color="textPrimary" gutterBottom>
-                <PlaceIcon/> {this.renderDateMessage(stay)}
-            </Typography>
-            <Typography component="h4" variant="h6" align="center" color="textPrimary" gutterBottom>
-                {/* Search local places: */}
-                <PlacesSearch onChange={this.handlePlaceInputChange} onSubmit={this.handlePlaceSubmit} value={this.state.value} lat={stay.City.lat} lng={stay.City.lng} />
+                <PlaceIcon /> {this.renderDateMessage(stay)}
+                {isLoggedIn && this.renderPlacesForm(stay)}
             </Typography>
           </div>;
     }

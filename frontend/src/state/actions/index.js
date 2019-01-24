@@ -16,7 +16,6 @@ const actions = {
     stay: {
         relocate: relocate,
         view: viewStay
-        // fetch: fetchStay
     },
     places: {
         add: addPlace

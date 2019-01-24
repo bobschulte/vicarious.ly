@@ -1,8 +1,9 @@
 import apiCall from "./helpers/apiCall";
 
-const placeAdded = () => {
+const placeAdded = place => {
     return {
-        type: 'PLACE_ADDED'
+        type: 'PLACE_ADDED',
+        place
     }
 }
 
@@ -12,7 +13,7 @@ export const addPlace = place => {
     return dispatch => {
         return apiCall('POST', '/places', place).then(res => {
             if (!res.error) {
-                dispatch(placeAdded())
+                dispatch(placeAdded(res))
             } else {
                 console.log('nope, error here: ', res.error)
             }

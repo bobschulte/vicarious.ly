@@ -32,9 +32,9 @@ router.get('/cities/:slug',
     cityController.show
 )
 
-// router.get('/stays/:id',
-//     stayController.show
-// );
+router.get('/stays/:id',
+    stayController.show
+);
 
 router.get('/stays',
     stayController.index

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import actions from '../state/actions/index'
 import PropTypes from 'prop-types';
 import { styles } from "./helpers/styles/staysListStyles";
 import { withStyles } from '@material-ui/core/styles';
@@ -32,7 +33,7 @@ function StaysList(props) {
                     actionIcon={
                       <Tooltip title={`View ${user.firstName}'s stay in ${stay.City.name}`} >
                         <IconButton onClick={() => props.viewStay(stay, user.userIdSlug)}>
-                        <DescriptionIcon className={classes.title} />
+                          <DescriptionIcon className={classes.title} />
                         </IconButton>
                     </Tooltip>
                     }
@@ -55,4 +56,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(StaysList))
+const mapDispatchToProps = dispatch => {
+  return {
+    viewStay: (stay, userIdSlug) => dispatch(actions.stay.view(stay, userIdSlug))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StaysList))

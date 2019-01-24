@@ -137,7 +137,7 @@ class Album extends React.Component {
 
   renderStayDetailButton(user, currentStay) {
     const isLoggedIn = this.isLoggedIn(user)
-    return <Button href={`/users/${user.userIdSlug}/stays/${currentStay.id}`} variant="contained" color="primary">
+    return <Button onClick={() => this.props.viewStay(currentStay, user.userIdSlug)} variant="contained" color="primary">
       View {isLoggedIn ? "your" : `${user.firstName}'s`} stay in {user.location.split(",")[0]}
     </Button>
   }
@@ -160,7 +160,7 @@ class Album extends React.Component {
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
           {user.name}<br/>
         </Typography>
-        <Typography variant="h5" align="center" color="textPrimary" gutterBottom>
+        <Typography variant="h4" align="center" color="textPrimary" gutterBottom>
           <PlaceIcon/>{hasTakenTrip ? user.location : `${user.firstName} has not taken a trip yet.`}
         </Typography>
         {hasTakenTrip && this.renderBannerDetail(user, isLoggedIn, currentStay)}
@@ -206,7 +206,7 @@ class Album extends React.Component {
               </CardContent>
               <CardActions>
                 <Tooltip title={`View ${user.firstName}'s past stay in ${stay.City.name}`} >
-                  <Button href={`/users/${user.userIdSlug}/stays/${stay.id}`} size="small" color="primary">
+                  <Button onClick={() => this.props.viewStay(stay, user.userIdSlug)} size="small" color="primary">
                     View
                   </Button>
                 </Tooltip>
@@ -252,7 +252,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchUser: (userId) => dispatch(actions.user.fetch(userId))
+        fetchUser: (userId) => dispatch(actions.user.fetch(userId)),
+        viewStay: (stay, userIdSlug) => dispatch(actions.stay.view(stay, userIdSlug))
     }
 }
 

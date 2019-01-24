@@ -2,9 +2,10 @@
 
 const placesReducer = (state = [], action) => {
     switch (action.type) {
-        // case 'PLACE_ADDED':
+        case 'PLACE_ADDED':
+            console.log('PLACE_ADDED ACTION HIT: ', action)
             // history.push(`/staybegun`)
-            // return state
+            return state
         // case 'SET_STAY':
         //     return action.stay
         default:

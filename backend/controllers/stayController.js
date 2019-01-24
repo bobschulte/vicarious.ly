@@ -10,13 +10,15 @@ exports.index = (req, res) => {
     .then(stays => res.status(200).json(stays))
 }
 
-// exports.show = (req, res) => {
-//     const { id } = req.params
-//     Stay.findOne({
-//         where: { id: id }, 
-//         include: [db.City]})
-//     .then(stay => res.json(stay))
-// }
+exports.show = (req, res) => {
+    const { id } = req.params
+    Stay.findOne({
+        where: { id: id }, 
+        include: [db.City]
+        // include: [db.City, db.Place]
+    })
+    .then(stay => res.json(stay))
+}
 
 exports.create = (req, res) => {
     Stay.create({
