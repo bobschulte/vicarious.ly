@@ -34,6 +34,9 @@ const styles = theme => ({
             marginLeft: 'auto',
             marginRight: 'auto',
         }
+    },
+    icon: {
+        fontSize: '24px'
     }
 })
 
@@ -131,6 +134,7 @@ class StayDashboard extends React.Component {
     }
 
     renderContent = (user, stay) => {
+        const { classes } = this.props
         const isLoggedIn = this.isLoggedIn(user)
 
         return <div>
@@ -138,7 +142,7 @@ class StayDashboard extends React.Component {
             {this.renderStaysList()}
             <br />
             <Typography component="h4" variant="h5" align="center" color="textPrimary" gutterBottom>
-                <PlaceIcon /> {this.renderDateMessage(stay)}
+                <PlaceIcon className={classes.icon} /> {this.renderDateMessage(stay)}
                 {isLoggedIn && this.renderPlacesForm(stay)}
                 <br/>
                 <StayPlacesGrid stay={stay} />

@@ -17,6 +17,7 @@ const styles = theme => ({
 
 function FullWidthGrid(props) {
   const { classes, stay } = props;
+  console.log('stay: ', stay)
   return (
     <div className={classes.root}>
       <Grid container spacing={16}>

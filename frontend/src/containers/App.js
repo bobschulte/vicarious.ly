@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, Switch } from "react-router-dom";
 import { history } from '../state/history/history'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import Home from '../components/Home'
+import Home from '../components/homePage/Home'
 import NavBar from './NavBar'
 import Dashboard from './Dashboard'
 import Login from './Login'
