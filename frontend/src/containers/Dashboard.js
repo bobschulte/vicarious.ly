@@ -16,8 +16,9 @@ class Dashboard extends React.Component {
     const { match } = this.props
     return <React.Fragment>
         <Switch>
-          <Route exact path={`${match.path}/`} component={Album} />
           <Route path={`${match.path}/stays/:stayId`} component={StayDashboard} />
+          <Route path={`${match.path}/:relocate`} component={Album} />
+          <Route path={`${match.path}/`} component={Album} />
         </Switch>
       </React.Fragment>;
   }

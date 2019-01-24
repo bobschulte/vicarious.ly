@@ -19,20 +19,15 @@ import apiCall from '../../state/actions/helpers/apiCall'
 
 class RelocateForm extends React.Component {
 
-    constructor(props) {
-        super(props)
-        let token = localStorage.getItem("vicariouslyToken");
-        !token && this.props.history.push("/");
-        this.state = {
-            cityNameWithCountry: '',
-            cityId: null,
-            coords: {
-                lat: 0,
-                lng: 0
-            },
-            zoom: 1,
-            showMap: false
-        }
+    state = {
+        cityNameWithCountry: this.props.cityName,
+        cityId: null,
+        coords: {
+            lat: null,
+            lng: null
+        },
+        zoom: 1,
+        showMap: true
     }
 
     setCoordsFor = cityNameWithCountry => {
@@ -45,7 +40,7 @@ class RelocateForm extends React.Component {
               lat: city.lat,
               lng: city.lng  
             },
-            zoom: 8
+            zoom: 6
         }))
     }
 
@@ -82,7 +77,7 @@ class RelocateForm extends React.Component {
                 <Typography component="h1" variant="h5">
                     {user.Stays.length > 0 ? "Find your next home!" : "Let's get you started, select your current location!"}
                 </Typography>
-                <Button type="button" center="true" variant="contained" color="primary" onClick={this.toggleMap} className={classes.submit}>
+                <Button type="button" center="true" variant="contained" color="secondary" onClick={this.toggleMap} className={classes.submit}>
                     Toggle Map
                 </Button>
                 <form id="user-form" className={classes.form} >

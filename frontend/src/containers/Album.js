@@ -128,10 +128,11 @@ class Album extends React.Component {
     </React.Fragment>
   }
 
-  renderRelocateButtonAndForm() {
+  renderRelocateButtonAndForm(relocate) {
+    const open = relocate === 'relocate'
     return <Grid container spacing={16} justify="center">
       <Grid item>
-        <RelocateDialog />
+        <RelocateDialog open={open} cityName='' />
       </Grid>
     </Grid>;
   }
@@ -156,7 +157,7 @@ class Album extends React.Component {
   }
 
   renderBannerSection() {
-    const { user, classes } = this.props
+    const { user, classes, match } = this.props
     const currentStay = user.Stays.find(stay => stay.departure === null)
     const isLoggedIn = this.isLoggedIn(user)
     const hasTakenTrip = this.hasTakenTrip(user)
@@ -175,7 +176,7 @@ class Album extends React.Component {
               {hasTakenTrip && this.renderStayDetailButton(user, currentStay)}
             </Grid>
           </Grid>
-            {isLoggedIn && this.renderRelocateButtonAndForm()}
+            {isLoggedIn && this.renderRelocateButtonAndForm(match.params.relocate)}
         </div>
       </div>
     </div>;
